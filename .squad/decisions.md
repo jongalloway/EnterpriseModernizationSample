@@ -42,6 +42,22 @@
 **What:** Use **Fabrikam Enterprise Pizza** as the business name and model the legacy SQL Server estate as three databases: `FabrikamPizza_StoreOps`, `FabrikamPizza_CustomerHub`, and `FabrikamPizza_Reporting`.
 **Why:** That split feels authentically mid-2000s: core order/store writes stay isolated, customer/franchise data grows into its own integration-heavy database, and reporting is peeled off for nightly ETL so operations do not trust live transactional queries.
 
+### 2026-05-13T20:57:42.795+02:00: Scenario expansion priorities
+**By:** Ripley
+**What:** Expand the Fabrikam Enterprise Pizza sample first with delivery dispatch/routing in **StoreOps**, B2B partnerships and corporate account workflows in **CustomerHub**, and matching delivery/labor/partner analytics in **Reporting**. Treat HR as store-operations workforce management (scheduling, certifications, time exceptions, driver eligibility) rather than a full enterprise HRIS.
+**Why:** These additions deepen the existing three-database split without bloating the sample into unrelated ERP territory. They create believable legacy seams across desktop, web, services, and ETL/reporting while keeping the modernization story focused on operational routing, relationship management, and cross-system reporting.
+
+**Implementation notes:**
+- Put route planning, dispatch boards, driver zones, and mileage/reimbursement flows in **StoreOps**.
+- Put partner account setup, contract pricing, referral channels, and shared order/catering interactions in **CustomerHub**.
+- Put on-time delivery, route efficiency, labor overtime/turnover, and partner profitability scorecards in **Reporting**.
+- Keep any HR detail bounded to what store managers and dispatch supervisors would realistically own in a legacy pizza platform.
+
+### 2026-05-13T20:57:42.795+02:00: Scenario placement for delivery, workforce, and partner flows
+**By:** Vasquez
+**What:** Put delivery mapping and routing plus store-facing workforce workflows in `FabrikamPizza_StoreOps`, keep B2B partnership masters and external-account workflows in `FabrikamPizza_CustomerHub`, and push rollups, settlements, and scorecards into `FabrikamPizza_Reporting`; treat payroll and benefits as an external nightly integration, not a first-class in-app domain.
+**Why:** That split preserves believable legacy seams: dispatch and staffing decisions need low-latency store data, partner contracts and shared contacts drift into a relationship-heavy hub, and reporting stays batch-oriented. Keeping full HR outside the app also creates the sort of brittle import boundary a modernization story can expose honestly.
+
 ## Governance
 
 - All meaningful changes require team consensus

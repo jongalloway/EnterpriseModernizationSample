@@ -27,3 +27,11 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 - The scenario direction has now tightened to **Fabrikam Enterprise Pizza**, which keeps the Microsoft-style naming but reads more credibly across solution, portal, and database boundaries than the joke spelling.
 - The legacy feel should be carried by explicit 2005-era business details like MySpace footer links, printable coupons, faxed catering workflows, nightly POS sync, and Excel/PDF-heavy franchise operations.
 - Database assets should keep the top-level `data\sqlserver` location while splitting internally into `before`, `after`, and `shared` to match the modernization framing.
+- The cleanest next scenario expansion is not more random modules; it is a tight seam of dispatch/routing in StoreOps, B2B partnerships in CustomerHub, and delivery/labor/partner scorecards in Reporting, with HR kept operations-focused instead of becoming a full HR suite.
+
+📌 Scenario expansion locked on 2026-05-13T18:57:42.795Z:
+  - **Decision:** Scenario expansion priorities — delivery dispatch/routing, workforce ops, B2B partnerships, delivery/labor/partner analytics
+  - **StoreOps:** Route planning, dispatch boards, driver zones, mileage/reimbursement
+  - **CustomerHub:** Partner account setup, contract pricing, referral channels, shared order/catering
+  - **Reporting:** On-time delivery, route efficiency, labor overtime/turnover, partner profitability
+  - **Cross-team:** Vasquez confirmed placement across databases with intentional legacy seams

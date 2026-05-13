@@ -21,3 +21,12 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 - WCF, ASMX, and Enterprise Library-style layering are core to the sample's identity.
 - Configuration-heavy and SOAP-era integration patterns are desirable, not accidental.
 - Fabrikam Enterprise Pizza works better than Enterprize Pizza for the sample's 2005-era Microsoft-demo tone, and the data story should split OLTP, customer/franchise, and reporting concerns across separate SQL Server databases.
+- Scenario placement works best when StoreOps owns execution-time workflows, CustomerHub owns relationship/master data, and Reporting stays downstream; payroll-grade HR should remain an external feed rather than a magically unified module.
+
+📌 Scenario placement locked on 2026-05-13T18:57:42.795Z:
+  - **Decision:** Scenario placement for delivery, workforce, and partner flows
+  - **StoreOps:** Delivery mapping, routing, store-facing workforce workflows, driver availability, staffing exceptions, dispatch compliance
+  - **CustomerHub:** B2B partnership masters, external-account workflows, relationship/contract data
+  - **Reporting:** Rollups, settlements, scorecards, route efficiency, labor variance, partner profitability
+  - **External:** Payroll and benefits via nightly integration (not first-class domain)
+  - **Cross-team:** Ripley confirmed expansion roadmap; intentional legacy seams preserved for modernization exposure
