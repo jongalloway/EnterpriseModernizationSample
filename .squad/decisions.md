@@ -58,6 +58,26 @@
 **What:** Put delivery mapping and routing plus store-facing workforce workflows in `FabrikamPizza_StoreOps`, keep B2B partnership masters and external-account workflows in `FabrikamPizza_CustomerHub`, and push rollups, settlements, and scorecards into `FabrikamPizza_Reporting`; treat payroll and benefits as an external nightly integration, not a first-class in-app domain.
 **Why:** That split preserves believable legacy seams: dispatch and staffing decisions need low-latency store data, partner contracts and shared contacts drift into a relationship-heavy hub, and reporting stays batch-oriented. Keeping full HR outside the app also creates the sort of brittle import boundary a modernization story can expose honestly.
 
+### 2026-05-13T20:57:42.795+02:00: AJAX Control Toolkit use
+**By:** User directive (captured by Scribe)
+**What:** Some of the legacy web pages should use ASP.NET AJAX Control Toolkit controls and patterns.
+**Why:** This reinforces the late-2000s / early-2010s organic-growth story of the sample and includes period-authentic web control patterns on selected Web Forms pages instead of plain server controls.
+
+**Implementation notes:**
+- Include AJAX Control Toolkit on selected Web Forms pages
+- Use to reinforce late-2000s / early-2010s organic-growth story
+- Fold into solution topology and page-level planning for legacy web apps
+
+### 2026-05-13T20:57:42.795+02:00: Solution breadth over database alignment
+**By:** User directive (captured by Scribe)
+**What:** The sample should prioritize having enough projects and architectural seams to work well in presentations and to stress-test modernization tooling. Exact database alignment is now secondary to solution breadth.
+**Why:** Solution breadth and architectural sprawl are more important for compelling demonstrations and tooling validation than perfect data-model purity. The next planning pass should expand business logic, service, web, desktop, integration, and reporting projects to reach a convincingly overgrown enterprise solution.
+
+**Implementation notes:**
+- Optimize next planning pass for project count and architectural sprawl
+- Keep database boundaries believable, but don't let data-model purity reduce project count
+- Expand to business logic, service, web, desktop, integration, and reporting projects
+
 ## Governance
 
 - All meaningful changes require team consensus
