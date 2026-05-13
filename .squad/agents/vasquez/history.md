@@ -32,3 +32,13 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
   - **Reporting:** Rollups, settlements, scorecards, route efficiency, labor variance, partner profitability
   - **External:** Payroll and benefits via nightly integration (not first-class domain)
   - **Cross-team:** Ripley confirmed expansion roadmap; intentional legacy seams preserved for modernization exposure
+
+📌 Workitem consolidation on 2026-05-13T21:09:53Z:
+- Confirmed data/service layer ownership across 52-item backlog: Phase 2 (schema), Phase 3 (DAL), Phase 5 (services/ETL)
+- 3-database split verified: FabrikamPizza_StoreOps, FabrikamPizza_CustomerHub, FabrikamPizza_Reporting
+- Cross-database seams defined: StoreOps↔CustomerHub (master sync), StoreOps/CustomerHub→Reporting (nightly rollup)
+- Tech stack: Enterprise Library 6.0, DataSets, ad-hoc SQL, stored procedures, WCF + ASMX, batch ETL, legacy messaging
+- External payroll feed as intentional brittle boundary (modernization exposure point)
+- Phase 2 delivery is critical path for Phases 3, 4, 5; Phase 5 unblocks Phase 8 reporting
+- Orchestration log created at `.squad\orchestration-log\2026-05-13T21-09-53Z-vasquez-workitem-planning.md`
+- Scribe consolidation ensures Phases 2–3 (data/DAL) parallelize once Ripley Phase 1 completes

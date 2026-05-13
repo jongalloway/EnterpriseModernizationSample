@@ -31,9 +31,32 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 - Database assets should keep the top-level `data\sqlserver` location while splitting internally into `before`, `after`, and `shared` to match the modernization framing.
 - The cleanest next scenario expansion is not more random modules; it is a tight seam of dispatch/routing in StoreOps, B2B partnerships in CustomerHub, and delivery/labor/partner scorecards in Reporting, with HR kept operations-focused instead of becoming a full HR suite.
 
+📌 Backlog generated on 2026-05-13T21:07:52Z:
+- Created 52 concrete workitems across 9 phases targeting 14 projects, 3 databases, and full legacy enterprise sprawl.
+- Phase 1 (Foundation & Topology, 11 items) is critical path; must complete first to unblock Phases 2–9.
+- Phases 2–3 (Data & Business Logic, 14 items) can run in parallel; feed Phases 4–7.
+- Phases 4–7 (Web, Services, Tests, Desktop, 21 items) parallelize by subsystem once Phase 1–3 complete.
+- Phases 8–9 (Reporting & Documentation, 6 items) finalize.
+- Each workitem targets 1–2 days of work; scoped for implementation, not brainstorming.
+- Tech stack confirmed: Enterprise Library 6.0, Autofac 4.9.2, NUnit 3.12, ASP.NET Identity 2.2.3, WCF, ASMX, Web Forms + AJAX Control Toolkit, Windows Forms, SSRS, legacy batch scheduling.
+- Dependency graph enables parallel execution; no team member blocked waiting for another.
+- Decision logged to `.squad\decisions\inbox\ripley-workitems.md` with cross-team coordination notes for Hicks (web branding), Vasquez (database ETL), and Scribe (foundation docs).
+
 📌 Scenario expansion locked on 2026-05-13T18:57:42.795Z:
   - **Decision:** Scenario expansion priorities — delivery dispatch/routing, workforce ops, B2B partnerships, delivery/labor/partner analytics
   - **StoreOps:** Route planning, dispatch boards, driver zones, mileage/reimbursement
   - **CustomerHub:** Partner account setup, contract pricing, referral channels, shared order/catering
   - **Reporting:** On-time delivery, route efficiency, labor overtime/turnover, partner profitability
   - **Cross-team:** Vasquez confirmed placement across databases with intentional legacy seams
+
+📌 Workitem consolidation on 2026-05-13T21:09:53Z:
+- Produced 52 concrete, prioritized workitems across 9 phases (52 items total, 1–2 days each, 14 projects)
+- Phase 1 (Foundation & Topology, 11 items) is critical path blocker; must complete first
+- Phases 2–3 (Data & Business Logic, 14 items) can parallelize once Phase 1 ~50% complete
+- Phases 4–7 (Web, Services, Tests, Desktop, 21 items) parallelize by subsystem once Phases 1–3 complete
+- Phases 8–9 (Reporting & Documentation, 6 items) finalize
+- Tech stack locked: Enterprise Library 6.0, Autofac 4.9.2, NUnit 3.12, ASP.NET Identity 2.2.3, WCF, ASMX, Web Forms + AJAX
+- Dependency graph enables parallel execution; no team member blocked waiting for another
+- Orchestration log created at `.squad\orchestration-log\2026-05-13T21-09-53Z-ripley-workitem-planning.md`
+- Scribe confirms Phase 1 dry-run is critical before full assignment
+- Backlog ready for team assignment; Vasquez Phase 2 (data) unblocks Phases 3, 5; Hicks Phase 4 (web) unblocks downstream UI work

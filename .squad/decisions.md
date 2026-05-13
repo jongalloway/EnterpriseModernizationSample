@@ -78,6 +78,52 @@
 - Keep database boundaries believable, but don't let data-model purity reduce project count
 - Expand to business logic, service, web, desktop, integration, and reporting projects
 
+### 2026-05-13T21:07:52.000+02:00: Database seeding and legacy identity
+**By:** User directive (captured by Scribe)
+**What:** The sample should include database population scripts, and it should use an older version of ASP.NET Identity to reflect a common modernization challenge.
+**Why:** SQL Server seed and population scripts should be first-class repo artifacts, not an afterthought. Making legacy authentication visible in the before-state by using an older ASP.NET Identity version reflects a real modernization pain point that samples typically gloss over.
+
+**Implementation notes:**
+- Add SQL Server seed and population scripts as first-class repo artifacts
+- Use older ASP.NET Identity version (e.g., 2.2.3) to reflect legacy authentication patterns
+- Reflect both items in project planning, package/version selection, and database setup workitems
+
+### 2026-05-13T21:07:52.000+02:00: Legacy testing and DI patterns
+**By:** User directive (captured by Scribe)
+**What:** The sample should include test projects using an older testing framework such as NUnit, and some parts of the app should use an older DI library such as Enterprise Library or Autofac.
+**Why:** Including at least one explicitly legacy-feeling test surface reinforces the "grown organically over time" story. Using uneven dependency injection patterns across the solution (not universal modern patterns) exposes the modernization seams that motivate the upgrade story.
+
+**Implementation notes:**
+- Add test projects using NUnit (older framework) alongside modern test tooling
+- Use uneven DI patterns (Enterprise Library, Autofac, Castle Windsor) across solution
+- Fold these choices into project planning and business-layer composition
+- Leave some services using no DI (ad-hoc service locator patterns) to reinforce legacy feel
+
+### 2026-05-13T21:07:52.000+02:00: Validation testing and CI/CD infrastructure
+**By:** User directive (captured by Scribe)
+**What:** The sample should have robust validation testing infrastructure, but much of that can live outside the legacy solution rather than pretending the enterprise app had strong native test coverage. The project should also have a path toward CI/CD.
+**Why:** Keeping intentionally limited in-solution legacy tests but adding stronger external validation harnesses creates a realistic modernization story. Treating CI/CD as part of the supporting modernization/testing story (not proof that the original app was well engineered) is more credible and valuable for demonstrations.
+
+**Implementation notes:**
+- Keep some intentionally limited in-solution legacy tests, not comprehensive coverage
+- Add stronger external validation harnesses for reliable development and demos
+- Treat CI/CD as part of the supporting modernization/testing story, not original architecture
+- Reflect in backlog items for external test infrastructure, build validation, and eventual pipeline automation
+
+### 2026-05-13T21:07:52.000+02:00: Consolidated workitem backlog
+**By:** Ripley (consolidated by Scribe)
+**What:** 52 concrete, prioritized workitems organized into 9 phases for building the legacy .NET Framework sample across 14 projects, 3 SQL Server databases, and full legacy enterprise sprawl.
+**Why:** The team needed a concrete execution backlog, not additional brainstorming. Workitems are specific, tech-authentic, dependency-aware, database-aligned, and documentation-first. Each workitem targets 1–2 days of work. Phase 1 (Foundation & Topology) is critical path blocker; Phases 2–3 (Data & Business Logic) and Phases 4–7 (Web, Services, Tests, Desktop) can parallelize once dependencies resolve.
+
+**Implementation notes:**
+- Phase 1 (11 items) must complete first to unblock Phases 2–9
+- Phases 2–3 (14 items) can parallelize; feed Phases 4–7
+- Phases 4–7 (21 items) parallelize by subsystem once Phases 1–3 complete
+- Phases 8–9 (6 items) finalize documentation
+- Tech stack: Enterprise Library 6.0, Autofac 4.9.2, NUnit 3.12, ASP.NET Identity 2.2.3, WCF, ASMX, Web Forms + AJAX Control Toolkit, Windows Forms, SSRS
+- Dependency graph enables parallel execution; no blocking dependencies between teams
+- Cross-team coordination with Hicks (web branding), Vasquez (database ETL), and Scribe (foundation docs)
+
 ## Governance
 
 - All meaningful changes require team consensus
