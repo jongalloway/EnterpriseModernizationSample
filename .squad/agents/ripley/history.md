@@ -16,6 +16,8 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 📌 Decision consolidation on 2026-05-13T18:54:45Z: Scribe merged 5 inbox decisions (2 user directives + 3 agent decisions) into canonical `decisions.md`. Orchestration logs created for all agents. Team decisions now locked.
   - **Your decision:** "Fabrikam Enterprise Pizza direction" — finalized name, 2005-era throwbacks, data split to `data\sqlserver\before|after|shared`
   - **Cross-team:** Hicks locked web direction to 2005 corporate portal (blue gradients, MySpace footer, promo panels). Vasquez confirmed three-database model: StoreOps, CustomerHub, Reporting.
+📌 Scenario expansion on 2026-05-13T20:57:42Z: Your "Scenario expansion priorities" decision added delivery/dispatch to StoreOps, B2B/partnerships to CustomerHub, and cross-system analytics to Reporting. HR treated as workforce management, not HRIS.
+  - **Cross-team:** Vasquez aligned "Scenario placement" decision with explicit database seams for delivery, workforce, and partner flows.
 
 ## Learnings
 

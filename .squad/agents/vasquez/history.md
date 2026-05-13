@@ -15,6 +15,8 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 📌 Team initialized on 2026-05-13
 📌 Decision consolidation on 2026-05-13T18:54:45Z: Scribe merged 5 inbox decisions into canonical `decisions.md`. Your "Fabrikam pizza data layout" decision locked: three SQL Server databases (FabrikamPizza_StoreOps, FabrikamPizza_CustomerHub, FabrikamPizza_Reporting) reflecting authentic mid-2000s enterprise patterns.
   - **Cross-team:** Ripley finalized Fabrikam Enterprise Pizza with 2005-era throwbacks and repo framing. Hicks locked web direction to polished 2005 corporate portal (blue gradients, MySpace, promo panels).
+📌 Scenario placement on 2026-05-13T20:57:42Z: Your "Scenario placement for delivery, workforce, and partner flows" decision aligned delivery/dispatch, workforce workflows, and HR integration with database seams. Treats payroll/benefits as external nightly integration.
+  - **Cross-team:** Ripley's "Scenario expansion priorities" decision confirmed delivery dispatch/routing in StoreOps, B2B partnerships in CustomerHub, cross-system analytics in Reporting.
 
 ## Learnings
 
