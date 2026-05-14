@@ -419,9 +419,10 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
         {
             _settings.StoreNumber = NormalizeStoreNumber(_settings.StoreNumber);
             _settings.DispatchTerminalId = NormalizeTerminalId(_settings.DispatchTerminalId);
+            _settings.AutoRefreshSeconds = DispatchBoardAppSettings.ClampAutoRefreshSeconds(_settings.AutoRefreshSeconds);
             _storeNumberTextBox.Text = _settings.StoreNumber;
             _terminalLabel.Text = "Terminal " + _settings.DispatchTerminalId;
-            _refreshTimer.Interval = _settings.AutoRefreshSeconds * 1000;
+            _refreshTimer.Interval = checked(_settings.AutoRefreshSeconds * 1000);
             _refreshTimer.Enabled = true;
             Text = string.Format(
                 "Fabrikam Enterprise Pizza Dispatch Board - Store {0} [{1}]",

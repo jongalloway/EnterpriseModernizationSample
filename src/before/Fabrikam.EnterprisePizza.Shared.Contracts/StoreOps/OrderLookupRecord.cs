@@ -34,10 +34,5 @@ namespace Fabrikam.EnterprisePizza.Shared.Contracts.StoreOps
 
         [DataMember]
         public string PaymentStatus { get; set; }
-
-        public string TicketTotalDisplay
-        {
-            get { return TicketTotal.ToString("C"); }
-        }
     }
 }

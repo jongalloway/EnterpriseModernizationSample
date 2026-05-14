@@ -16,15 +16,11 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
             {
                 StoreNumber = ReadString(StoreNumberKey, "014"),
                 DispatchTerminalId = ReadString(TerminalIdKey, "TERM-02"),
-                AutoRefreshSeconds = ReadInt(AutoRefreshSecondsKey, 45),
+                AutoRefreshSeconds = ReadInt(AutoRefreshSecondsKey, DispatchBoardSettings.DefaultAutoRefreshSeconds),
                 IncludeDriverNotes = ReadBool(IncludeDriverNotesKey, true)
             };
 
-            if (settings.AutoRefreshSeconds < 15)
-            {
-                settings.AutoRefreshSeconds = 15;
-            }
-
+            settings.AutoRefreshSeconds = ClampAutoRefreshSeconds(settings.AutoRefreshSeconds);
             return settings;
         }
 
@@ -35,13 +31,30 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            settings.AutoRefreshSeconds = ClampAutoRefreshSeconds(settings.AutoRefreshSeconds);
+
+            var configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
             SaveValue(configuration, StoreNumberKey, settings.StoreNumber);
             SaveValue(configuration, TerminalIdKey, settings.DispatchTerminalId);
             SaveValue(configuration, AutoRefreshSecondsKey, settings.AutoRefreshSeconds.ToString());
             SaveValue(configuration, IncludeDriverNotesKey, settings.IncludeDriverNotes.ToString().ToLowerInvariant());
             configuration.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        public static int ClampAutoRefreshSeconds(int autoRefreshSeconds)
+        {
+            if (autoRefreshSeconds < DispatchBoardSettings.MinimumAutoRefreshSeconds)
+            {
+                return DispatchBoardSettings.MinimumAutoRefreshSeconds;
+            }
+
+            if (autoRefreshSeconds > DispatchBoardSettings.MaximumAutoRefreshSeconds)
+            {
+                return DispatchBoardSettings.MaximumAutoRefreshSeconds;
+            }
+
+            return autoRefreshSeconds;
         }
 
         private static string ReadString(string key, string fallback)

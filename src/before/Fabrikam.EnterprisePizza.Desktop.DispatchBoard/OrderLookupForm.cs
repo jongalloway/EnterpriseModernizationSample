@@ -219,8 +219,13 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
             grid.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Total",
-                DataPropertyName = "TicketTotalDisplay",
-                Width = 68
+                DataPropertyName = "TicketTotal",
+                Width = 68,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleRight,
+                    Format = "C"
+                }
             });
             grid.Columns.Add(new DataGridViewTextBoxColumn
             {
