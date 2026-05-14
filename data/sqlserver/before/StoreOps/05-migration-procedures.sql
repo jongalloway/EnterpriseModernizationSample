@@ -50,6 +50,16 @@ BEGIN
           FROM dbo.PartnerAccountCache target
           WHERE target.PartnerCode = source.PartnerCode
       );
+
+    DELETE target
+    FROM dbo.PartnerAccountCache target
+    WHERE NOT EXISTS
+    (
+        SELECT 1
+        FROM [$(CustomerHubDatabase)].dbo.PartnerAccountExtract source
+        WHERE source.SyncBatchId = @SyncBatchId
+          AND source.PartnerCode = target.PartnerCode
+    );
 END
 GO
 

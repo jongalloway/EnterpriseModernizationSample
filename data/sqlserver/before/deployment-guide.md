@@ -19,7 +19,7 @@ This runbook covers the pre-migration SQL Server estate for **Fabrikam Enterpris
 
 ## First-time deployment order
 
-1. Run `data\sqlserver\before\Deploy\00-deploy-all.sql`.
+1. Run `data\sqlserver\before\Deploy\00-deploy-all.sql`. If you launch it from `sqlcmd.exe` instead of opening it in-place from SSMS, pass `DeployRoot` as the `data\sqlserver\before\Deploy` folder so the nested includes do not depend on your current working directory.
 2. Run `data\sqlserver\shared\Migration\01-run-nightly-sync.sql` to populate the StoreOps partner cache and the reporting summaries.
 3. Run `data\sqlserver\shared\Migration\02-smoke-test.sql`.
 4. Capture row counts from `dbo.DatabaseDeploymentHistory` in each database as the deployment record.
@@ -29,6 +29,7 @@ This runbook covers the pre-migration SQL Server estate for **Fabrikam Enterpris
 - Each database gets an idempotent create script, a schema script, seed data, service procedures, and migration procedures.
 - Service procedures line up with the legacy application seams: dispatch board reads from StoreOps, preferred partner lists read from CustomerHub, and dashboard summaries read from Reporting.
 - Migration procedures deliberately keep cross-database plumbing visible. CustomerHub builds a partner extract, StoreOps refreshes its local partner cache from that extract, and Reporting rebuilds daily snapshots from both operational databases.
+- CustomerHub keeps a rolling partner extract history instead of letting the staging table grow forever, and StoreOps treats the current batch as the full active-partner picture so inactive or removed partners fall back out of cache on the next sync.
 
 ## Operational cadence
 

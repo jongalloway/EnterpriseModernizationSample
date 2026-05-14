@@ -38,6 +38,7 @@ BEGIN
     FROM [$(StoreOpsDatabase)].dbo.DispatchTicket dt
     INNER JOIN [$(StoreOpsDatabase)].dbo.Store s
         ON s.StoreId = dt.StoreId
+    WHERE CONVERT(DATE, dt.PromiseUtc) = @SummaryDate
     GROUP BY s.StoreNumber;
 
     DELETE FROM dbo.LaborDailySummary
@@ -76,6 +77,7 @@ BEGIN
             dt.StoreId,
             COUNT(*) AS TicketCount
         FROM [$(StoreOpsDatabase)].dbo.DispatchTicket dt
+        WHERE CONVERT(DATE, dt.PromiseUtc) = @SummaryDate
         GROUP BY dt.StoreId
     ) ticketSummary
         ON ticketSummary.StoreId = s.StoreId
