@@ -114,7 +114,13 @@ BEGIN
         ON pdi.StoreId = s.StoreId
        AND pdi.WorkDate = @SummaryDate;
 
-    DELETE FROM dbo.LaborOvertimeWeeklySummary;
+    DELETE target
+    FROM dbo.LaborOvertimeWeeklySummary target
+    INNER JOIN [$(StoreOpsDatabase)].dbo.PayrollOvertimeWeeklyImport source
+        ON source.WeekEndingDate = target.WeekEndingDate
+    INNER JOIN [$(StoreOpsDatabase)].dbo.Store storeMap
+        ON storeMap.StoreId = source.StoreId
+       AND storeMap.StoreNumber = target.StoreNumber;
 
     INSERT INTO dbo.LaborOvertimeWeeklySummary
     (
@@ -136,7 +142,13 @@ BEGIN
     INNER JOIN [$(StoreOpsDatabase)].dbo.Store s
         ON s.StoreId = powi.StoreId;
 
-    DELETE FROM dbo.WorkforceTurnoverMonthlySummary;
+    DELETE target
+    FROM dbo.WorkforceTurnoverMonthlySummary target
+    INNER JOIN [$(StoreOpsDatabase)].dbo.PayrollTurnoverMonthlyImport source
+        ON source.SummaryMonth = target.SummaryMonth
+    INNER JOIN [$(StoreOpsDatabase)].dbo.Store storeMap
+        ON storeMap.StoreId = source.StoreId
+       AND storeMap.StoreNumber = target.StoreNumber;
 
     INSERT INTO dbo.WorkforceTurnoverMonthlySummary
     (

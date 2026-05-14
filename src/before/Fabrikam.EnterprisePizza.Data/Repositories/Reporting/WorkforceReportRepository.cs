@@ -35,6 +35,11 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.Reporting
                     new GatewayParameter("@SummaryDate", summaryDate)));
 
             var row = GetFirstRow(dataSet);
+            if (row == null)
+            {
+                return null;
+            }
+
             return new LaborCostSummary
             {
                 StoreNumber = GetString(row, "StoreNumber"),
@@ -60,7 +65,13 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.Reporting
                     new GatewayParameter("@WeeksBack", weeksBack)));
 
             var items = new List<OvertimeTrendPoint>();
-            foreach (DataRow row in dataSet.Tables[0].Rows)
+            var table = GetFirstTable(dataSet);
+            if (table == null)
+            {
+                return items;
+            }
+
+            foreach (DataRow row in table.Rows)
             {
                 items.Add(new OvertimeTrendPoint
                 {
@@ -86,6 +97,11 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.Reporting
                     new GatewayParameter("@SummaryMonth", summaryMonth)));
 
             var row = GetFirstRow(dataSet);
+            if (row == null)
+            {
+                return null;
+            }
+
             return new TurnoverSummary
             {
                 StoreNumber = GetString(row, "StoreNumber"),
@@ -108,6 +124,11 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.Reporting
                     new GatewayParameter("@SummaryDate", summaryDate)));
 
             var row = GetFirstRow(dataSet);
+            if (row == null)
+            {
+                return null;
+            }
+
             return new StaffingSummary
             {
                 StoreNumber = GetString(row, "StoreNumber"),
@@ -123,32 +144,41 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.Reporting
 
         private static DataRow GetFirstRow(DataSet dataSet)
         {
-            if (dataSet == null || dataSet.Tables.Count == 0 || dataSet.Tables[0].Rows.Count == 0)
-            {
-                throw new InvalidOperationException("The legacy reporting gateway returned no rows.");
-            }
+            var table = GetFirstTable(dataSet);
+            return table == null || table.Rows.Count == 0 ? null : table.Rows[0];
+        }
 
-            return dataSet.Tables[0].Rows[0];
+        private static DataTable GetFirstTable(DataSet dataSet)
+        {
+            return dataSet == null || dataSet.Tables.Count == 0 ? null : dataSet.Tables[0];
         }
 
         private static string GetString(DataRow row, string columnName)
         {
-            return Convert.ToString(row[columnName]);
+            return !HasValue(row, columnName) ? null : Convert.ToString(row[columnName]);
         }
 
         private static DateTime GetDateTime(DataRow row, string columnName)
         {
-            return Convert.ToDateTime(row[columnName]);
+            return !HasValue(row, columnName) ? DateTime.MinValue : Convert.ToDateTime(row[columnName]);
         }
 
         private static decimal GetDecimal(DataRow row, string columnName)
         {
-            return Convert.ToDecimal(row[columnName]);
+            return !HasValue(row, columnName) ? 0m : Convert.ToDecimal(row[columnName]);
         }
 
         private static int GetInt32(DataRow row, string columnName)
         {
-            return Convert.ToInt32(row[columnName]);
+            return !HasValue(row, columnName) ? 0 : Convert.ToInt32(row[columnName]);
+        }
+
+        private static bool HasValue(DataRow row, string columnName)
+        {
+            return row != null
+                && row.Table != null
+                && row.Table.Columns.Contains(columnName)
+                && row[columnName] != DBNull.Value;
         }
     }
 }

@@ -28,7 +28,13 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
                 throw new ArgumentException("A database area is required.", nameof(area));
             }
 
-            return connectionCatalog.GetConnectionName((LegacyDatabaseArea)Enum.Parse(typeof(LegacyDatabaseArea), area, true));
+            LegacyDatabaseArea databaseArea;
+            if (Enum.TryParse(area, true, out databaseArea))
+            {
+                return connectionCatalog.GetConnectionName(databaseArea);
+            }
+
+            return "FabrikamPizza_" + area.Trim();
         }
 
         public DataSet ExecuteDataSet(StoredProcedureCall call)
@@ -69,6 +75,11 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             table.Columns.Add("AgencyLaborCost", typeof(decimal));
             table.Columns.Add("NetSales", typeof(decimal));
             table.Columns.Add("LaborCostPercentageOfSales", typeof(decimal));
+
+            if (string.Equals(storeNumber, "999", StringComparison.OrdinalIgnoreCase))
+            {
+                return dataSet;
+            }
 
             var row = table.NewRow();
             row["StoreNumber"] = storeNumber;
@@ -113,6 +124,11 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             table.Columns.Add("ShiftLeadOvertimeHours", typeof(decimal));
             table.Columns.Add("TotalOvertimeHours", typeof(decimal));
 
+            if (string.Equals(storeNumber, "999", StringComparison.OrdinalIgnoreCase))
+            {
+                return dataSet;
+            }
+
             var today = DateTime.UtcNow.Date;
             var seed = string.Equals(storeNumber, "022", StringComparison.OrdinalIgnoreCase)
                 ? new[] { (2.25m, 1.25m, 0.50m), (2.00m, 1.50m, 0.50m), (1.75m, 1.25m, 0.25m), (1.50m, 1.00m, 0.25m) }
@@ -146,6 +162,11 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             table.Columns.Add("SeparationCount", typeof(int));
             table.Columns.Add("EndingHeadcount", typeof(int));
             table.Columns.Add("TurnoverRate", typeof(decimal));
+
+            if (string.Equals(storeNumber, "999", StringComparison.OrdinalIgnoreCase))
+            {
+                return dataSet;
+            }
 
             var row = table.NewRow();
             row["StoreNumber"] = storeNumber;
@@ -185,6 +206,11 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             table.Columns.Add("CrossTrainedTeamMembers", typeof(int));
             table.Columns.Add("CalloutCount", typeof(int));
             table.Columns.Add("StaffingCoverageRate", typeof(decimal));
+
+            if (string.Equals(storeNumber, "999", StringComparison.OrdinalIgnoreCase))
+            {
+                return dataSet;
+            }
 
             var row = table.NewRow();
             row["StoreNumber"] = storeNumber;
@@ -227,19 +253,25 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
         private static string GetString(StoredProcedureCall call, string name, string defaultValue)
         {
             var parameter = GetParameter(call, name);
-            return parameter == null || parameter.Value == null ? defaultValue : Convert.ToString(parameter.Value);
+            return parameter == null || parameter.Value == null || parameter.Value == DBNull.Value
+                ? defaultValue
+                : Convert.ToString(parameter.Value);
         }
 
         private static DateTime GetDateTime(StoredProcedureCall call, string name, DateTime defaultValue)
         {
             var parameter = GetParameter(call, name);
-            return parameter == null || parameter.Value == null ? defaultValue : Convert.ToDateTime(parameter.Value);
+            return parameter == null || parameter.Value == null || parameter.Value == DBNull.Value
+                ? defaultValue
+                : Convert.ToDateTime(parameter.Value);
         }
 
         private static int GetInt32(StoredProcedureCall call, string name, int defaultValue)
         {
             var parameter = GetParameter(call, name);
-            return parameter == null || parameter.Value == null ? defaultValue : Convert.ToInt32(parameter.Value);
+            return parameter == null || parameter.Value == null || parameter.Value == DBNull.Value
+                ? defaultValue
+                : Convert.ToInt32(parameter.Value);
         }
     }
 }
