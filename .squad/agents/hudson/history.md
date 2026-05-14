@@ -18,3 +18,5 @@ Hudson owns regression thinking, repro detail, and reviewer enforcement for the 
 
 - The sample needs believable fragile edges, not just old technology names.
 - Review and test coverage should preserve legacy realism while keeping the repo usable.
+- 2026-05-14T15:35:48.472+02:00 — Phase 7.6 is worth unblocking with smoke baselines in `src\before\Fabrikam.EnterprisePizza.Legacy.Tests` that lock `LegacyDbGateway`, `NightlyPosImportJob`, `StoreDispatchService`, and `PartnerSyncService` outputs before any Unity/service-locator refactor lands.
+- 2026-05-14T15:35:48.472+02:00 — In issue worktrees, the legacy NUnit project builds reliably when `nunit.framework` points at `%UserProfile%\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll` and the project is restored with `dotnet msbuild ... /t:Restore /p:RestorePackagesConfig=true`.
