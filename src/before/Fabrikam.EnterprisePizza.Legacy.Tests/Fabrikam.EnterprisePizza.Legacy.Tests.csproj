@@ -37,12 +37,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SmokeTests\DispatchCoordinatorFixture.cs" />
+    <Compile Include="SmokeTests\StoreOperationsWorkbenchServiceFixture.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Business.StoreOps\Fabrikam.EnterprisePizza.Business.StoreOps.csproj">
       <Project>{89F7206D-170D-4F54-B96F-0409FE93DAEE}</Project>
       <Name>Fabrikam.EnterprisePizza.Business.StoreOps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Shared.Contracts\Fabrikam.EnterprisePizza.Shared.Contracts.csproj">
+      <Project>{A58AAE3E-3DC3-4011-8E67-3AB7D7C1608F}</Project>
+      <Name>Fabrikam.EnterprisePizza.Shared.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

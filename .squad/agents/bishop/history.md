@@ -18,3 +18,6 @@ Bishop owns the legacy desktop shell, utility screens, and thick-client workflow
 
 - The desktop app should feel like a long-lived internal tool, not a modern showcase UI.
 - Old patterns such as settings dialogs, grid-heavy forms, and service-backed desktop actions fit the brief.
+- 2026-05-14T15:35:48.472+02:00: Added OrderLookupForm and StoreManagementForm under src/before/Fabrikam.EnterprisePizza.Desktop.DispatchBoard as dense modal workbenches off the dispatch shell, backed by StoreOperationsWorkbenchService.
+- 2026-05-14T15:35:48.472+02:00: Shared.Contracts StoreOps records now carry order/store desk data, while the desktop layer derives workflow and terminal detail grids locally to keep WinForms behavior understandable.
+- 2026-05-14T15:35:48.472+02:00: Validation path for legacy desktop work is dotnet restore + dotnet msbuild on src/before/Fabrikam.EnterprisePizza.Legacy.sln, plus Windows PowerShell form instantiation against the built net48 assemblies when no direct UI test harness exists.
