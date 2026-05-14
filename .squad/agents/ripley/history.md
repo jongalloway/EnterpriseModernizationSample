@@ -60,3 +60,38 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 - Orchestration log created at `.squad\orchestration-log\2026-05-13T21-09-53Z-ripley-workitem-planning.md`
 - Scribe confirms Phase 1 dry-run is critical before full assignment
 - Backlog ready for team assignment; Vasquez Phase 2 (data) unblocks Phases 3, 5; Hicks Phase 4 (web) unblocks downstream UI work
+- Repo naming should stay descriptive at the container level: `EnterpriseModernizationSample` fits a repository that holds before/after docs, source, and data, while **Fabrikam Enterprise Pizza** should remain the scenario, solution, and domain-facing name inside the sample.
+- The clean naming seam is "repo as modernization container, scenario as business identity" because it preserves the broader sample framing without throwing away the stronger domain branding already locked in across decisions.
+- Key files for this naming guidance are `README.md`, `.squad\decisions.md`, and `.squad\decisions\inbox\ripley-repo-naming-guidance.md`.
+
+📌 Public GitHub repository created on 2026-05-13T21:34:06.816+02:00:
+- Created public repo: https://github.com/jongalloway/EnterpriseModernizationSample
+- Origin remote configured and pushing to main branch
+- Local workitems and squad decisions pushed successfully
+- Repository is now open for team collaboration and public reference
+
+📌 Workitem completion audit on 2026-05-14T03:02:28.105+02:00:
+- **Verdict:** NOT ALL COMPLETED (Phase 1 topology in place; Phases 2–9 not yet started)
+- **Phase 1 Status:** ~40% complete
+  - ✅ Solution file with all 14 projects defined
+  - ✅ Project directories with .csproj scaffolding
+  - ✅ Repository structure (src/before, docs/foundation, data/sqlserver with before/after/shared split)
+  - ✅ Foundation documentation (scenario, solution-map, package matrix)
+  - ❌ No DI container setup (Enterprise Library, Autofac, Castle Windsor)
+  - ❌ No legacy patterns wired (ASMX, WCF, SOAP endpoints, DataSets, ad-hoc SQL)
+- **Phases 2–9 Status:** 0% complete
+  - ❌ No database schema or SQL scripts (Phase 2 blocker)
+  - ❌ No business logic implementation (Phases 2–3)
+  - ❌ No web UI projects filled out (Phase 4)
+  - ❌ No service/integration code (Phase 5)
+  - ❌ No testing infrastructure (Phases 6–7)
+  - ❌ No reporting or finalization (Phases 8–9)
+- **Supporting evidence:**
+  - 35 C# files across solution (mostly placeholder/token code like OrderSummary.cs)
+  - Database folders exist with only README files; no SQL scripts
+  - No GitHub issues created for workitem tracking
+  - Git history shows only planning/decision commits, no implementation commits
+  - Tech stack (Enterprise Library, Autofac, NUnit, ASP.NET Identity 2.2.3, WCF, ASMX) not yet applied
+- **Gap quantification:** Estimated 5–8% of 52-item backlog complete by deliverable count
+- **Largest unfinished areas:** Database schema (Phase 2 critical path), DI composition (Phase 1), business logic (Phases 2–3), web UI (Phase 4), services (Phase 5), testing (Phase 6–7), reporting (Phases 8–9)
+- **Recommendation:** Begin Phase 1 DI container + service composition work immediately; Phase 2 database schema work is critical path blocker for Phases 3–5
