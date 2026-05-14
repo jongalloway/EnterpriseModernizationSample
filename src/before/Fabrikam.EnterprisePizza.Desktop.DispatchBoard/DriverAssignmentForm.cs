@@ -388,11 +388,8 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
                 return;
             }
 
-            ticket.SuggestedDriver = driver.DriverCode;
-            ticket.QueueStatus = "Staged on " + driver.NextDispatchWave;
-            driver.CurrentRunCount += 1;
-            driver.NextDispatchWave = "Wave " + Math.Min(driver.CurrentRunCount + 1, 4);
-            driver.ShiftStatus = "Queued";
+            var stagedWave = driver.NextDispatchWave;
+            StageTicketToDriver(ticket, driver, "Staged on " + stagedWave);
 
             _pendingTicketRows.ResetBindings();
             _driverRows.ResetBindings();
@@ -405,6 +402,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
 
         private void BalanceBoard(object sender, EventArgs e)
         {
+            var balancedCount = 0;
             foreach (var ticket in _pendingTicketRows.Where(row => string.IsNullOrWhiteSpace(row.SuggestedDriver)))
             {
                 var bestDriver = _driverRows.OrderBy(row => row.CurrentRunCount).ThenBy(row => row.DriverCode).FirstOrDefault();
@@ -413,15 +411,16 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
                     break;
                 }
 
-                ticket.SuggestedDriver = bestDriver.DriverCode;
-                ticket.QueueStatus = "Balanced";
-                bestDriver.CurrentRunCount += 1;
-                bestDriver.ShiftStatus = "Queued";
+                var balancedWave = bestDriver.NextDispatchWave;
+                StageTicketToDriver(ticket, bestDriver, "Balanced on " + balancedWave);
+                balancedCount += 1;
             }
 
             _pendingTicketRows.ResetBindings();
             _driverRows.ResetBindings();
-            _statusLabel.Text = "The board spread pending tickets across the lightest loads.";
+            _statusLabel.Text = balancedCount == 0
+                ? "Pending tickets already have staged drivers."
+                : "The board spread pending tickets across the lightest loads.";
         }
 
         private void PopulateSummary(IList<DriverAssignmentRow> drivers, IList<PendingTicketRow> pendingTickets)
@@ -494,9 +493,24 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
                 RouteZone = ticket.RouteZone,
                 QuotedEta = (18 + (ticket.TicketId % 4) * 4) + " min",
                 Priority = ticket.TicketId % 2 == 0 ? "Counter Hold" : "Ready",
-                SuggestedDriver = ticket.DriverCode,
+                SuggestedDriver = string.Empty,
                 QueueStatus = ticket.TicketId % 2 == 0 ? "Hold for Pair" : "Ready to Send"
             };
+        }
+
+        private static void StageTicketToDriver(PendingTicketRow ticket, DriverAssignmentRow driver, string queueStatus)
+        {
+            ticket.SuggestedDriver = driver.DriverCode;
+            ticket.QueueStatus = queueStatus;
+            driver.CurrentRunCount += 1;
+            driver.SuggestedLoad = driver.CurrentRunCount + 1;
+            driver.NextDispatchWave = BuildWaveLabel(driver.CurrentRunCount);
+            driver.ShiftStatus = "Queued";
+        }
+
+        private static string BuildWaveLabel(int currentRunCount)
+        {
+            return "Wave " + Math.Min(currentRunCount + 1, 4);
         }
 
         private void AddSummaryItem(string label, string value)

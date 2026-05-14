@@ -60,9 +60,9 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
 
             _autoRefreshSecondsControl = new NumericUpDown
             {
-                Minimum = 15,
-                Maximum = 300,
-                Value = settings.AutoRefreshSeconds < 15 ? 15 : settings.AutoRefreshSeconds,
+                Minimum = DispatchBoardSettings.MinimumAutoRefreshSeconds,
+                Maximum = DispatchBoardSettings.MaximumAutoRefreshSeconds,
+                Value = DispatchBoardAppSettings.ClampAutoRefreshSeconds(settings.AutoRefreshSeconds),
                 Dock = DockStyle.Left,
                 Width = 90
             };

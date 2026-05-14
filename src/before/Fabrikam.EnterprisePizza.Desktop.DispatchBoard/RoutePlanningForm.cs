@@ -310,8 +310,8 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
         {
             var tickets = _ticketProvider() ?? new List<DispatchTicket>();
             var routePlans = tickets
-                .GroupBy(ticket => ticket.RouteZone)
-                .Select(group => CreateRoutePlanRow(group.Key, group.ToList()))
+                .GroupBy(ticket => new { ticket.RouteZone, DispatchWave = GetDispatchWave(ticket) })
+                .Select(group => CreateRoutePlanRow(group.Key.RouteZone, group.Key.DispatchWave, group.ToList()))
                 .OrderBy(row => row.DispatchWave)
                 .ThenBy(row => row.RouteZone)
                 .ToList();
@@ -435,7 +435,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
                 MessageBoxIcon.Information);
         }
 
-        private RoutePlanRow CreateRoutePlanRow(string routeZone, IList<DispatchTicket> tickets)
+        private RoutePlanRow CreateRoutePlanRow(string routeZone, string dispatchWave, IList<DispatchTicket> tickets)
         {
             var firstTicket = tickets.OrderBy(ticket => ticket.TicketId).First();
             var driverCount = tickets.Select(ticket => ticket.DriverCode).Distinct().Count();
@@ -459,7 +459,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
 
             return new RoutePlanRow
             {
-                DispatchWave = "Wave " + waveNumber,
+                DispatchWave = dispatchWave,
                 RouteZone = routeZone,
                 TicketCount = tickets.Count,
                 DriverCount = driverCount,
@@ -468,6 +468,11 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
                 PlannerNote = driverCount > 1 ? "Merge close stops before send." : "Single driver route.",
                 Stops = stops
             };
+        }
+
+        private static string GetDispatchWave(DispatchTicket ticket)
+        {
+            return "Wave " + (Math.Abs(ticket.TicketId % 3) + 1);
         }
 
         private void AddSummaryItem(string label, string value)
