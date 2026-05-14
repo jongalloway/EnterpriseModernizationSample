@@ -57,7 +57,7 @@
       <Name>Fabrikam.EnterprisePizza.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Integrations.PosSync\Fabrikam.EnterprisePizza.Integrations.PosSync.csproj">
-      <Project>{3633E2C5-D90C-4F84-971B-45A84A07CB68}</Project>
+      <Project>{852A10B5-139D-4D85-9009-64FFBB1D31BF}</Project>
       <Name>Fabrikam.EnterprisePizza.Integrations.PosSync</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Services.DispatchHost\Fabrikam.EnterprisePizza.Services.DispatchHost.csproj">
