@@ -124,6 +124,37 @@
 - Dependency graph enables parallel execution; no blocking dependencies between teams
 - Cross-team coordination with Hicks (web branding), Vasquez (database ETL), and Scribe (foundation docs)
 
+### 2026-05-13T21:11:05+02:00: ASP.NET Web Forms Control Vendor Recommendation
+**By:** Hicks
+**What:** Include AJAX Control Toolkit (ACT) v20.1.0 as the legacy Web Forms control dependency to reinforce the 2008–2015 organic-growth story of the sample.
+**Why:** ACT is a perfect fit: MIT open source, archived (Oct 2024) with no ongoing maintenance, peak era 2008–2015, and was the definitive library for AJAX/rich interactions before modern JS frameworks. Including it signals a credible 2010s codebase and creates a natural modernization narrative (ACT was a dead-end; use modern JS instead).
+
+**Implementation notes:**
+- Reference ACT v20.1.0 (June 2020) in legacy Fabrikam Pizza Web Forms pages
+- Use one or two ACT controls (e.g., ModalPopupExtender, AutoCompleteExtender) on representative pages
+- Include in project dependencies to signal organic technical debt and legacy surface area
+- MIT License: fully permissive, no restrictions. Code is read-only on GitHub but legally usable.
+
+### 2026-05-13T21:28:59.083+02:00: Repository Naming Guidance
+**By:** Ripley
+**What:** Keep GitHub repository name as `EnterpriseModernizationSample`. Use **Fabrikam Enterprise Pizza** as the scenario, solution, and business/domain name inside the repository.
+**Why:** The repository is a modernization container holding before/after documentation, source layouts, and SQL Server assets; `EnterpriseModernizationSample` says what the repo is for. `Fabrikam Enterprise Pizza` gives the sample its Microsoft-style domain identity, supports the 2005-era story, and aligns with decisions already made for web branding, database names, and scenario expansion.
+
+**Implementation notes:**
+- Repository: `EnterpriseModernizationSample`
+- Scenario / solution family: `Fabrikam Enterprise Pizza`
+- Project/database naming: `FabrikamPizza.*`, `FabrikamPizza_StoreOps`, `FabrikamPizza_CustomerHub`, `FabrikamPizza_Reporting`
+
+### 2026-05-13T21:28:59.083+02:00: Non-Microsoft Web Forms Control Dependency
+**By:** User directive (captured by Scribe)
+**What:** Include at least one believable third-party legacy Web Forms control/library in the before-state in addition to Microsoft-era controls.
+**Why:** Reinforce the organically-grown vendor mix common in older enterprise apps; makes the sample feel like it evolved across multiple technology choices over time.
+
+**Implementation notes:**
+- Implemented via AJAX Control Toolkit (ACT) decision
+- Use to signal real-world technical debt in modernization story
+- Fold into package selection and web-surface planning
+
 ## Governance
 
 - All meaningful changes require team consensus

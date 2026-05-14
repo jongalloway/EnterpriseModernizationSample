@@ -42,3 +42,9 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 - Phase 2 delivery is critical path for Phases 3, 4, 5; Phase 5 unblocks Phase 8 reporting
 - Orchestration log created at `.squad\orchestration-log\2026-05-13T21-09-53Z-vasquez-workitem-planning.md`
 - Scribe consolidation ensures Phases 2–3 (data/DAL) parallelize once Ripley Phase 1 completes
+
+📌 Decision archive round-up on 2026-05-14T01:02:28Z (Scribe):
+- Canonical decisions.md now locked with 3 new detailed decisions appended
+- **Repo naming clarity:** EnterpriseModernizationSample (container) vs Fabrikam Enterprise Pizza (scenario)—clears branding seams for documentation and code
+- **Control stack locked:** ACT v20.1.0 for Web Forms (Hicks coordination)
+- **Cross-team:** Ripley and Hicks notified of decision consolidation and updated backlog status assessment (5–8% Phase 1 complete).

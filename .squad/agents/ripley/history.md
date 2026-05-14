@@ -95,3 +95,11 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 - **Gap quantification:** Estimated 5–8% of 52-item backlog complete by deliverable count
 - **Largest unfinished areas:** Database schema (Phase 2 critical path), DI composition (Phase 1), business logic (Phases 2–3), web UI (Phase 4), services (Phase 5), testing (Phase 6–7), reporting (Phases 8–9)
 - **Recommendation:** Begin Phase 1 DI container + service composition work immediately; Phase 2 database schema work is critical path blocker for Phases 3–5
+
+📌 Decision archive round-up on 2026-05-14T01:02:28Z:
+- Scribe merged 7 inbox decisions into canonical decisions.md; deduped 4 already-merged entries
+- **New decisions locked:**
+  - ASP.NET Web Forms Control Vendor Recommendation (Hicks): AJAX Control Toolkit v20.1.0 (MIT, archived Oct 2024)
+  - Repository Naming Guidance (Ripley): Keep repo as `EnterpriseModernizationSample`, scenario as `Fabrikam Enterprise Pizza`
+  - Non-Microsoft Web Forms Control Dependency: Reinforces organic vendor mix common to legacy systems
+- **Cross-team impact:** Web Forms phase now has explicit control stack (ACT for AJAX, validated for 2008–2015 authenticity). Repo naming clears ambiguity for documentation and branding.
