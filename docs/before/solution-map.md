@@ -13,6 +13,7 @@ The legacy solution is intentionally broad enough to demo modernization seams ac
 | `Fabrikam.EnterprisePizza.Services.DispatchHost` | ASP.NET / WCF | Store dispatch SOAP endpoint |
 | `Fabrikam.EnterprisePizza.Services.PartnerSync` | ASP.NET / ASMX | Partner-facing legacy XML service |
 | `Fabrikam.EnterprisePizza.Portal` | ASP.NET Web Forms | Main partner portal shell that links the older franchise, customer, and storefront surfaces |
+| `Fabrikam.EnterprisePizza.StoreOps.Portal` | ASP.NET Web Forms | Back-office dispatch, labor watch, and zone bulletin portal for store supervisors |
 | `Fabrikam.EnterprisePizza.Web.Storefront` | ASP.NET MVC 5 | Online ordering and customer sign-in surface |
 | `Fabrikam.EnterprisePizza.Web.FranchisePortal` | ASP.NET Web Forms | Franchise notices, campaign editing, and bulletin tools |
 | `Fabrikam.EnterprisePizza.Web.CustomerHub` | ASP.NET Web Forms | Corporate account lookup and catering workflows |
@@ -27,3 +28,4 @@ The legacy solution is intentionally broad enough to demo modernization seams ac
 3. Package management remains `packages.config`.
 4. Storefront auth is pinned to older ASP.NET Identity packages.
 5. Web Forms depends on both Microsoft and third-party legacy controls.
+6. Store supervisors still bounce between a Web Forms intranet portal and a WinForms dispatch board.

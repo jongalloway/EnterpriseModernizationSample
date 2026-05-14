@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabrikam.EnterprisePizza.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabrikam.EnterprisePizza.Web.FranchisePortal", "Fabrikam.EnterprisePizza.Web.FranchisePortal\Fabrikam.EnterprisePizza.Web.FranchisePortal.csproj", "{5D9A3621-C56B-4DCA-83C0-D61840D7D9E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabrikam.EnterprisePizza.StoreOps.Portal", "Fabrikam.EnterprisePizza.StoreOps.Portal\Fabrikam.EnterprisePizza.StoreOps.Portal.csproj", "{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabrikam.EnterprisePizza.Web.Storefront", "Fabrikam.EnterprisePizza.Web.Storefront\Fabrikam.EnterprisePizza.Web.Storefront.csproj", "{2DB63D38-E74E-43DD-9A38-FB5CEDED7883}"
 EndProject
 Global
@@ -211,6 +213,18 @@ Global
 		{5D9A3621-C56B-4DCA-83C0-D61840D7D9E5}.Release|x64.Build.0 = Release|Any CPU
 		{5D9A3621-C56B-4DCA-83C0-D61840D7D9E5}.Release|x86.ActiveCfg = Release|Any CPU
 		{5D9A3621-C56B-4DCA-83C0-D61840D7D9E5}.Release|x86.Build.0 = Release|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Debug|x64.Build.0 = Debug|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Debug|x86.Build.0 = Debug|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Release|x64.ActiveCfg = Release|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Release|x64.Build.0 = Release|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D2F1DC6-C438-446D-81D9-FC17DBA8A63C}.Release|x86.Build.0 = Release|Any CPU
 		{2DB63D38-E74E-43DD-9A38-FB5CEDED7883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2DB63D38-E74E-43DD-9A38-FB5CEDED7883}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DB63D38-E74E-43DD-9A38-FB5CEDED7883}.Debug|x64.ActiveCfg = Debug|Any CPU
