@@ -189,6 +189,12 @@
 **By:** Vasquez
 **What:** Shape Fabrikam.EnterprisePizza.Data around three elements: (1) a connection catalog that keeps StoreOps, CustomerHub, and Reporting explicit, (2) stored-procedure name constants and a legacy gateway that returns DataSet payloads, (3) repository classes consumed by business services instead of inline fake lists.
 **Why:** This keeps the plumbing period-authentic without pretending the sample already had a clean ORM story. It also gives later service, reporting, and testing work a stable DAL seam to attach to.
+
+### 2026-05-14T03:23:27.208+02:00: Service stub contracts
+**By:** Vasquez
+**What:** Keep the legacy service hosts split between WCF and ASMX, but move their request/response DTOs into `Fabrikam.EnterprisePizza.Shared.Contracts`; WCF should publish `basicHttpBinding` with mex metadata, while ASMX should return an XML envelope instead of bare string lists.
+**Why:** The sample needs believable SOAP-era seams, not fake modern convenience. Shared DTOs keep the contract seam visible for later modernization work, and the config-heavy WCF/ASMX split gives the repo the sort of plumbing mess real upgrade tools have to unwind.
+
 ## Governance
 
 - All meaningful changes require team consensus

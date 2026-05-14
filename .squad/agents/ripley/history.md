@@ -129,3 +129,10 @@ Ralph can now monitor 52 concrete GitHub issues across 9 phases, routed to squad
 - Orchestration logs written: .squad/orchestration-log/
 - Session summary logged: .squad/log/
 - Next gate: Monitor Phase 1 ~50% completion before gating Phase 2+
+
+📌 Ripley Issue #2 completion on 2026-05-14T01:23:27Z:
+- **Task:** Issue #2 core project — Fabrikam.EnterprisePizza.Core as real legacy core seam
+- **Outcome:** Completed with draft PR #53
+- **Decision recorded:** "Modernization seams over project mirroring" — after-state decomposes along business boundaries (StoreOps, CustomerHub, commerce edge, integration/batch, Reporting) not one-to-one project replacements
+- **Cross-team:** Ripley baseline topology ready; Vasquez data/DAL work can integrate against documented seams. Phase 1 ~50% complete unlocks Phases 2+ gating release.
+- **Orchestration log:** .squad/orchestration-log/2026-05-14T01-23-27Z-ripley.md
