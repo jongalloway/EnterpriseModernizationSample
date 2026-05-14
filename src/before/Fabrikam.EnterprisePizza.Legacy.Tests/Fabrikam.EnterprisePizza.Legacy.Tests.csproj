@@ -36,12 +36,16 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="nunit.framework">
-      <HintPath>$(UserProfile)\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath Condition="Exists('..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll')">..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath Condition="!Exists('..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll')">$(UserProfile)\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationStubs\CrossSystemWorkflowStubFixture.cs" />
+    <Compile Include="IntegrationStubs\ScenarioStub.cs" />
     <Compile Include="SmokeTests\DispatchCoordinatorFixture.cs" />
     <Compile Include="SmokeTests\StoreOperationsWorkbenchServiceFixture.cs" />
+    <Compile Include="SmokeTests\LegacyServiceSmokePaths.cs" />
     <Compile Include="SmokeTests\LegacyDbGatewayFixture.cs" />
     <Compile Include="SmokeTests\NightlyPosImportJobFixture.cs" />
     <Compile Include="SmokeTests\PartnerSyncServiceFixture.cs" />
@@ -49,6 +53,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Business.CustomerHub\Fabrikam.EnterprisePizza.Business.CustomerHub.csproj">
+      <Project>{0C2BE10A-7EC0-45B0-B548-F5A8AC038E89}</Project>
+      <Name>Fabrikam.EnterprisePizza.Business.CustomerHub</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Business.StoreOps\Fabrikam.EnterprisePizza.Business.StoreOps.csproj">
       <Project>{89F7206D-170D-4F54-B96F-0409FE93DAEE}</Project>
       <Name>Fabrikam.EnterprisePizza.Business.StoreOps</Name>
