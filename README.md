@@ -21,3 +21,4 @@ Why this works:
 - `data\sqlserver\` — SQL Server scripts, schema notes, and sample database assets
 
 See `docs\foundation\enterprise-scenario.md` for the selected scenario brief, 2005-era domain details, and repository framing that set this direction.
+For the legacy DBA deployment story, start at `data\sqlserver\before\deployment-guide.md`.

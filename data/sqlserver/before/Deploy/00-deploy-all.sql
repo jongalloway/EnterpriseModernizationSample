@@ -1,8 +1,12 @@
+:on error exit
 :setvar StoreOpsDatabase FabrikamPizza_StoreOps
 :setvar CustomerHubDatabase FabrikamPizza_CustomerHub
 :setvar ReportingDatabase FabrikamPizza_Reporting
 
 PRINT 'Deploying Fabrikam Enterprise Pizza legacy databases.';
+PRINT 'StoreOps database: $(StoreOpsDatabase)';
+PRINT 'CustomerHub database: $(CustomerHubDatabase)';
+PRINT 'Reporting database: $(ReportingDatabase)';
 
 :r ..\CustomerHub\01-create-database.sql
 :r ..\CustomerHub\02-schema.sql

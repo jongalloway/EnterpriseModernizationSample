@@ -16,25 +16,72 @@ This runbook covers the pre-migration SQL Server estate for **Fabrikam Enterpris
 2. SSMS SQLCMD mode enabled, or `sqlcmd.exe` available on the deployment host.
 3. A deployment operator account that can execute cross-database procedures after the databases are created.
 4. Agreement that reporting remains batch-fed; nobody points live operational code at the reporting tables.
+5. A local `data\sqlserver\before\Deploy\00-set-environment.cmd` copied from `00-set-environment.sample.cmd` and filled in for the target SQL Server.
+
+## Deployment assets
+
+- `data\sqlserver\before\Deploy\00-deploy-all.sql` - SQLCMD include script for first-time database creation, schema, seeds, and procedures
+- `data\sqlserver\before\Deploy\01-deploy-all.cmd` - command-line wrapper that runs the full deployment through `sqlcmd.exe`
+- `data\sqlserver\before\Deploy\02-run-nightly-sync.cmd` - command-line wrapper for the CustomerHub → StoreOps → Reporting bridge job
+- `data\sqlserver\before\Deploy\03-smoke-test.cmd` - command-line wrapper for the post-deployment smoke checks
+- `data\sqlserver\before\Deploy\04-deployment-audit.cmd` - command-line wrapper for the deployment-history and bridge-data audit query
+- `data\sqlserver\shared\Migration\03-deployment-audit.sql` - post-run audit query for deployment history, partner cache, and reporting batch state
+
+## Environment file
+
+Copy `data\sqlserver\before\Deploy\00-set-environment.sample.cmd` to `00-set-environment.cmd` and fill in:
+
+- `LEGACY_SQL_SERVER` - SQL Server instance name or `server\instance`
+- `LEGACY_SQL_AUTH_MODE` - `integrated` or `sql`
+- `LEGACY_SQL_USER` / `LEGACY_SQL_PASSWORD` - only when SQL authentication is required
+- `StoreOpsDatabase`, `CustomerHubDatabase`, `ReportingDatabase` - database names if the DBA uses a non-default naming convention
 
 ## First-time deployment order
 
-1. Run `data\sqlserver\before\Deploy\00-deploy-all.sql`.
-2. Run `data\sqlserver\shared\Migration\01-run-nightly-sync.sql` to populate the StoreOps partner cache and the reporting summaries.
-3. Run `data\sqlserver\shared\Migration\02-smoke-test.sql`.
-4. Capture row counts from `dbo.DatabaseDeploymentHistory` in each database as the deployment record.
+1. Run `data\sqlserver\before\Deploy\01-deploy-all.cmd`.
+2. Review each database's `dbo.DatabaseDeploymentHistory` rows and confirm the script stack landed in CustomerHub, StoreOps, and Reporting.
+3. Run `data\sqlserver\before\Deploy\02-run-nightly-sync.cmd` to populate the StoreOps partner cache and the reporting summaries.
+4. Run `data\sqlserver\before\Deploy\03-smoke-test.cmd`.
+5. Run `data\sqlserver\before\Deploy\04-deployment-audit.cmd` and save the output as the deployment record.
+
+## SSMS SQLCMD mode alternative
+
+If the DBA insists on SSMS instead of the command wrappers:
+
+1. Open `data\sqlserver\before\Deploy\00-deploy-all.sql`.
+2. Turn on **Query > SQLCMD Mode**.
+3. Adjust the `:setvar` values at the top of the script if the database names differ from the defaults.
+4. Execute the deploy script, then run `data\sqlserver\shared\Migration\01-run-nightly-sync.sql`, `02-smoke-test.sql`, and `03-deployment-audit.sql` in that order.
+
+## Command-line examples
+
+```cmd
+cd /d data\sqlserver\before\Deploy
+copy 00-set-environment.sample.cmd 00-set-environment.cmd
+notepad 00-set-environment.cmd
+
+01-deploy-all.cmd
+02-run-nightly-sync.cmd
+03-smoke-test.cmd
+04-deployment-audit.cmd
+```
 
 ## What the scripts do
 
 - Each database gets an idempotent create script, a schema script, seed data, service procedures, and migration procedures.
 - Service procedures line up with the legacy application seams: dispatch board reads from StoreOps, preferred partner lists read from CustomerHub, and dashboard summaries read from Reporting.
 - Migration procedures deliberately keep cross-database plumbing visible. CustomerHub builds a partner extract, StoreOps refreshes its local partner cache from that extract, and Reporting rebuilds daily snapshots from both operational databases.
+- The command wrappers are thin on purpose: they pass SQLCMD variables, pick integrated or SQL authentication, and then get out of the way.
 
 ## Operational cadence
 
 - **Daytime:** WCF and ASMX-era consumers read from StoreOps and CustomerHub procedures.
 - **Nightly:** DBA or SQL Agent orchestration runs the shared migration script.
-- **Morning checks:** Operators run the smoke-test script and spot-check `ReportingBatchRun`, `PartnerAccountCache`, and `DatabaseDeploymentHistory`.
+- **Morning checks:** Operators run the smoke-test and deployment-audit scripts, then spot-check `ReportingBatchRun`, `PartnerAccountCache`, and `DatabaseDeploymentHistory`.
+
+## SQL Agent posture
+
+This sample assumes the first deployment is manual and the nightly bridge becomes a SQL Agent job later. If someone wants to wire the batch into SQL Agent, point the job step at `02-run-nightly-sync.cmd` or call `data\sqlserver\shared\Migration\01-run-nightly-sync.sql` directly from a SQLCMD-mode step. Either way, the ugly batch seam stays visible.
 
 ## Rollback posture
 

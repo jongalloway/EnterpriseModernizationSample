@@ -1,3 +1,4 @@
+:on error exit
 :setvar StoreOpsDatabase FabrikamPizza_StoreOps
 :setvar CustomerHubDatabase FabrikamPizza_CustomerHub
 :setvar ReportingDatabase FabrikamPizza_Reporting
