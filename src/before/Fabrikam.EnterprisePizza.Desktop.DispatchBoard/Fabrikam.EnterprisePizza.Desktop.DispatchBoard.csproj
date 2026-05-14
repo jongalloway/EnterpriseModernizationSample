@@ -41,8 +41,10 @@
     <Compile Include="DispatchBoardSettings.cs" />
     <Compile Include="DispatchBoardSettingsForm.cs" />
     <Compile Include="DriverAssignmentForm.cs" />
+    <Compile Include="OrderLookupForm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RoutePlanningForm.cs" />
+    <Compile Include="StoreManagementForm.cs" />
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

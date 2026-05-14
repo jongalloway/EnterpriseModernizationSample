@@ -12,6 +12,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
     public class DispatchBoardForm : Form
     {
         private readonly DispatchCoordinator _dispatchCoordinator;
+        private readonly StoreOperationsWorkbenchService _workbenchService;
         private readonly Timer _refreshTimer;
         private readonly DataGridView _ticketGrid;
         private readonly ListBox _driverNotesListBox;
@@ -22,13 +23,13 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
         private readonly BindingList<DispatchTicketRow> _ticketRows;
         private ToolStripTextBox _storeNumberTextBox;
         private ToolStripLabel _terminalLabel;
-
         private DispatchBoardSettings _settings;
         private DateTime _lastRefreshTime;
 
         public DispatchBoardForm()
         {
             _dispatchCoordinator = new DispatchCoordinator();
+            _workbenchService = new StoreOperationsWorkbenchService(_dispatchCoordinator);
             _settings = DispatchBoardAppSettings.Load();
             _ticketRows = new BindingList<DispatchTicketRow>();
             _refreshTimer = new Timer();
@@ -90,17 +91,19 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
             fileMenu.DropDownItems.Add(new ToolStripSeparator());
             fileMenu.DropDownItems.Add(BuildMenuItem("E&xit", delegate { Close(); }, Keys.Alt | Keys.F4));
 
-            var toolsMenu = new ToolStripMenuItem("&Tools");
-            toolsMenu.DropDownItems.Add(BuildMenuItem("&Route Planning...", OpenRoutePlanning, Keys.Control | Keys.R));
-            toolsMenu.DropDownItems.Add(BuildMenuItem("&Driver Assignments...", OpenDriverAssignments, Keys.Control | Keys.D));
-            toolsMenu.DropDownItems.Add(new ToolStripSeparator());
-            toolsMenu.DropDownItems.Add(BuildMenuItem("Dispatch &Options...", OpenSettingsDialog, Keys.Control | Keys.O));
+            var workspaceMenu = new ToolStripMenuItem("&Workspace");
+            workspaceMenu.DropDownItems.Add(BuildMenuItem("&Order Lookup...", OpenOrderLookup, Keys.Control | Keys.L));
+            workspaceMenu.DropDownItems.Add(BuildMenuItem("&Store Management...", OpenStoreManagement, Keys.Control | Keys.M));
+            workspaceMenu.DropDownItems.Add(BuildMenuItem("&Route Planning...", OpenRoutePlanning, Keys.Control | Keys.R));
+            workspaceMenu.DropDownItems.Add(BuildMenuItem("&Driver Assignments...", OpenDriverAssignments, Keys.Control | Keys.D));
+            workspaceMenu.DropDownItems.Add(new ToolStripSeparator());
+            workspaceMenu.DropDownItems.Add(BuildMenuItem("Dispatch &Options...", OpenSettingsDialog, Keys.Control | Keys.O));
 
             var helpMenu = new ToolStripMenuItem("&Help");
             helpMenu.DropDownItems.Add(BuildMenuItem("&About", ShowAboutDialog, Keys.None));
 
             menuStrip.Items.Add(fileMenu);
-            menuStrip.Items.Add(toolsMenu);
+            menuStrip.Items.Add(workspaceMenu);
             menuStrip.Items.Add(helpMenu);
             return menuStrip;
         }
@@ -134,6 +137,8 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
             toolStrip.Items.Add(_terminalLabel);
 
             toolStrip.Items.Add(new ToolStripSeparator());
+            toolStrip.Items.Add(new ToolStripButton("Orders", null, OpenOrderLookup));
+            toolStrip.Items.Add(new ToolStripButton("Stores", null, OpenStoreManagement));
             toolStrip.Items.Add(new ToolStripButton("Routes", null, OpenRoutePlanning));
             toolStrip.Items.Add(new ToolStripButton("Drivers", null, OpenDriverAssignments));
             toolStrip.Items.Add(new ToolStripButton("Options", null, OpenSettingsDialog));
@@ -271,6 +276,22 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
             }
         }
 
+        private void OpenOrderLookup(object sender, EventArgs e)
+        {
+            using (var dialog = new OrderLookupForm(_settings.StoreNumber, _settings.DispatchTerminalId, _workbenchService))
+            {
+                dialog.ShowDialog(this);
+            }
+        }
+
+        private void OpenStoreManagement(object sender, EventArgs e)
+        {
+            using (var dialog = new StoreManagementForm(_settings.StoreNumber, _settings.DispatchTerminalId, _workbenchService))
+            {
+                dialog.ShowDialog(this);
+            }
+        }
+
         private void OpenRoutePlanning(object sender, EventArgs e)
         {
             using (var dialog = new RoutePlanningForm(_settings.StoreNumber, _settings.DispatchTerminalId, LoadTicketsForCurrentStore))
@@ -309,7 +330,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
         {
             MessageBox.Show(
                 this,
-                "Fabrikam Enterprise Pizza Dispatch Board\r\nLegacy dispatch shell for store routing, driver assignment, and counter follow-up.",
+                "Fabrikam Enterprise Pizza Dispatch Board\r\nLegacy dispatch shell for routing, driver assignments, order lookup, and store operations follow-up.",
                 "About Dispatch Board",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -353,20 +374,20 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
 
         private void PopulateSummary(IList<DispatchTicketRow> ticketRows)
         {
+            var lookupOrders = _workbenchService.GetOrderLookupRecords(_settings.StoreNumber);
             _summaryListView.BeginUpdate();
             _summaryListView.Items.Clear();
 
             var assignedDrivers = ticketRows.Select(row => row.DriverCode).Distinct().Count();
             var holdCount = ticketRows.Count(row => row.BoardStatus == "Counter Hold");
-
             AddSummaryItem("Store", _settings.StoreNumber);
             AddSummaryItem("Terminal", _settings.DispatchTerminalId);
             AddSummaryItem("Auto Refresh", _settings.AutoRefreshSeconds + " sec");
             AddSummaryItem("Active Tickets", ticketRows.Count.ToString());
+            AddSummaryItem("Lookup Orders", lookupOrders.Count.ToString());
             AddSummaryItem("Drivers Out", assignedDrivers.ToString());
             AddSummaryItem("Counter Holds", holdCount.ToString());
             AddSummaryItem("Last Operator", Environment.UserName);
-
             _summaryListView.EndUpdate();
         }
 
@@ -394,6 +415,8 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
                 _driverNotesListBox.Items.Add(string.Format("{0}: {1}", row.DriverCode, row.DriverReminder));
             }
 
+            _driverNotesListBox.Items.Add("Order Lookup tracks counter callbacks and carryout promise times.");
+            _driverNotesListBox.Items.Add("Store Management keeps terminal drift and staffing issues on one desk.");
             _driverNotesListBox.EndUpdate();
         }
 
@@ -453,7 +476,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
                 QuotedEta = etaMinutes + " min",
                 BoardStatus = holdStatus,
                 DriverReminder = holdStatus == "Counter Hold"
-                    ? "Confirm breadsticks and call back line before sending."
+                    ? "Confirm breadsticks and callback slip before sending."
                     : "Carry extra ranch cups for lobby pickup crossover."
             };
         }

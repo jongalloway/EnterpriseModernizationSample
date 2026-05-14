@@ -35,6 +35,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Routing\DispatchTicket.cs" />
+    <Compile Include="StoreOps\OrderLookupRecord.cs" />
+    <Compile Include="StoreOps\StoreManagementRecord.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
