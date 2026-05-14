@@ -67,7 +67,7 @@ The problem is **technology sprawl**, not domain design. Migrations often fail b
 - Data fetching becomes async throughout (`GetStoresAsync()` instead of `GetStores()`).
 - Error handling shifts from SOAP faults to REST error responses.
 
-**Bridge pattern (dual-write during cutover):**
+**Bridge pattern (strangler fallback during cutover):**
 ```
 Request → Storefront UI
   ├→ Call modern StoreOps service
@@ -101,8 +101,8 @@ Once StoreOps service is stable, remove the fallback.
 
 **Database migration strategy:**
 1. **Week 1–2:** Create new EF Core migrations in parallel; populate via ETL from legacy schema.
-2. **Week 2–3:** Services read from new schema; write still goes to legacy (dual-write for verification).
-3. **Week 3+:** Switch writes to new schema; legacy data archived.
+2. **Week 2–3:** Services read from new schema; writes still flow through the legacy path while ETL/replication verifies parity.
+3. **Week 3+:** Switch writes to the new schema; keep the legacy schema read-only for reconciliation, then archive it.
 
 ### Phase 4: CustomerHub service decomposition
 

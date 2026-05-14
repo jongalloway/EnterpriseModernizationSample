@@ -31,6 +31,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
@@ -42,6 +43,8 @@
   <ItemGroup>
     <Compile Include="SmokeTests\DispatchCoordinatorFixture.cs" />
     <Compile Include="SmokeTests\LegacyServiceSmokePaths.cs" />
+    <Compile Include="SmokeTests\LegacyDbGatewayFixture.cs" />
+    <Compile Include="SmokeTests\NightlyPosImportJobFixture.cs" />
     <Compile Include="SmokeTests\PartnerSyncServiceFixture.cs" />
     <Compile Include="SmokeTests\StoreDispatchServiceFixture.cs" />
     <None Include="packages.config" />
@@ -50,6 +53,14 @@
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Business.StoreOps\Fabrikam.EnterprisePizza.Business.StoreOps.csproj">
       <Project>{89F7206D-170D-4F54-B96F-0409FE93DAEE}</Project>
       <Name>Fabrikam.EnterprisePizza.Business.StoreOps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Data\Fabrikam.EnterprisePizza.Data.csproj">
+      <Project>{39A41B6B-FDB8-44BC-A346-645E1FBA1E55}</Project>
+      <Name>Fabrikam.EnterprisePizza.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Integrations.PosSync\Fabrikam.EnterprisePizza.Integrations.PosSync.csproj">
+      <Project>{852A10B5-139D-4D85-9009-64FFBB1D31BF}</Project>
+      <Name>Fabrikam.EnterprisePizza.Integrations.PosSync</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Services.DispatchHost\Fabrikam.EnterprisePizza.Services.DispatchHost.csproj">
       <Project>{3F0D626E-1AFA-4A12-B23A-A16E7058F587}</Project>
