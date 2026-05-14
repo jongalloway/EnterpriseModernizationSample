@@ -21,3 +21,15 @@ Bishop owns the legacy desktop shell, utility screens, and thick-client workflow
 - 2026-05-14T15:35:48.472+02:00: Added OrderLookupForm and StoreManagementForm under src/before/Fabrikam.EnterprisePizza.Desktop.DispatchBoard as dense modal workbenches off the dispatch shell, backed by StoreOperationsWorkbenchService.
 - 2026-05-14T15:35:48.472+02:00: Shared.Contracts StoreOps records now carry order/store desk data, while the desktop layer derives workflow and terminal detail grids locally to keep WinForms behavior understandable.
 - 2026-05-14T15:35:48.472+02:00: Validation path for legacy desktop work is dotnet restore + dotnet msbuild on src/before/Fabrikam.EnterprisePizza.Legacy.sln, plus Windows PowerShell form instantiation against the built net48 assemblies when no direct UI test harness exists.
+- For legacy desktop surfaces, keep dispatch work on one dense screen and push terminal-specific behavior into an app.config-backed options dialog instead of a modern preferences flow.
+
+## 2026-05-14: Ripley Workitem Setup Complete
+
+Your Phase 1 and Phase 6 issues (Foundation, Windows Forms Desktop) are routed with 'squad:bishop' label. Can start once Phase 1 reaches ~50% completion.
+## 2026-05-14 Team Session
+
+✓ **Hicks** (Web Dev): Added Fabrikam.EnterprisePizza.Portal and opened draft PR #54.
+✓ **Bishop** (Desktop Dev): Completed WinForms dispatch desktop shell with working grid, dialog, and settings-backed behavior.
+✓ **Hudson** (Tester): Added .NET Framework 4.8 NUnit 3.12 unit test project and seam-level fixtures.
+
+→ Scribe: Merged bishop-dispatch-shell-settings decision into canonical decisions.md. Cross-team dependencies remain on track per Phase 1 coordination.

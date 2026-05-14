@@ -6,7 +6,9 @@
   <Project Path="Fabrikam.EnterprisePizza.Desktop.DispatchBoard/Fabrikam.EnterprisePizza.Desktop.DispatchBoard.csproj" />
   <Project Path="Fabrikam.EnterprisePizza.Integrations.PosSync/Fabrikam.EnterprisePizza.Integrations.PosSync.csproj" />
   <Project Path="Fabrikam.EnterprisePizza.Legacy.Tests/Fabrikam.EnterprisePizza.Legacy.Tests.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Portal/Fabrikam.EnterprisePizza.Portal.csproj" />
   <Project Path="Fabrikam.EnterprisePizza.Reporting.Batch/Fabrikam.EnterprisePizza.Reporting.Batch.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.StoreOps.Portal/Fabrikam.EnterprisePizza.StoreOps.Portal.csproj" />
   <Project Path="Fabrikam.EnterprisePizza.Services.DispatchHost/Fabrikam.EnterprisePizza.Services.DispatchHost.csproj" />
   <Project Path="Fabrikam.EnterprisePizza.Services.PartnerSync/Fabrikam.EnterprisePizza.Services.PartnerSync.csproj" />
   <Project Path="Fabrikam.EnterprisePizza.Shared.Contracts/Fabrikam.EnterprisePizza.Shared.Contracts.csproj" />
