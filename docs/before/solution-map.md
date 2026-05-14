@@ -12,6 +12,7 @@ The legacy solution is intentionally broad enough to demo modernization seams ac
 | `Fabrikam.EnterprisePizza.Integrations.PosSync` | Class library | Nightly POS and partner synchronization jobs |
 | `Fabrikam.EnterprisePizza.Services.DispatchHost` | ASP.NET / WCF | Store dispatch SOAP endpoint |
 | `Fabrikam.EnterprisePizza.Services.PartnerSync` | ASP.NET / ASMX | Partner-facing legacy XML service |
+| `Fabrikam.EnterprisePizza.Portal` | ASP.NET Web Forms | Main partner portal shell that links the older franchise, customer, and storefront surfaces |
 | `Fabrikam.EnterprisePizza.Web.Storefront` | ASP.NET MVC 5 | Online ordering and customer sign-in surface |
 | `Fabrikam.EnterprisePizza.Web.FranchisePortal` | ASP.NET Web Forms | Franchise notices, campaign editing, and bulletin tools |
 | `Fabrikam.EnterprisePizza.Web.CustomerHub` | ASP.NET Web Forms | Corporate account lookup and catering workflows |
