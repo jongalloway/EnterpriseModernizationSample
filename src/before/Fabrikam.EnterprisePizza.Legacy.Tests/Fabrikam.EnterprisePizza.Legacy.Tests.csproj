@@ -34,7 +34,8 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Services" />
     <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath Condition="Exists('..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll')">..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath Condition="!Exists('..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll')">$(USERPROFILE)\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
