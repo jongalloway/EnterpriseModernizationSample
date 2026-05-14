@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabrikam.EnterprisePizza.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabrikam.EnterprisePizza.Legacy.Tests", "Fabrikam.EnterprisePizza.Legacy.Tests\Fabrikam.EnterprisePizza.Legacy.Tests.csproj", "{118D51AE-5FAB-4CA6-AC7F-40708FA6256C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabrikam.EnterprisePizza.Portal", "Fabrikam.EnterprisePizza.Portal\Fabrikam.EnterprisePizza.Portal.csproj", "{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabrikam.EnterprisePizza.Reporting.Batch", "Fabrikam.EnterprisePizza.Reporting.Batch\Fabrikam.EnterprisePizza.Reporting.Batch.csproj", "{7D91FC91-FF9E-4388-84F5-14BF7B1D0125}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabrikam.EnterprisePizza.Services.DispatchHost", "Fabrikam.EnterprisePizza.Services.DispatchHost\Fabrikam.EnterprisePizza.Services.DispatchHost.csproj", "{3F0D626E-1AFA-4A12-B23A-A16E7058F587}"
@@ -175,6 +177,18 @@ Global
 		{DDE462EE-084E-419B-A1C8-A6081D6D2AF6}.Release|x64.Build.0 = Release|Any CPU
 		{DDE462EE-084E-419B-A1C8-A6081D6D2AF6}.Release|x86.ActiveCfg = Release|Any CPU
 		{DDE462EE-084E-419B-A1C8-A6081D6D2AF6}.Release|x86.Build.0 = Release|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Debug|x64.Build.0 = Debug|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Debug|x86.Build.0 = Debug|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Release|x64.ActiveCfg = Release|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Release|x64.Build.0 = Release|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Release|x86.ActiveCfg = Release|Any CPU
+		{8AE1E06A-C7CF-40D7-8C0E-F71C917FB9B6}.Release|x86.Build.0 = Release|Any CPU
 		{C83D35B4-BCD1-4AB0-AD42-FE4FF8295185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C83D35B4-BCD1-4AB0-AD42-FE4FF8295185}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C83D35B4-BCD1-4AB0-AD42-FE4FF8295185}.Debug|x64.ActiveCfg = Debug|Any CPU

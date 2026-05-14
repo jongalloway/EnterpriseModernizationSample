@@ -30,6 +30,7 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 - The legacy feel should be carried by explicit 2005-era business details like MySpace footer links, printable coupons, faxed catering workflows, nightly POS sync, and Excel/PDF-heavy franchise operations.
 - Database assets should keep the top-level `data\sqlserver` location while splitting internally into `before`, `after`, and `shared` to match the modernization framing.
 - The cleanest next scenario expansion is not more random modules; it is a tight seam of dispatch/routing in StoreOps, B2B partnerships in CustomerHub, and delivery/labor/partner scorecards in Reporting, with HR kept operations-focused instead of becoming a full HR suite.
+- The Unity core seam needs one explicit bootstrap contract: `CreateConfiguredContainer()` owns registrations, while `InitializeServiceLocator(IUnityContainer)` only exposes the locator for an already-configured container and should fail fast otherwise. Key files: `src\before\Fabrikam.EnterprisePizza.Core\Composition\CoreContainer.cs`, `.squad\skills\legacy-unity-core-seam\SKILL.md`, and `.squad\decisions\inbox\ripley-core-container-bootstrap-path.md`.
 
 📌 Backlog generated on 2026-05-13T21:07:52Z:
 - Created 52 concrete workitems across 9 phases targeting 14 projects, 3 databases, and full legacy enterprise sprawl.
@@ -114,3 +115,4 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 - **Each issue labeled with:** squad (inbox marker) + squad:{member} (owner)
 - **Ralph now has full visibility:** All 52 items ready to monitor, triage, and track
 - **Repository state:** Executable backlog live; no dependencies blocking Phase 1 start
+- The clean seam for early legacy DI is to let `Fabrikam.EnterprisePizza.Core` own Unity registrations plus the CommonServiceLocator bridge, while host and service projects consume that seam later instead of inventing their own containers.

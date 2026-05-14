@@ -10,7 +10,13 @@ namespace Fabrikam.EnterprisePizza.Core.Domain
 
         public string CustomerDisplayName { get; set; }
 
+        public OrderChannel Channel { get; set; }
+
         public decimal OrderTotal { get; set; }
+
+        public bool IsCorporateAccount { get; set; }
+
+        public decimal DeliveryMileage { get; set; }
 
         public DateTime NeededBy { get; set; }
     }
