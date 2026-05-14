@@ -18,6 +18,9 @@ Bishop owns the legacy desktop shell, utility screens, and thick-client workflow
 
 - The desktop app should feel like a long-lived internal tool, not a modern showcase UI.
 - Old patterns such as settings dialogs, grid-heavy forms, and service-backed desktop actions fit the brief.
+- 2026-05-14T15:35:48.472+02:00 — Route planning and driver assignment belong as modal desks off the dispatch shell in `src\before\Fabrikam.EnterprisePizza.Desktop.DispatchBoard\DispatchBoardForm.cs`, not as separate shell apps.
+- 2026-05-14T15:35:48.472+02:00 — Desktop-only cues such as waves, mileage, ETAs, and queue status stay derived inside `RoutePlanningForm.cs`, `DriverAssignmentForm.cs`, and `DispatchBoardForm.cs` so the shared `DispatchTicket` contract stays narrow.
+- 2026-05-14T15:35:48.472+02:00 — Terminal defaults now live in `src\before\Fabrikam.EnterprisePizza.Desktop.DispatchBoard\App.config`, `DispatchBoardAppSettings.cs`, and `DispatchBoardSettingsForm.cs` for legacy workstation-style setup.
 - For legacy desktop surfaces, keep dispatch work on one dense screen and push terminal-specific behavior into an app.config-backed options dialog instead of a modern preferences flow.
 
 ## 2026-05-14: Ripley Workitem Setup Complete
