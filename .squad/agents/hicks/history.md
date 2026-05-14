@@ -22,6 +22,7 @@ Hicks owns the legacy web surface across Web Forms, MVC, and old JavaScript beha
 - Older jQuery usage and server-heavy page models are part of the desired realism.
 - Fabrikam Enterprise Pizza works best as the outward-facing web brand, with the 2005-era experience leaning into polished portal chrome and dated social/web cues.
 - **2026-05-13:** Investigated legacy Web Forms control library candidates. **Recommended: AJAX Control Toolkit (ACT) v20.1.0**—MIT open source, officially archived Oct 2024, peak usage 2008–2015. Perfect for signaling organic technical debt and modernization narrative. Candidates evaluated: DayPilot Lite, ComponentArt (commercial/discontinued), Coolite (OSS base archived). ACT won on realism, licensing, and authenticity to the 2010s Web Forms era.
+- **2026-05-14T03:23:27.208+02:00:** A believable StoreOps intranet shell lands better as its own Web Forms portal project with a master page, blue-gradient supervisor chrome, and small AJAX-era touches layered directly over StoreOps business services.
 
 📌 Decision archive round-up on 2026-05-14T01:02:28Z (Scribe):
 - ACT v20.1.0 recommendation locked into canonical decisions.md
