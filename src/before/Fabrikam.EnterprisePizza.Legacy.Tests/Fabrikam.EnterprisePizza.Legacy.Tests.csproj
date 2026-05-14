@@ -31,18 +31,46 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationStubs\CrossSystemWorkflowStubFixture.cs" />
+    <Compile Include="IntegrationStubs\ScenarioStub.cs" />
     <Compile Include="SmokeTests\DispatchCoordinatorFixture.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Business.CustomerHub\Fabrikam.EnterprisePizza.Business.CustomerHub.csproj">
+      <Project>{0C2BE10A-7EC0-45B0-B548-F5A8AC038E89}</Project>
+      <Name>Fabrikam.EnterprisePizza.Business.CustomerHub</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Business.StoreOps\Fabrikam.EnterprisePizza.Business.StoreOps.csproj">
       <Project>{89F7206D-170D-4F54-B96F-0409FE93DAEE}</Project>
       <Name>Fabrikam.EnterprisePizza.Business.StoreOps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Data\Fabrikam.EnterprisePizza.Data.csproj">
+      <Project>{39A41B6B-FDB8-44BC-A346-645E1FBA1E55}</Project>
+      <Name>Fabrikam.EnterprisePizza.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Integrations.PosSync\Fabrikam.EnterprisePizza.Integrations.PosSync.csproj">
+      <Project>{852A10B5-139D-4D85-9009-64FFBB1D31BF}</Project>
+      <Name>Fabrikam.EnterprisePizza.Integrations.PosSync</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Services.DispatchHost\Fabrikam.EnterprisePizza.Services.DispatchHost.csproj">
+      <Project>{3F0D626E-1AFA-4A12-B23A-A16E7058F587}</Project>
+      <Name>Fabrikam.EnterprisePizza.Services.DispatchHost</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Services.PartnerSync\Fabrikam.EnterprisePizza.Services.PartnerSync.csproj">
+      <Project>{DDE462EE-084E-419B-A1C8-A6081D6D2AF6}</Project>
+      <Name>Fabrikam.EnterprisePizza.Services.PartnerSync</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Shared.Contracts\Fabrikam.EnterprisePizza.Shared.Contracts.csproj">
+      <Project>{A58AAE3E-3DC3-4011-8E67-3AB7D7C1608F}</Project>
+      <Name>Fabrikam.EnterprisePizza.Shared.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
