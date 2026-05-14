@@ -24,6 +24,8 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 - Configuration-heavy and SOAP-era integration patterns are desirable, not accidental.
 - Fabrikam Enterprise Pizza works better than Enterprize Pizza for the sample's 2005-era Microsoft-demo tone, and the data story should split OLTP, customer/franchise, and reporting concerns across separate SQL Server databases.
 - Scenario placement works best when StoreOps owns execution-time workflows, CustomerHub owns relationship/master data, and Reporting stays downstream; payroll-grade HR should remain an external feed rather than a magically unified module.
+- 2026-05-14T03:23:27.208+02:00: The DAL lands cleanest as a connection-catalog plus stored-procedure wrapper seam, with business services pulling through repository classes instead of burying fake records in service code.
+- 2026-05-14T03:23:27.208+02:00: The services read truer when WCF keeps `basicHttpBinding` plus mex metadata and ASMX exposes explicit XML envelope DTOs from `Shared.Contracts` instead of leaking raw strings across the seam.
 
 📌 Scenario placement locked on 2026-05-13T18:57:42.795Z:
   - **Decision:** Scenario placement for delivery, workforce, and partner flows
@@ -54,3 +56,25 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 - 2026-05-14T15:35:48.472+02:00: Package the SQL estate as numbered per-database SQLCMD scripts plus shared orchestration files so deployment order and cross-database seams stay visible.
 - 2026-05-14T15:35:48.472+02:00: Keep service-facing procedure names aligned with StoreOps dispatch reads, CustomerHub partner reads, and Reporting dashboard reads so later DAL work has a believable contract to target.
 - 2026-05-14T15:35:48.472+02:00: Key database deployment files now live under `data\sqlserver\before\Deploy\00-deploy-all.sql`, `data\sqlserver\shared\Migration\01-run-nightly-sync.sql`, and `data\sqlserver\before\deployment-guide.md`.
+## 2026-05-14: Ripley Workitem Setup Complete
+
+Your Phases 2-3, 5, and 8 issues (Data/DAL, Services, Reporting) are routed with 'squad:vasquez' label. Phase 2-3 gates downstream; can parallelize after Phase 1 ~50% complete.
+## 2026-05-14: Squad orchestration session
+
+- Ripley: Issue #1 solution architecture complete. Created docs\before\solution-architecture.md, recorded modernization-seams decision. Baseline topology established for all downstream work.
+- Vasquez: Issue #3 data project foundation complete. Fabrikam.EnterprisePizza.Data project built with connection catalog, stored-procedure gateway, repository plumbing. Recorded data-project-seam decision. Ready for service layer integration.
+
+**Team impact:**
+- Both decisions merged into canonical decisions.md
+- Orchestration logs written: .squad/orchestration-log/
+- Session summary logged: .squad/log/
+- Next gate: Monitor Phase 1 ~50% completion before gating Phase 2+
+
+📌 Vasquez Issue #4 completion on 2026-05-14T01:23:27Z:
+- **Task:** Issue #4 services project — WCF and ASMX service stubs using shared contracts and metadata
+- **Outcome:** Completed and closed
+- **Decisions recorded:** 
+  - "Service stub contracts" — WCF uses basicHttpBinding + mex, ASMX returns XML envelope with DTOs from Shared.Contracts
+  - "Data project stored procedure seam" — connection catalog, stored-procedure gateway, repository classes for DAL seam
+- **Cross-team:** Vasquez Phase 2 (database schema) is critical path for Phases 3, 4, 5. Ripley baseline topology ready; services integrate against documented seams.
+- **Orchestration log:** .squad/orchestration-log/2026-05-14T01-23-27Z-vasquez.md

@@ -1,0 +1,3 @@
+2026-05-14T09:58:57.628+02:00
+PR #53: Removed duplicate registration from `CoreContainer.InitializeServiceLocator(...)` and made it fail fast unless the caller passes an already-configured container. The clear bootstrap path is now `CreateConfiguredContainer()` for fresh containers, then `InitializeServiceLocator(...)` only when the service locator needs to be exposed.
+PR #55: Copilot left no review threads or inline comments that require code changes.
