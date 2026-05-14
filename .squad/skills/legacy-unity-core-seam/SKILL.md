@@ -15,6 +15,7 @@ Use this when a legacy sample needs an authentic Enterprise Library-era DI seam,
 - Put the first Unity registrations in the shared core library, not in one arbitrary host.
 - Register only genuinely cross-cutting services there: clocks, policy objects, low-level domain helpers.
 - Add a CommonServiceLocator adapter beside the Unity registrations so later WCF/Web Forms/WinForms work can opt into the same seam without re-inventing it.
+- Keep the bootstrap contract explicit: `CreateConfiguredContainer()` owns registration for fresh containers, while `InitializeServiceLocator(...)` only attaches the locator to an already-configured container.
 - Keep business policy code small and believable; the core library should seed downstream behavior, not swallow the whole business layer.
 - Leave host-specific bootstrapping for later workitems so the architecture still shows its historical layering.
 

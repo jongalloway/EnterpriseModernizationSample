@@ -32,7 +32,10 @@ namespace Fabrikam.EnterprisePizza.Core.Composition
                 throw new ArgumentNullException(nameof(container));
             }
 
-            Register(container);
+            if (!container.IsRegistered<IBusinessClock>() || !container.IsRegistered<IOrderFulfillmentPolicy>())
+            {
+                throw new InvalidOperationException("Core services must be registered before initializing the service locator. Call CreateConfiguredContainer() or Register(container) first.");
+            }
 
             var locator = new UnityServiceLocatorAdapter(container);
             ServiceLocator.SetLocatorProvider(() => locator);
