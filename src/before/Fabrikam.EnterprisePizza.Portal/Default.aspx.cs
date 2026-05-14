@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 namespace Fabrikam.EnterprisePizza.Portal
 {
     public partial class _Default : System.Web.UI.Page
@@ -41,6 +42,17 @@ namespace Fabrikam.EnterprisePizza.Portal
                 new PromoStatus("Partner Lunch Bundle", "Month end", "Awaiting coupon code refresh")
             };
             PromoRepeater.DataBind();
+        }
+
+        protected string Encode(object value)
+        {
+            return HttpUtility.HtmlEncode(Convert.ToString(value));
+        }
+
+        protected string EncodeHref(object value)
+        {
+            var relativeUrl = Convert.ToString(value);
+            return HttpUtility.HtmlAttributeEncode(ResolveUrl(relativeUrl ?? string.Empty));
         }
 
         private sealed class PortalLink

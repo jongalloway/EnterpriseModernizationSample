@@ -13,8 +13,8 @@
             <asp:Repeater ID="QuickLaunchRepeater" runat="server">
                 <ItemTemplate>
                     <div class="quick-link">
-                        <a href="<%# Eval("Url") %>"><%# Eval("Title") %></a>
-                        <span><%# Eval("Description") %></span>
+                        <a href="<%# EncodeHref(Eval("Url")) %>"><%# Encode(Eval("Title")) %></a>
+                        <span><%# Encode(Eval("Description")) %></span>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
@@ -25,9 +25,9 @@
             <asp:Repeater ID="HeadlineRepeater" runat="server">
                 <ItemTemplate>
                     <div class="headline-card">
-                        <div class="headline-badge"><%# Eval("Badge") %></div>
-                        <strong><%# Eval("Title") %></strong>
-                        <p><%# Eval("Body") %></p>
+                        <div class="headline-badge"><%# Encode(Eval("Badge")) %></div>
+                        <strong><%# Encode(Eval("Title")) %></strong>
+                        <p><%# Encode(Eval("Body")) %></p>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
@@ -45,9 +45,9 @@
             <asp:Repeater ID="PromoRepeater" runat="server">
                 <ItemTemplate>
                     <div class="promo-row">
-                        <span class="promo-name"><%# Eval("Name") %></span>
-                        <span class="promo-window"><%# Eval("Window") %></span>
-                        <span class="promo-status"><%# Eval("Status") %></span>
+                        <span class="promo-name"><%# Encode(Eval("Name")) %></span>
+                        <span class="promo-window"><%# Encode(Eval("Window")) %></span>
+                        <span class="promo-status"><%# Encode(Eval("Status")) %></span>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
