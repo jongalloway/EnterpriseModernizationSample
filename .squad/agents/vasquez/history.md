@@ -51,6 +51,11 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 - **Control stack locked:** ACT v20.1.0 for Web Forms (Hicks coordination)
 - **Cross-team:** Ripley and Hicks notified of decision consolidation and updated backlog status assessment (5–8% Phase 1 complete).
 
+## Learnings
+
+- 2026-05-14T15:35:48.472+02:00: Package the SQL estate as numbered per-database SQLCMD scripts plus shared orchestration files so deployment order and cross-database seams stay visible.
+- 2026-05-14T15:35:48.472+02:00: Keep service-facing procedure names aligned with StoreOps dispatch reads, CustomerHub partner reads, and Reporting dashboard reads so later DAL work has a believable contract to target.
+- 2026-05-14T15:35:48.472+02:00: Key database deployment files now live under `data\sqlserver\before\Deploy\00-deploy-all.sql`, `data\sqlserver\shared\Migration\01-run-nightly-sync.sql`, and `data\sqlserver\before\deployment-guide.md`.
 ## 2026-05-14: Ripley Workitem Setup Complete
 
 Your Phases 2-3, 5, and 8 issues (Data/DAL, Services, Reporting) are routed with 'squad:vasquez' label. Phase 2-3 gates downstream; can parallelize after Phase 1 ~50% complete.

@@ -4,9 +4,9 @@ Use this folder for SQL Server scripts, schema notes, deployment helpers, and sa
 
 ## Current legacy framing
 
-- `data\sqlserver\before\` - legacy schemas, deploy scripts, and seed data
+- `data\sqlserver\before\` - legacy schemas, deploy scripts, seed data, and migration procedures
 - `data\sqlserver\after\` - target-state database assets
-- `data\sqlserver\shared\` - common fixtures, lookup data, and migration helpers
+- `data\sqlserver\shared\` - common fixtures, validation helpers, and cross-database orchestration scripts
 
 ## Legacy database split
 
