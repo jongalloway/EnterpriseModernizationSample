@@ -155,8 +155,75 @@
 - Use to signal real-world technical debt in modernization story
 - Fold into package selection and web-surface planning
 
+### 2026-05-14T03:12:16.029+02:00: GitHub Workitem Setup for Ralph Monitoring
+**By:** Ripley
+**What:** Created all 52 concrete GitHub issues for the Fabrikam Enterprise Pizza modernization backlog, organized by phase and routed to squad members, with 6 routing labels for team coordination. Ralph now has a live, actionable board.
+**Why:** The team needed a concrete execution backlog with proper routing and dependency tracking. Workitems are specific, organized by phase (1–9), each routed to appropriate squad member, with clear blocking dependencies to enable parallel execution once Phase 1 reaches ~50% completion.
+
+**Implementation notes:**
+- **52 GitHub issues created:** Phases 1–9 with issue numbering (1.1–1.11, 2.1–2.14, etc.)
+- **Labels:** `squad` (base), `squad:ripley`, `squad:bishop`, `squad:hicks`, `squad:vasquez`, `squad:hudson` for routing
+- **Phase dependencies:** Phase 1 (11 items) critical path blocker; Phases 2–3 (14 items) parallel; Phases 4–7 (21 items) parallel subsystems; Phases 8–9 (6 items) finalization
+- **Ralph responsibilities:** Monitor with `gh issue list --label squad:*`, track phase progress, gate Phase 2+ until Phase 1 ~50% complete
+- **Tech stack referenced:** Enterprise Library 6.0, Autofac 4.9.2, NUnit 3.12, ASP.NET Identity 2.2.3, WCF, ASMX, Web Forms + AJAX Control Toolkit, Windows Forms, SSRS
+
+### 2026-05-14T03:23:27.208+02:00: Modernization seams over project mirroring
+**By:** Ripley
+**What:** Treat the legacy solution as a **before-state topology**, but treat the modernization target as a **business-seam decomposition**. The after-state should split along StoreOps, CustomerHub, commerce edge, integration/batch, and reporting boundaries instead of preserving one-to-one project replacements for every legacy web, service, and desktop project.
+**Why:** The current solution is intentionally overgrown. If downstream work migrates project-for-project, the sample keeps the old accidental structure and loses the point of the modernization story. The honest seam is business ownership plus integration boundaries, not the exact historical project count.
+
+**Guardrails:**
+- Keep FabrikamPizza_StoreOps, FabrikamPizza_CustomerHub, and FabrikamPizza_Reporting as explicit ownership boundaries.
+- Do not let reporting become a live operational dependency.
+- Keep MVC storefront concerns separate from Web Forms back-office/admin concerns in the before-state.
+- Use Shared.Contracts for service seams now, then replace with cleaner after-state contracts later.
+- Gate broad UI implementation behind real database and business-logic seams.
+
+**Impact:**
+- Scribe should treat docs\before\solution-architecture.md as the baseline topology reference.
+- Hicks should keep UI work aligned to the documented MVC vs Web Forms split.
+- Vasquez should keep SQL and service work anchored to the three-database ownership model.
+- Future src\after\ planning should map seams, not legacy project names.
+
+### 2026-05-14T03:23:27.208+02:00: Data project stored procedure seam
+**By:** Vasquez
+**What:** Shape Fabrikam.EnterprisePizza.Data around three elements: (1) a connection catalog that keeps StoreOps, CustomerHub, and Reporting explicit, (2) stored-procedure name constants and a legacy gateway that returns DataSet payloads, (3) repository classes consumed by business services instead of inline fake lists.
+**Why:** This keeps the plumbing period-authentic without pretending the sample already had a clean ORM story. It also gives later service, reporting, and testing work a stable DAL seam to attach to.
+
+### 2026-05-14T03:23:27.208+02:00: Service stub contracts
+**By:** Vasquez
+**What:** Keep the legacy service hosts split between WCF and ASMX, but move their request/response DTOs into `Fabrikam.EnterprisePizza.Shared.Contracts`; WCF should publish `basicHttpBinding` with mex metadata, while ASMX should return an XML envelope instead of bare string lists.
+**Why:** The sample needs believable SOAP-era seams, not fake modern convenience. Shared DTOs keep the contract seam visible for later modernization work, and the config-heavy WCF/ASMX split gives the repo the sort of plumbing mess real upgrade tools have to unwind.
+
 ## Governance
 
 - All meaningful changes require team consensus
 - Document architectural decisions here
 - Keep history focused on work, decisions focused on direction
+### 2026-05-14T03:23:27.208+02:00: Dispatch shell settings pattern
+**By:** Bishop
+**What:** The WinForms dispatch desktop should use a dense grid-and-sidebar shell for daily routing work, with terminal defaults stored in App.config and edited through a small modal options dialog.
+**Why:** That keeps the client feeling like a real store workstation utility instead of a modern preference-heavy app. It also gives later desktop work a consistent pattern for per-terminal store numbers, refresh intervals, and operator-facing toggles without inventing a service dependency for every setting.
+
+### 2026-05-14T09:58:57.628+02:00: User directive
+**By:** Scribe (via Copilot)
+**What:** Assign all PRs to Copilot for review and address comments when they come in.
+**Why:** User request — captured for team memory
+
+### 2026-05-14T09:58:57.628+02:00: Copilot Review Workflow
+**By:** Ripley
+**What:** Established GitHub Copilot as the primary automated reviewer for all open PRs using `gh pr edit --add-reviewer "@copilot"`. Applied to PR #53, #54, #55, #56. Copilot now displays as active reviewer on all PRs and submits initial reviews within minutes.
+**Why:** Automated review gate improves visibility into code changes in real time across all squad members. Copilot submission is advisory; squad member sign-off still required before merge.
+
+**Implementation notes:**
+- Copilot does NOT auto-dismiss comments, auto-approve, or close conversations
+- Manual addressing of Copilot comments remains squad responsibility
+- No changes to squad routing or merge gate authority
+- Future: consider `.github/instructions/*.instructions.md` to tune review focus
+
+### 2026-05-14T03:23:27.208+02:00: Enterprise Library DI host seam
+**By:** Vasquez
+**What:** Use a Unity-backed Enterprise Library 6-era composition root in each service host's `Global.asax`, resolve only the top-level WCF/ASMX service dependencies from that locator, and keep business services plus repositories on constructor-injected interfaces underneath.
+**Why:** That keeps the ugly part in the host where legacy teams actually hid it, while still exposing injectable seams for later tests and modernization work. It also avoids pretending the sample already had clean end-to-end DI everywhere.
+
+**Impact:** Future service, integration, desktop, or reporting hosts can register the same business/data interfaces without rewriting the business layer again.
