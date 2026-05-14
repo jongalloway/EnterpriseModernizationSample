@@ -36,11 +36,13 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="nunit.framework">
-      <HintPath>$(UserProfile)\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath Condition="Exists('..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll')">..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath Condition="!Exists('..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll')">$(USERPROFILE)\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SmokeTests\DispatchCoordinatorFixture.cs" />
+    <Compile Include="SmokeTests\LegacyServiceSmokePaths.cs" />
     <Compile Include="SmokeTests\LegacyDbGatewayFixture.cs" />
     <Compile Include="SmokeTests\NightlyPosImportJobFixture.cs" />
     <Compile Include="SmokeTests\PartnerSyncServiceFixture.cs" />

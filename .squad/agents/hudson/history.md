@@ -19,6 +19,9 @@ Hudson owns regression thinking, repro detail, and reviewer enforcement for the 
 - The sample needs believable fragile edges, not just old technology names.
 - Review and test coverage should preserve legacy realism while keeping the repo usable.
 - 2026-05-14T03:23:27.208+02:00 — Old-style net48 NUnit projects in this repo need direct project references to exposed contract assemblies like `Shared.Contracts`; relying on transitive references from `Business.StoreOps` will not keep smoke tests compiling once service return types cross that seam.
+- 2026-05-14T15:35:48.472+02:00 — Service endpoint smoke coverage in `src\before\Fabrikam.EnterprisePizza.Legacy.Tests` is more believable when it checks the web-host files (`StoreDispatchService.svc`, `PartnerSync.asmx`) and `web.config` transport settings alongside the stubbed service payloads.
+- 2026-05-14T15:35:48.472+02:00 — Legacy NUnit smoke tests can safely locate `src\before` at runtime by walking up from `AppDomain.CurrentDomain.BaseDirectory` until `Fabrikam.EnterprisePizza.Legacy.sln` is found, which keeps file-based assertions stable across runner locations.
+- 2026-05-14T15:35:48.472+02:00 — In this repo, `packages.config` NUnit restores land in the user-level NuGet cache during CLI builds, so old-style test projects need a fallback `HintPath` to `$(USERPROFILE)\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll` if the legacy `src\before\packages` folder is absent.
 
 ## 2026-05-14: Ripley Workitem Setup Complete
 
