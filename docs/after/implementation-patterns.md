@@ -149,7 +149,7 @@ public class DispatchOrchestrationTests
 
 Modernized services use ASP.NET Core with dependency injection and repository patterns.
 
-**Pattern location:** `src\after\FabrikamPizza.StoreOps.Service`, `src\after\FabrikamPizza.CustomerHub.Service`
+**Planned pattern location:** `src\after\FabrikamPizza.StoreOps.Service`, `src\after\FabrikamPizza.CustomerHub.Service`
 
 **Key characteristics:**
 - Dependency injection via `IServiceProvider` (built-in to Core).
@@ -190,11 +190,11 @@ public class StoreOpsService
 
 Modernized APIs follow RESTful conventions with consistent error handling and pagination.
 
-**Pattern location:** `src\after\FabrikamPizza.StoreOps.Service\Controllers`, `src\after\FabrikamPizza.CustomerHub.Service\Controllers`
+**Planned pattern location:** `src\after\FabrikamPizza.StoreOps.Service\Controllers`, `src\after\FabrikamPizza.CustomerHub.Service\Controllers`
 
 **Key characteristics:**
 - HTTP verbs (GET, POST, PUT, DELETE) map to CRUD operations.
-- Resource paths follow `/api/{domain}/{resource}/{id}` pattern.
+- Resource paths follow `/api/{resource}/{id}` within each domain service (for example, `/api/stores/{id}` inside StoreOps).
 - Standardized error responses with `ProblemDetails`.
 - Pagination via `?page=1&pageSize=20` query parameters.
 
@@ -235,7 +235,7 @@ public class StoresController : ControllerBase
 
 All database queries go through EF Core `DbContext` with async methods and migrations.
 
-**Pattern location:** `src\after\FabrikamPizza.StoreOps.Data`, `src\after\FabrikamPizza.CustomerHub.Data`
+**Planned pattern location:** `src\after\FabrikamPizza.StoreOps.Data`, `src\after\FabrikamPizza.CustomerHub.Data`
 
 **Key characteristics:**
 - One `DbContext` per domain (e.g., `StoreOpsContext`, `CustomerHubContext`).
@@ -275,7 +275,7 @@ public class StoreOpsContext : DbContext
 
 Cross-domain DTOs and enums live in a versioned NuGet package.
 
-**Pattern location:** `src\after\FabrikamPizza.Shared`
+**Planned pattern location:** `src\after\FabrikamPizza.Shared`
 
 **Key characteristics:**
 - Plain classes with auto-properties; no business logic.
@@ -309,17 +309,17 @@ public class DispatchAssignmentDto
 
 ### 5. Worker service for background jobs
 
-Nightly batch jobs run as .NET Worker Services instead of console apps.
+Nightly batch jobs run as containerized .NET Worker Services that execute once per invocation; Kubernetes CronJobs own the schedule.
 
-**Pattern location:** `src\after\FabrikamPizza.StoreOps.Worker`, `src\after\FabrikamPizza.Reporting.Pipeline`
+**Planned pattern location:** `src\after\FabrikamPizza.StoreOps.Worker`, `src\after\FabrikamPizza.Reporting.Pipeline`
 
 **Key characteristics:**
-- Host services inherit `BackgroundService`.
-- Hosted in a container; no scheduled tasks or cron jobs.
-- Health checks and graceful shutdown support.
+- Host services inherit `BackgroundService` or equivalent hosted-service entry points.
+- Packaged as container images and scheduled by Kubernetes CronJob/Job resources, not by in-process `Task.Delay` loops.
+- One run performs one ETL/sync pass, then exits cleanly so the orchestrator can track success/failure.
 - Logging via Serilog.
 
-**Example — POS sync worker:**
+**Example — POS sync worker entry point (CronJob-invoked):**
 
 ```csharp
 public class PosSyncWorker : BackgroundService
@@ -335,21 +335,16 @@ public class PosSyncWorker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        try
         {
-            try
-            {
-                _logger.LogInformation("Starting nightly POS sync");
-                await _storeOps.SyncPosDataAsync(stoppingToken);
-                _logger.LogInformation("POS sync completed");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "POS sync failed");
-            }
-
-            // Sleep until next run (e.g., 24 hours)
-            await Task.Delay(TimeSpan.FromHours(24), stoppingToken);
+            _logger.LogInformation("Starting nightly POS sync");
+            await _storeOps.SyncPosDataAsync(stoppingToken);
+            _logger.LogInformation("POS sync completed");
+        }
+        catch (Exception ex) when (!stoppingToken.IsCancellationRequested)
+        {
+            _logger.LogError(ex, "POS sync failed");
+            throw;
         }
     }
 }
@@ -357,13 +352,13 @@ public class PosSyncWorker : BackgroundService
 
 **When to use:** Running scheduled jobs and background ETL in the modernized solution.
 
-**Do not:** Use Windows Task Scheduler or SQL Agent jobs. Keep jobs containerized and cloud-native.
+**Do not:** Use Windows Task Scheduler, SQL Agent jobs, or self-scheduling `Task.Delay(TimeSpan.FromHours(24))` loops. Keep jobs containerized and let the orchestrator own the schedule.
 
 ### 6. xUnit test structure
 
 Modernized tests use xUnit with Moq and TestContainers.
 
-**Pattern location:** `src\after\FabrikamPizza.Tests`
+**Planned pattern location:** `src\after\FabrikamPizza.Tests`
 
 **Key characteristics:**
 - Fact and Theory attributes.
@@ -374,39 +369,58 @@ Modernized tests use xUnit with Moq and TestContainers.
 **Example — StoreOps service test:**
 
 ```csharp
-public class StoreOpsServiceTests : IAsyncLifetime
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
+using Testcontainers.PostgreSql;
+using Xunit;
+
+public sealed class StoreOpsServiceTests : IAsyncLifetime
 {
-    private readonly PostgresContainer _postgres;
-    private StoreOpsContext _context;
+    private readonly PostgreSqlContainer _postgres = new PostgreSqlBuilder()
+        .WithImage("postgres:15")
+        .Build();
+
+    private StoreOpsContext? _context;
 
     public async Task InitializeAsync()
     {
-        _postgres = new PostgresBuilder().WithImage("postgres:15").Build();
         await _postgres.StartAsync();
-        _context = new StoreOpsContext(new DbContextOptionsBuilder<StoreOpsContext>()
+
+        var options = new DbContextOptionsBuilder<StoreOpsContext>()
             .UseNpgsql(_postgres.GetConnectionString())
-            .Options);
+            .Options;
+
+        _context = new StoreOpsContext(options);
+        await _context.Database.EnsureCreatedAsync();
     }
 
-    public async Task DisposeAsync() => await _postgres.StopAsync();
+    public async Task DisposeAsync()
+    {
+        if (_context is not null)
+        {
+            await _context.DisposeAsync();
+        }
+
+        await _postgres.DisposeAsync();
+    }
 
     [Fact]
     public async Task GetStoresByRegion_WithValidRegion_ReturnsStores()
     {
-        // Arrange
-        var service = new StoreOpsService(_context, NullLogger<StoreOpsService>.Instance);
-        _context.Stores.Add(new Store { Id = 1, Name = "Downtown", Region = "East" });
-        await _context.SaveChangesAsync();
+        var context = Assert.IsType<StoreOpsContext>(_context);
+        var service = new StoreOpsService(context, NullLogger<StoreOpsService>.Instance);
+        context.Stores.Add(new Store { Id = 1, Name = "Downtown", Region = "East" });
+        await context.SaveChangesAsync();
 
-        // Act
         var stores = await service.GetStoresByRegionAsync("East");
 
-        // Assert
         Assert.Single(stores);
         Assert.Equal("Downtown", stores[0].Name);
     }
 }
 ```
+
+Add the `Testcontainers.PostgreSql` package so contributors get `PostgreSqlBuilder` and `PostgreSqlContainer` from the supported .NET API surface.
 
 **When to use:** Testing modernized services with real database isolation.
 
@@ -416,7 +430,7 @@ public class StoreOpsServiceTests : IAsyncLifetime
 
 All services emit structured logs and distributed traces via OpenTelemetry.
 
-**Pattern location:** All modernized services; configured in `Program.cs`
+**Planned pattern location:** All modernized services; configured in `Program.cs`
 
 **Key characteristics:**
 - Automatic instrumentation for HTTP, database, and message queues.

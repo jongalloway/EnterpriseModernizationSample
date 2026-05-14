@@ -172,7 +172,7 @@ Legacy systems often copy foreign keys across databases; the modern approach use
 
 ### Phase F — Cutover and legacy retirement (weeks 9+)
 
-- Dual-write data for final reconciliation.
+- If final cutover risk warrants it, use a short-lived dual-write window for reconciliation before retiring the legacy write path.
 - Cut over traffic from legacy to modern services.
 - Retire legacy WCF/ASMX endpoints, Web Forms, and desktop tooling.
 - Archive or delete legacy .NET Framework solution.
