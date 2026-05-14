@@ -1,0 +1,273 @@
+body {
+    margin: 0;
+    background: #d7dfea;
+    font-family: Verdana, Arial, sans-serif;
+    color: #23384d;
+}
+
+.pageShell {
+    width: 980px;
+    margin: 18px auto;
+    background: #ffffff;
+    border: 1px solid #7f9db9;
+    box-shadow: 0 0 12px rgba(35, 56, 77, 0.18);
+}
+
+.pageHeader {
+    padding: 18px 22px 14px;
+    background: linear-gradient(#5b89b6, #244c72);
+    color: #ffffff;
+}
+
+.brandLockup {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+}
+
+.brandDivider {
+    margin: 0 8px;
+    color: #a8c2dc;
+}
+
+.brandArea {
+    font-size: 18px;
+}
+
+.brandMeta {
+    margin-top: 5px;
+    font-size: 11px;
+    color: #dbe7f3;
+}
+
+.utilityBar,
+.pageFooter {
+    padding: 9px 22px;
+    background: #edf3f9;
+    border-top: 1px solid #bfd0e0;
+    border-bottom: 1px solid #bfd0e0;
+    font-size: 11px;
+}
+
+.utilityBar a,
+.pageFooter a {
+    color: #1d5889;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navDivider,
+.footerDivider {
+    margin: 0 8px;
+    color: #6b85a0;
+}
+
+.terminalHint {
+    margin-left: 20px;
+    color: #5a6c7f;
+}
+
+.tipsLink {
+    float: right;
+}
+
+.legacyTips {
+    display: none;
+    padding: 10px 22px;
+    background: #fff8d8;
+    border-bottom: 1px solid #d8c67a;
+    font-size: 11px;
+}
+
+.dashboardHero {
+    display: flex;
+    justify-content: space-between;
+    padding: 22px 22px 12px;
+}
+
+.heroCopy h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    color: #1f456b;
+}
+
+.heroCopy p {
+    margin: 0;
+    width: 610px;
+    line-height: 1.5;
+}
+
+.heroBadge {
+    width: 205px;
+    padding: 14px;
+    background: linear-gradient(#fff2b5, #f0c95d);
+    border: 1px solid #d1a63e;
+    text-align: center;
+    box-shadow: inset 0 1px 0 #fff9dd;
+}
+
+.badgeLabel {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #7d5c11;
+}
+
+.badgeValue {
+    display: block;
+    margin-top: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #5a430f;
+}
+
+.statusRibbon {
+    display: flex;
+    gap: 12px;
+    padding: 0 22px 18px;
+}
+
+.statusCard {
+    flex: 1;
+    padding: 12px;
+    background: #f3f7fb;
+    border: 1px solid #bfd0e0;
+}
+
+.statusWarning {
+    background: #fff6de;
+    border-color: #ddc47a;
+}
+
+.statusLabel {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #6b85a0;
+}
+
+.statusValue {
+    display: block;
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+.dashboardLayout {
+    display: flex;
+    gap: 18px;
+    padding: 0 22px 22px;
+}
+
+.dashboardMain {
+    width: 700px;
+}
+
+.dashboardSidebar {
+    width: 218px;
+}
+
+.legacyPanel,
+.sidebarPanel {
+    padding: 14px;
+    background: #ffffff;
+    border: 1px solid #bfd0e0;
+    margin-bottom: 14px;
+}
+
+.sidebarPanel h2 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #1f456b;
+}
+
+.sidebarPanelMuted {
+    background: #f4f7fa;
+}
+
+.toolbar {
+    margin-bottom: 12px;
+    font-size: 12px;
+}
+
+.toolbar label {
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.toolbarNote {
+    margin-left: 12px;
+    color: #6b85a0;
+}
+
+.legacyButton,
+.legacyButtonLink {
+    display: inline-block;
+    padding: 5px 12px;
+    border: 1px solid #5f88ab;
+    background: linear-gradient(#f7fbff, #d6e4f1);
+    color: #21496e;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.legacySelect {
+    margin-right: 8px;
+    border: 1px solid #7f9db9;
+    padding: 2px 4px;
+}
+
+.legacyGrid {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.legacyGrid th {
+    padding: 7px 8px;
+    background: #dae6f2;
+    border-bottom: 1px solid #9eb8d1;
+    text-align: left;
+}
+
+.legacyGrid td {
+    padding: 7px 8px;
+    border-bottom: 1px solid #d7e1ea;
+}
+
+.legacyGrid tr:nth-child(even) td {
+    background: #f7fafc;
+}
+
+.operationsTabs .ajax__tab_header {
+    font-size: 12px;
+}
+
+.operationsTabs .ajax__tab_tab {
+    font-weight: bold;
+}
+
+.zoneBulletins {
+    margin: 0;
+    padding-left: 18px;
+    line-height: 1.7;
+}
+
+.modalPanel {
+    width: 360px;
+    padding: 16px;
+    background: #ffffff;
+    border: 3px solid #4d7397;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.modalHeader {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1f456b;
+}
+
+.modalBackdrop {
+    background: rgba(34, 54, 78, 0.45);
+}
