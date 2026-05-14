@@ -30,3 +30,5 @@ Your Phase 1 and Phase 7 issues (Foundation NUnit baseline, comprehensive testin
 ✓ **Hudson** (Tester): Added .NET Framework 4.8 NUnit 3.12 unit test project and seam-level fixtures.
 
 → Scribe: Merged bishop-dispatch-shell-settings decision into canonical decisions.md. Cross-team dependencies remain on track per Phase 1 coordination.
+- 2026-05-14T15:35:48.472+02:00 — Phase 7.6 is worth unblocking with smoke baselines in `src\before\Fabrikam.EnterprisePizza.Legacy.Tests` that lock `LegacyDbGateway`, `NightlyPosImportJob`, `StoreDispatchService`, and `PartnerSyncService` outputs before any Unity/service-locator refactor lands.
+- 2026-05-14T15:35:48.472+02:00 — In issue worktrees, the legacy NUnit project builds reliably when `nunit.framework` points at `%UserProfile%\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll` and the project is restored with `dotnet msbuild ... /t:Restore /p:RestorePackagesConfig=true`.
