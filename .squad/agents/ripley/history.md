@@ -177,3 +177,4 @@ Ralph can now monitor 52 concrete GitHub issues across 9 phases, routed to squad
 - **Repo files:** Created in `docs/after/` with README updated; indexed from main `docs/README.md` (existing).
 - **Lesson:** Separating technical blueprint from stakeholder narrative from developer patterns yields clarity on three different audiences. Monolithic architecture docs try to be all three and fail at each.
 - The clean seam for early legacy DI is to let `Fabrikam.EnterprisePizza.Core` own Unity registrations plus the CommonServiceLocator bridge, while host and service projects consume that seam later instead of inventing their own containers.
+- Directory-shaping work lands more cleanly when each top-level seam has its own guide README, so later teams can extend docs, docs\\foundation, src, and data\\sqlserver without inventing new layout rules.
