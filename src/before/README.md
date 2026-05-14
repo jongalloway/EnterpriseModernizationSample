@@ -13,6 +13,7 @@ This folder holds the deliberately overgrown **before** solution for **Fabrikam 
 - `Fabrikam.EnterprisePizza.Integrations.PosSync`
 - `Fabrikam.EnterprisePizza.Services.DispatchHost` (WCF)
 - `Fabrikam.EnterprisePizza.Services.PartnerSync` (ASMX)
+- `Fabrikam.EnterprisePizza.Portal` (ASP.NET Web Forms main partner portal)
 - `Fabrikam.EnterprisePizza.Web.Storefront` (ASP.NET MVC 5)
 - `Fabrikam.EnterprisePizza.Web.FranchisePortal` (ASP.NET Web Forms + AJAX Control Toolkit + FreeTextBox)
 - `Fabrikam.EnterprisePizza.Web.CustomerHub` (ASP.NET Web Forms)
