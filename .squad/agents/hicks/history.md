@@ -31,4 +31,10 @@ Hicks owns the legacy web surface across Web Forms, MVC, and old JavaScript beha
 ## 2026-05-14: Ripley Workitem Setup Complete
 
 Your Phase 4 issues (Web Forms, ACT, Identity) are routed with 'squad:hicks' label. Depends on Phase 1 and Phase 3. Can parallelize once Phase 1 reaches ~50% completion.
+## 2026-05-14 Team Session
 
+✓ **Hicks** (Web Dev): Added Fabrikam.EnterprisePizza.Portal and opened draft PR #54.
+✓ **Bishop** (Desktop Dev): Completed WinForms dispatch desktop shell with working grid, dialog, and settings-backed behavior.
+✓ **Hudson** (Tester): Added .NET Framework 4.8 NUnit 3.12 unit test project and seam-level fixtures.
+
+→ Scribe: Merged bishop-dispatch-shell-settings decision into canonical decisions.md. Cross-team dependencies remain on track per Phase 1 coordination.

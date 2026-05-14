@@ -200,3 +200,7 @@
 - All meaningful changes require team consensus
 - Document architectural decisions here
 - Keep history focused on work, decisions focused on direction
+### 2026-05-14T03:23:27.208+02:00: Dispatch shell settings pattern
+**By:** Bishop
+**What:** The WinForms dispatch desktop should use a dense grid-and-sidebar shell for daily routing work, with terminal defaults stored in App.config and edited through a small modal options dialog.
+**Why:** That keeps the client feeling like a real store workstation utility instead of a modern preference-heavy app. It also gives later desktop work a consistent pattern for per-terminal store numbers, refresh intervals, and operator-facing toggles without inventing a service dependency for every setting.
