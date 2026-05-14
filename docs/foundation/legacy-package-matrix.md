@@ -4,8 +4,10 @@ This matrix locks the intentionally uneven package profile for the **before** so
 
 | Package | Version | Legacy use |
 | --- | --- | --- |
+| CommonServiceLocator | 1.3.0 | Service-location bridge for Unity-based composition in `Fabrikam.EnterprisePizza.Core` |
 | EnterpriseLibrary.Data | 6.0.1304 | Data access helpers and stored procedure wrappers in `Fabrikam.EnterprisePizza.Data` |
 | EnterpriseLibrary.Common | 6.0.1304 | Supporting Enterprise Library abstractions |
+| Unity | 3.5.1404 | Enterprise Library-era DI container registrations owned by `Fabrikam.EnterprisePizza.Core` |
 | Autofac | 4.9.2 | Ad hoc DI in customer and storefront components |
 | Microsoft.AspNet.Mvc | 5.2.3 | MVC storefront |
 | Microsoft.AspNet.Identity.Core | 2.2.3 | Legacy storefront auth surface |

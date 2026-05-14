@@ -114,3 +114,4 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 - **Each issue labeled with:** squad (inbox marker) + squad:{member} (owner)
 - **Ralph now has full visibility:** All 52 items ready to monitor, triage, and track
 - **Repository state:** Executable backlog live; no dependencies blocking Phase 1 start
+- The clean seam for early legacy DI is to let `Fabrikam.EnterprisePizza.Core` own Unity registrations plus the CommonServiceLocator bridge, while host and service projects consume that seam later instead of inventing their own containers.
