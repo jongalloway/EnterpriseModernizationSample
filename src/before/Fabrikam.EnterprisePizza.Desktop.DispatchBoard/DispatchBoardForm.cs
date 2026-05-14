@@ -24,6 +24,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
         private ToolStripTextBox _storeNumberTextBox;
         private ToolStripLabel _terminalLabel;
         private DispatchBoardSettings _settings;
+        private DateTime _lastRefreshTime;
 
         public DispatchBoardForm()
         {
@@ -93,6 +94,8 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
             var workspaceMenu = new ToolStripMenuItem("&Workspace");
             workspaceMenu.DropDownItems.Add(BuildMenuItem("&Order Lookup...", OpenOrderLookup, Keys.Control | Keys.L));
             workspaceMenu.DropDownItems.Add(BuildMenuItem("&Store Management...", OpenStoreManagement, Keys.Control | Keys.M));
+            workspaceMenu.DropDownItems.Add(BuildMenuItem("&Route Planning...", OpenRoutePlanning, Keys.Control | Keys.R));
+            workspaceMenu.DropDownItems.Add(BuildMenuItem("&Driver Assignments...", OpenDriverAssignments, Keys.Control | Keys.D));
             workspaceMenu.DropDownItems.Add(new ToolStripSeparator());
             workspaceMenu.DropDownItems.Add(BuildMenuItem("Dispatch &Options...", OpenSettingsDialog, Keys.Control | Keys.O));
 
@@ -136,6 +139,8 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
             toolStrip.Items.Add(new ToolStripSeparator());
             toolStrip.Items.Add(new ToolStripButton("Orders", null, OpenOrderLookup));
             toolStrip.Items.Add(new ToolStripButton("Stores", null, OpenStoreManagement));
+            toolStrip.Items.Add(new ToolStripButton("Routes", null, OpenRoutePlanning));
+            toolStrip.Items.Add(new ToolStripButton("Drivers", null, OpenDriverAssignments));
             toolStrip.Items.Add(new ToolStripButton("Options", null, OpenSettingsDialog));
 
             return toolStrip;
@@ -258,6 +263,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
         private void ApplyStoreNumber(object sender, EventArgs e)
         {
             _settings.StoreNumber = NormalizeStoreNumber(_storeNumberTextBox.Text);
+            ApplySettingsToShell();
             LoadDispatchBoard("Store changed");
         }
 
@@ -286,6 +292,22 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
             }
         }
 
+        private void OpenRoutePlanning(object sender, EventArgs e)
+        {
+            using (var dialog = new RoutePlanningForm(_settings.StoreNumber, _settings.DispatchTerminalId, LoadTicketsForCurrentStore))
+            {
+                dialog.ShowDialog(this);
+            }
+        }
+
+        private void OpenDriverAssignments(object sender, EventArgs e)
+        {
+            using (var dialog = new DriverAssignmentForm(_settings.StoreNumber, _settings.DispatchTerminalId, LoadTicketsForCurrentStore))
+            {
+                dialog.ShowDialog(this);
+            }
+        }
+
         private void OpenSettingsDialog(object sender, EventArgs e)
         {
             using (var dialog = new DispatchBoardSettingsForm(_settings))
@@ -308,7 +330,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
         {
             MessageBox.Show(
                 this,
-                "Fabrikam Enterprise Pizza Dispatch Board\r\nLegacy desktop shell for dispatch, order lookup, and store operations follow-up.",
+                "Fabrikam Enterprise Pizza Dispatch Board\r\nLegacy dispatch shell for routing, driver assignments, order lookup, and store operations follow-up.",
                 "About Dispatch Board",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -334,8 +356,9 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
             PopulateSummary(ticketRows);
             PopulateDriverNotes(ticketRows);
 
+            _lastRefreshTime = DateTime.Now;
             _statusLabel.Text = string.Format("Store {0} board refreshed ({1}).", storeNumber, refreshReason);
-            _refreshLabel.Text = "Last refresh " + DateTime.Now.ToString("g");
+            _refreshLabel.Text = "Last refresh " + _lastRefreshTime.ToString("g");
 
             if (_ticketGrid.Rows.Count > 0)
             {
@@ -345,23 +368,26 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
 
         private IList<DispatchTicket> LoadTicketsForCurrentStore()
         {
-            return _dispatchCoordinator.GetActiveTickets(NormalizeStoreNumber(_settings.StoreNumber)) ?? new List<DispatchTicket>();
+            var storeNumber = NormalizeStoreNumber(_settings.StoreNumber);
+            return _dispatchCoordinator.GetActiveTickets(storeNumber) ?? new List<DispatchTicket>();
         }
 
         private void PopulateSummary(IList<DispatchTicketRow> ticketRows)
         {
             var lookupOrders = _workbenchService.GetOrderLookupRecords(_settings.StoreNumber);
-            var visibleHoldCount = ticketRows.Count(row => row.BoardStatus == "Counter Hold");
-
             _summaryListView.BeginUpdate();
             _summaryListView.Items.Clear();
+
+            var assignedDrivers = ticketRows.Select(row => row.DriverCode).Distinct().Count();
+            var holdCount = ticketRows.Count(row => row.BoardStatus == "Counter Hold");
             AddSummaryItem("Store", _settings.StoreNumber);
             AddSummaryItem("Terminal", _settings.DispatchTerminalId);
             AddSummaryItem("Auto Refresh", _settings.AutoRefreshSeconds + " sec");
             AddSummaryItem("Active Tickets", ticketRows.Count.ToString());
             AddSummaryItem("Lookup Orders", lookupOrders.Count.ToString());
-            AddSummaryItem("Counter Holds", visibleHoldCount.ToString());
-            AddSummaryItem("Operator", Environment.UserName);
+            AddSummaryItem("Drivers Out", assignedDrivers.ToString());
+            AddSummaryItem("Counter Holds", holdCount.ToString());
+            AddSummaryItem("Last Operator", Environment.UserName);
             _summaryListView.EndUpdate();
         }
 
@@ -451,7 +477,7 @@ namespace Fabrikam.EnterprisePizza.Desktop.DispatchBoard
                 BoardStatus = holdStatus,
                 DriverReminder = holdStatus == "Counter Hold"
                     ? "Confirm breadsticks and callback slip before sending."
-                    : "Carry extra ranch cups for pickup crossover."
+                    : "Carry extra ranch cups for lobby pickup crossover."
             };
         }
 
