@@ -167,6 +167,28 @@
 - **Ralph responsibilities:** Monitor with `gh issue list --label squad:*`, track phase progress, gate Phase 2+ until Phase 1 ~50% complete
 - **Tech stack referenced:** Enterprise Library 6.0, Autofac 4.9.2, NUnit 3.12, ASP.NET Identity 2.2.3, WCF, ASMX, Web Forms + AJAX Control Toolkit, Windows Forms, SSRS
 
+### 2026-05-14T03:23:27.208+02:00: Modernization seams over project mirroring
+**By:** Ripley
+**What:** Treat the legacy solution as a **before-state topology**, but treat the modernization target as a **business-seam decomposition**. The after-state should split along StoreOps, CustomerHub, commerce edge, integration/batch, and reporting boundaries instead of preserving one-to-one project replacements for every legacy web, service, and desktop project.
+**Why:** The current solution is intentionally overgrown. If downstream work migrates project-for-project, the sample keeps the old accidental structure and loses the point of the modernization story. The honest seam is business ownership plus integration boundaries, not the exact historical project count.
+
+**Guardrails:**
+- Keep FabrikamPizza_StoreOps, FabrikamPizza_CustomerHub, and FabrikamPizza_Reporting as explicit ownership boundaries.
+- Do not let reporting become a live operational dependency.
+- Keep MVC storefront concerns separate from Web Forms back-office/admin concerns in the before-state.
+- Use Shared.Contracts for service seams now, then replace with cleaner after-state contracts later.
+- Gate broad UI implementation behind real database and business-logic seams.
+
+**Impact:**
+- Scribe should treat docs\before\solution-architecture.md as the baseline topology reference.
+- Hicks should keep UI work aligned to the documented MVC vs Web Forms split.
+- Vasquez should keep SQL and service work anchored to the three-database ownership model.
+- Future src\after\ planning should map seams, not legacy project names.
+
+### 2026-05-14T03:23:27.208+02:00: Data project stored procedure seam
+**By:** Vasquez
+**What:** Shape Fabrikam.EnterprisePizza.Data around three elements: (1) a connection catalog that keeps StoreOps, CustomerHub, and Reporting explicit, (2) stored-procedure name constants and a legacy gateway that returns DataSet payloads, (3) repository classes consumed by business services instead of inline fake lists.
+**Why:** This keeps the plumbing period-authentic without pretending the sample already had a clean ORM story. It also gives later service, reporting, and testing work a stable DAL seam to attach to.
 ## Governance
 
 - All meaningful changes require team consensus

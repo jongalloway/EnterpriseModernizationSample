@@ -24,6 +24,7 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 - Configuration-heavy and SOAP-era integration patterns are desirable, not accidental.
 - Fabrikam Enterprise Pizza works better than Enterprize Pizza for the sample's 2005-era Microsoft-demo tone, and the data story should split OLTP, customer/franchise, and reporting concerns across separate SQL Server databases.
 - Scenario placement works best when StoreOps owns execution-time workflows, CustomerHub owns relationship/master data, and Reporting stays downstream; payroll-grade HR should remain an external feed rather than a magically unified module.
+- 2026-05-14T03:23:27.208+02:00: The DAL lands cleanest as a connection-catalog plus stored-procedure wrapper seam, with business services pulling through repository classes instead of burying fake records in service code.
 
 📌 Scenario placement locked on 2026-05-13T18:57:42.795Z:
   - **Decision:** Scenario placement for delivery, workforce, and partner flows
@@ -52,4 +53,13 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 ## 2026-05-14: Ripley Workitem Setup Complete
 
 Your Phases 2-3, 5, and 8 issues (Data/DAL, Services, Reporting) are routed with 'squad:vasquez' label. Phase 2-3 gates downstream; can parallelize after Phase 1 ~50% complete.
+## 2026-05-14: Squad orchestration session
 
+- Ripley: Issue #1 solution architecture complete. Created docs\before\solution-architecture.md, recorded modernization-seams decision. Baseline topology established for all downstream work.
+- Vasquez: Issue #3 data project foundation complete. Fabrikam.EnterprisePizza.Data project built with connection catalog, stored-procedure gateway, repository plumbing. Recorded data-project-seam decision. Ready for service layer integration.
+
+**Team impact:**
+- Both decisions merged into canonical decisions.md
+- Orchestration logs written: .squad/orchestration-log/
+- Session summary logged: .squad/log/
+- Next gate: Monitor Phase 1 ~50% completion before gating Phase 2+

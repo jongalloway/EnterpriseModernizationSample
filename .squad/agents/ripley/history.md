@@ -114,8 +114,18 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 - **Each issue labeled with:** squad (inbox marker) + squad:{member} (owner)
 - **Ralph now has full visibility:** All 52 items ready to monitor, triage, and track
 - **Repository state:** Executable backlog live; no dependencies blocking Phase 1 start
+- A durable architecture baseline for this repo needs three layers in one place: current solution topology, boundary rules that prevent cross-domain drift, and a modernization roadmap that cuts along business seams instead of mirroring legacy project names.
 
 ## 2026-05-14: Ripley Workitem Setup Complete
 
 Ralph can now monitor 52 concrete GitHub issues across 9 phases, routed to squad members. Phase 1 gates Phases 2-9; parallel execution enabled once Phase 1 reaches ~50% completion.
+## 2026-05-14: Squad orchestration session
 
+- Ripley: Issue #1 solution architecture complete. Created docs\before\solution-architecture.md, recorded modernization-seams decision. Baseline topology established for all downstream work.
+- Vasquez: Issue #3 data project foundation complete. Fabrikam.EnterprisePizza.Data project built with connection catalog, stored-procedure gateway, repository plumbing. Recorded data-project-seam decision. Ready for service layer integration.
+
+**Team impact:**
+- Both decisions merged into canonical decisions.md
+- Orchestration logs written: .squad/orchestration-log/
+- Session summary logged: .squad/log/
+- Next gate: Monitor Phase 1 ~50% completion before gating Phase 2+
