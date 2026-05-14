@@ -18,3 +18,8 @@ Hudson owns regression thinking, repro detail, and reviewer enforcement for the 
 
 - The sample needs believable fragile edges, not just old technology names.
 - Review and test coverage should preserve legacy realism while keeping the repo usable.
+
+## 2026-05-14: Ripley Workitem Setup Complete
+
+Your Phase 1 and Phase 7 issues (Foundation NUnit baseline, comprehensive testing) are routed with 'squad:hudson' label. Phase 7 depends on all subsystems (Phases 1-6).
+

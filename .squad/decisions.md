@@ -155,6 +155,18 @@
 - Use to signal real-world technical debt in modernization story
 - Fold into package selection and web-surface planning
 
+### 2026-05-14T03:12:16.029+02:00: GitHub Workitem Setup for Ralph Monitoring
+**By:** Ripley
+**What:** Created all 52 concrete GitHub issues for the Fabrikam Enterprise Pizza modernization backlog, organized by phase and routed to squad members, with 6 routing labels for team coordination. Ralph now has a live, actionable board.
+**Why:** The team needed a concrete execution backlog with proper routing and dependency tracking. Workitems are specific, organized by phase (1–9), each routed to appropriate squad member, with clear blocking dependencies to enable parallel execution once Phase 1 reaches ~50% completion.
+
+**Implementation notes:**
+- **52 GitHub issues created:** Phases 1–9 with issue numbering (1.1–1.11, 2.1–2.14, etc.)
+- **Labels:** `squad` (base), `squad:ripley`, `squad:bishop`, `squad:hicks`, `squad:vasquez`, `squad:hudson` for routing
+- **Phase dependencies:** Phase 1 (11 items) critical path blocker; Phases 2–3 (14 items) parallel; Phases 4–7 (21 items) parallel subsystems; Phases 8–9 (6 items) finalization
+- **Ralph responsibilities:** Monitor with `gh issue list --label squad:*`, track phase progress, gate Phase 2+ until Phase 1 ~50% complete
+- **Tech stack referenced:** Enterprise Library 6.0, Autofac 4.9.2, NUnit 3.12, ASP.NET Identity 2.2.3, WCF, ASMX, Web Forms + AJAX Control Toolkit, Windows Forms, SSRS
+
 ## Governance
 
 - All meaningful changes require team consensus

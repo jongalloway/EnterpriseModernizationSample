@@ -48,3 +48,8 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 - **Repo naming clarity:** EnterpriseModernizationSample (container) vs Fabrikam Enterprise Pizza (scenario)—clears branding seams for documentation and code
 - **Control stack locked:** ACT v20.1.0 for Web Forms (Hicks coordination)
 - **Cross-team:** Ripley and Hicks notified of decision consolidation and updated backlog status assessment (5–8% Phase 1 complete).
+
+## 2026-05-14: Ripley Workitem Setup Complete
+
+Your Phases 2-3, 5, and 8 issues (Data/DAL, Services, Reporting) are routed with 'squad:vasquez' label. Phase 2-3 gates downstream; can parallelize after Phase 1 ~50% complete.
+

@@ -18,3 +18,8 @@ Bishop owns the legacy desktop shell, utility screens, and thick-client workflow
 
 - The desktop app should feel like a long-lived internal tool, not a modern showcase UI.
 - Old patterns such as settings dialogs, grid-heavy forms, and service-backed desktop actions fit the brief.
+
+## 2026-05-14: Ripley Workitem Setup Complete
+
+Your Phase 1 and Phase 6 issues (Foundation, Windows Forms Desktop) are routed with 'squad:bishop' label. Can start once Phase 1 reaches ~50% completion.
+

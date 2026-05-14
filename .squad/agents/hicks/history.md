@@ -27,3 +27,8 @@ Hicks owns the legacy web surface across Web Forms, MVC, and old JavaScript beha
 - ACT v20.1.0 recommendation locked into canonical decisions.md
 - **Impact:** Web Forms phase now has explicit control stack validated for 2008–2015 authenticity. Enables clear modernization narrative (ACT → modern JS). Licensing confirmed MIT (no restrictions).
 - **Cross-team:** Ripley and Vasquez notified of repo naming clarity and updated workitem status assessment.
+
+## 2026-05-14: Ripley Workitem Setup Complete
+
+Your Phase 4 issues (Web Forms, ACT, Identity) are routed with 'squad:hicks' label. Depends on Phase 1 and Phase 3. Can parallelize once Phase 1 reaches ~50% completion.
+
