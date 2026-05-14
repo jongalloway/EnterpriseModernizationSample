@@ -1,7 +1,8 @@
 :on error exit
-:setvar StoreOpsDatabase FabrikamPizza_StoreOps
-:setvar CustomerHubDatabase FabrikamPizza_CustomerHub
-:setvar ReportingDatabase FabrikamPizza_Reporting
+-- SQLCMD variable samples for manual SSMS runs:
+-- :setvar StoreOpsDatabase FabrikamPizza_StoreOps
+-- :setvar CustomerHubDatabase FabrikamPizza_CustomerHub
+-- :setvar ReportingDatabase FabrikamPizza_Reporting
 
 DECLARE @SyncBatchId UNIQUEIDENTIFIER;
 

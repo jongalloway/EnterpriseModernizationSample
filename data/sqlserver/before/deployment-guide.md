@@ -21,6 +21,7 @@ This runbook covers the pre-migration SQL Server estate for **Fabrikam Enterpris
 ## Deployment assets
 
 - `data\sqlserver\before\Deploy\00-deploy-all.sql` - SQLCMD include script for first-time database creation, schema, seeds, and procedures
+- `data\sqlserver\before\Deploy\00-invoke-sqlcmd.cmd` - shared wrapper helper that loads the environment file, keeps auth handling in one place, and passes the SQLCMD variables without relying on duplicate preamble blocks
 - `data\sqlserver\before\Deploy\01-deploy-all.cmd` - command-line wrapper that runs the full deployment through `sqlcmd.exe`
 - `data\sqlserver\before\Deploy\02-run-nightly-sync.cmd` - command-line wrapper for the CustomerHub → StoreOps → Reporting bridge job
 - `data\sqlserver\before\Deploy\03-smoke-test.cmd` - command-line wrapper for the post-deployment smoke checks
@@ -33,7 +34,7 @@ Copy `data\sqlserver\before\Deploy\00-set-environment.sample.cmd` to `00-set-env
 
 - `LEGACY_SQL_SERVER` - SQL Server instance name or `server\instance`
 - `LEGACY_SQL_AUTH_MODE` - `integrated` or `sql`
-- `LEGACY_SQL_USER` / `LEGACY_SQL_PASSWORD` - only when SQL authentication is required
+- `LEGACY_SQL_USER` / `LEGACY_SQL_PASSWORD` - only when SQL authentication is required; the wrappers pass the user name to `sqlcmd` and keep the password in `SQLCMDPASSWORD` so it does not land on the command line
 - `StoreOpsDatabase`, `CustomerHubDatabase`, `ReportingDatabase` - database names if the DBA uses a non-default naming convention
 
 ## First-time deployment order
@@ -50,7 +51,7 @@ If the DBA insists on SSMS instead of the command wrappers:
 
 1. Open `data\sqlserver\before\Deploy\00-deploy-all.sql`.
 2. Turn on **Query > SQLCMD Mode**.
-3. Adjust the `:setvar` values at the top of the script if the database names differ from the defaults.
+3. Uncomment or add the `:setvar` sample lines at the top of the script and point `DeployRoot` at the `Deploy` folder if you are not running the script from there.
 4. Execute the deploy script, then run `data\sqlserver\shared\Migration\01-run-nightly-sync.sql`, `02-smoke-test.sql`, and `03-deployment-audit.sql` in that order.
 
 ## Command-line examples
@@ -71,7 +72,8 @@ notepad 00-set-environment.cmd
 - Each database gets an idempotent create script, a schema script, seed data, service procedures, and migration procedures.
 - Service procedures line up with the legacy application seams: dispatch board reads from StoreOps, preferred partner lists read from CustomerHub, and dashboard summaries read from Reporting.
 - Migration procedures deliberately keep cross-database plumbing visible. CustomerHub builds a partner extract, StoreOps refreshes its local partner cache from that extract, and Reporting rebuilds daily snapshots from both operational databases.
-- The command wrappers are thin on purpose: they pass SQLCMD variables, pick integrated or SQL authentication, and then get out of the way.
+- The command wrappers are thin on purpose: a shared helper loads the environment file, passes SQLCMD variables once, picks integrated or SQL authentication, and then gets out of the way.
+- Wrapper-provided `-v` values are now the authoritative variable source; the `.sql` entry points only keep commented sample `:setvar` lines for manual SSMS runs so there is no confusion about which value wins.
 
 ## Operational cadence
 
