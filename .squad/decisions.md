@@ -204,3 +204,26 @@
 **By:** Bishop
 **What:** The WinForms dispatch desktop should use a dense grid-and-sidebar shell for daily routing work, with terminal defaults stored in App.config and edited through a small modal options dialog.
 **Why:** That keeps the client feeling like a real store workstation utility instead of a modern preference-heavy app. It also gives later desktop work a consistent pattern for per-terminal store numbers, refresh intervals, and operator-facing toggles without inventing a service dependency for every setting.
+
+### 2026-05-14T09:58:57.628+02:00: User directive
+**By:** Scribe (via Copilot)
+**What:** Assign all PRs to Copilot for review and address comments when they come in.
+**Why:** User request — captured for team memory
+
+### 2026-05-14T09:58:57.628+02:00: Copilot Review Workflow
+**By:** Ripley
+**What:** Established GitHub Copilot as the primary automated reviewer for all open PRs using `gh pr edit --add-reviewer "@copilot"`. Applied to PR #53, #54, #55, #56. Copilot now displays as active reviewer on all PRs and submits initial reviews within minutes.
+**Why:** Automated review gate improves visibility into code changes in real time across all squad members. Copilot submission is advisory; squad member sign-off still required before merge.
+
+**Implementation notes:**
+- Copilot does NOT auto-dismiss comments, auto-approve, or close conversations
+- Manual addressing of Copilot comments remains squad responsibility
+- No changes to squad routing or merge gate authority
+- Future: consider `.github/instructions/*.instructions.md` to tune review focus
+
+### 2026-05-14T03:23:27.208+02:00: Enterprise Library DI host seam
+**By:** Vasquez
+**What:** Use a Unity-backed Enterprise Library 6-era composition root in each service host's `Global.asax`, resolve only the top-level WCF/ASMX service dependencies from that locator, and keep business services plus repositories on constructor-injected interfaces underneath.
+**Why:** That keeps the ugly part in the host where legacy teams actually hid it, while still exposing injectable seams for later tests and modernization work. It also avoids pretending the sample already had clean end-to-end DI everywhere.
+
+**Impact:** Future service, integration, desktop, or reporting hosts can register the same business/data interfaces without rewriting the business layer again.
