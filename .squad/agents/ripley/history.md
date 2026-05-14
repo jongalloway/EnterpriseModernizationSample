@@ -136,3 +136,42 @@ Ralph can now monitor 52 concrete GitHub issues across 9 phases, routed to squad
 - **Decision recorded:** "Modernization seams over project mirroring" — after-state decomposes along business boundaries (StoreOps, CustomerHub, commerce edge, integration/batch, Reporting) not one-to-one project replacements
 - **Cross-team:** Ripley baseline topology ready; Vasquez data/DAL work can integrate against documented seams. Phase 1 ~50% complete unlocks Phases 2+ gating release.
 - **Orchestration log:** .squad/orchestration-log/2026-05-14T01-23-27Z-ripley.md
+
+📌 Copilot Review Workflow Setup on 2026-05-14T09:58:57.628+02:00:
+- **Task:** Assign all open PRs (#53, #54, #55, #56) to Copilot for review and establish review workflow
+- **Supported Mechanism:** `gh pr edit --add-reviewer "@copilot"` (official GitHub CLI feature)
+- **Outcome:** ✅ Copilot now active reviewer on all 4 PRs; each submitted initial review comments within minutes
+- **What Works:** Copilot reviews code, generates comments, identifies issues, provides file-by-file analysis
+- **What Doesn't Automate:** Comment dismissal, PR approval, review resolution, CI triggering — all remain manual process
+- **Decision recorded:** "Copilot review workflow setup" — documents mechanism, current state, and manual next steps for handling comments
+- **Next Step:** Monitor PRs for Copilot comments; address comments manually; squad members retain approval authority
+- **Team Impact:** Copilot now provides real-time advisory review on all open PRs; squad members remain merge gate
+- The canonical legacy solution entry point is now `src\before\Fabrikam.EnterprisePizza.Legacy.sln`; `.slnx` should not be added or maintained in this repo.
+- Relevant enforcement points for this cleanup are `README.md`, `src\before\README.md`, `docs\before\solution-map.md`, and `.squad\skills\legacy-nunit-project-skeleton\SKILL.md`.
+
+📌 Issue #49 completion on 2026-05-14T15:35:48.472+02:00:
+- **Task:** Complete solution architecture documentation — finalize before/after migration narrative and implementation patterns
+- **Outcome:** Completed with draft PR #57
+- **Deliverables:**
+  - `docs\after\modernized-architecture.md` (13.9 KB) — target-state system topology, domain decomposition, boundary rules, data migration, tech stack, phased roadmap with gates
+  - `docs\after\migration-narrative.md` (16.6 KB) — before/after story: why each seam shifts, phased cutover with dual-write patterns, risk mitigations, success checkpoints
+  - `docs\after\implementation-patterns.md` (17.2 KB) — repeatable code patterns for legacy (stored procedures, WCF, Web Forms, NUnit) and modern (EF Core, REST, async/await, xUnit) with decision points
+  - Updated `docs\after\README.md` to index all three documents
+- **Key decision:** Three separate documents instead of one monolithic file — modernized-architecture for blueprint, migration-narrative for justification/timeline, implementation-patterns for practical guidance.
+- **Architecture principles locked:**
+  1. Preserve three-database split (StoreOps, CustomerHub, Reporting) — this is a **good** legacy decision, not a smell.
+  2. Decompose by business seams, not project mirroring — modern services follow domain boundaries.
+  3. Phased cutover with dual-write validation — services coexist during transition; reconciliation queries ensure data consistency.
+  4. Explicit API boundaries (REST/gRPC) — never add cross-domain direct DB queries in after-state.
+  5. Implementation patterns guide when to use: stored procedures (legacy only), EF Core (modern only), REST (modern only), never new WCF.
+- **Roadmap phased with gates:**
+  - Phase A (weeks 1–2): Foundation + OAuth 2.0 identity boundary
+  - Phase B (weeks 2–4): Storefront (MVC → Core MVC) + modern identity
+  - Phase C (weeks 3–6): StoreOps service (business logic + EF Core → modern REST API)
+  - Phase D (weeks 5–8): CustomerHub service (Web Forms + ASMX → Core service + REST API)
+  - Phase E (weeks 6–10): Reporting pipeline (console app + batch → Worker Service in Kubernetes)
+  - Phase F (weeks 9+): Cutover + legacy retirement
+- **Cross-team impact:** All three services (Storefront, StoreOps, CustomerHub) have clear before→after mappings. Reporting roadmap guides Vasquez's ETL work. Implementation patterns guide all code review.
+- **Decision recorded:** `.squad/decisions/inbox/ripley-complete-architecture-documentation.md` — documents context, decision, rationale, consequences, and success criteria.
+- **Repo files:** Created in `docs/after/` with README updated; indexed from main `docs/README.md` (existing).
+- **Lesson:** Separating technical blueprint from stakeholder narrative from developer patterns yields clarity on three different audiences. Monolithic architecture docs try to be all three and fail at each.
