@@ -1,0 +1,6 @@
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Web.FranchisePortal\bin\Fabrikam.EnterprisePizza.Web.FranchisePortal.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Web.FranchisePortal\bin\Fabrikam.EnterprisePizza.Web.FranchisePortal.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Web.FranchisePortal\obj\Debug\Fabrikam.EnterprisePizza.Web.FranchisePortal.csproj.AssemblyReference.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Web.FranchisePortal\obj\Debug\Fabrikam.EnterprisePizza.Web.FranchisePortal.csproj.CoreCompileInputs.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Web.FranchisePortal\obj\Debug\Fabrikam.EnterprisePizza.Web.FranchisePortal.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Web.FranchisePortal\obj\Debug\Fabrikam.EnterprisePizza.Web.FranchisePortal.pdb

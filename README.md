@@ -4,7 +4,7 @@ This repository is framed to show the system **before** and **after** migration,
 
 ## Selected baseline scenario
 
-**Enterprize Pizza Franchise Platform** — a regional pizza chain with franchise stores, call-center ordering, corporate catering, store dispatch, and third-party POS integrations.
+**Fabrikam Enterprise Pizza** — a regional pizza franchise platform with store ordering, call-center sales, corporate catering, delivery dispatch, and third-party POS integrations.
 
 Why this works:
 - It is recognizable, a little funny, and still believable as a legacy enterprise system.
@@ -20,4 +20,4 @@ Why this works:
 - `src\after\` — migrated services, web apps, workers, and shared components
 - `data\sqlserver\` — SQL Server scripts, schema notes, and sample database assets
 
-See `docs\foundation\enterprise-scenario.md` for the scenario options and recommendation that set this direction.
+See `docs\foundation\enterprise-scenario.md` for the selected scenario brief, 2005-era domain details, and repository framing that set this direction.

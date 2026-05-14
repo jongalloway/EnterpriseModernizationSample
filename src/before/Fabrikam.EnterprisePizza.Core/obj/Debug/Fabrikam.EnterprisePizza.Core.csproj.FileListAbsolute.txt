@@ -1,0 +1,6 @@
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\bin\Debug\Fabrikam.EnterprisePizza.Core.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\bin\Debug\Fabrikam.EnterprisePizza.Core.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.csproj.AssemblyReference.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.csproj.CoreCompileInputs.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.pdb

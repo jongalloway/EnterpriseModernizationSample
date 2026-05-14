@@ -1,0 +1,16 @@
+<Solution>
+  <Project Path="Fabrikam.EnterprisePizza.Business.CustomerHub/Fabrikam.EnterprisePizza.Business.CustomerHub.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Business.StoreOps/Fabrikam.EnterprisePizza.Business.StoreOps.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Core/Fabrikam.EnterprisePizza.Core.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Data/Fabrikam.EnterprisePizza.Data.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Desktop.DispatchBoard/Fabrikam.EnterprisePizza.Desktop.DispatchBoard.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Integrations.PosSync/Fabrikam.EnterprisePizza.Integrations.PosSync.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Legacy.Tests/Fabrikam.EnterprisePizza.Legacy.Tests.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Reporting.Batch/Fabrikam.EnterprisePizza.Reporting.Batch.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Services.DispatchHost/Fabrikam.EnterprisePizza.Services.DispatchHost.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Services.PartnerSync/Fabrikam.EnterprisePizza.Services.PartnerSync.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Shared.Contracts/Fabrikam.EnterprisePizza.Shared.Contracts.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Web.CustomerHub/Fabrikam.EnterprisePizza.Web.CustomerHub.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Web.FranchisePortal/Fabrikam.EnterprisePizza.Web.FranchisePortal.csproj" />
+  <Project Path="Fabrikam.EnterprisePizza.Web.Storefront/Fabrikam.EnterprisePizza.Web.Storefront.csproj" />
+</Solution>

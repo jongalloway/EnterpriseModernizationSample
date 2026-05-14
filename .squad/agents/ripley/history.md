@@ -103,3 +103,14 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
   - Repository Naming Guidance (Ripley): Keep repo as `EnterpriseModernizationSample`, scenario as `Fabrikam Enterprise Pizza`
   - Non-Microsoft Web Forms Control Dependency: Reinforces organic vendor mix common to legacy systems
 - **Cross-team impact:** Web Forms phase now has explicit control stack (ACT for AJAX, validated for 2008–2015 authenticity). Repo naming clears ambiguity for documentation and branding.
+
+📌 GitHub workitem setup on 2026-05-14T03:12:16.029+02:00:
+- **Created all 52 workitems as GitHub issues:**
+  - Phase 1 (11 items): Foundation & Topology — solution architecture, project scaffolding, DI/library setup
+  - Phases 2–3 (14 items): Data & Business Logic — database schema, seeding, DAL, business logic
+  - Phases 4–7 (21 items): Web/Services/Tests/Desktop — Web Forms portal, WCF/ASMX services, Windows Forms, NUnit tests
+  - Phases 8–9 (6 items): Reporting & Documentation — SSRS/batch reporting, final documentation
+- **Squad routing labels created:** squad, squad:ripley, squad:bishop, squad:hicks, squad:vasquez, squad:hudson
+- **Each issue labeled with:** squad (inbox marker) + squad:{member} (owner)
+- **Ralph now has full visibility:** All 52 items ready to monitor, triage, and track
+- **Repository state:** Executable backlog live; no dependencies blocking Phase 1 start

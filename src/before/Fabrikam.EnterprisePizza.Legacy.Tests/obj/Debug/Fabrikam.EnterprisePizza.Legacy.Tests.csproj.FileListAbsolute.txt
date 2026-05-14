@@ -1,0 +1,2 @@
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Legacy.Tests\obj\Debug\Fabrikam.EnterprisePizza.Legacy.Tests.csproj.AssemblyReference.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Legacy.Tests\obj\Debug\Fabrikam.EnterprisePizza.Legacy.Tests.csproj.CoreCompileInputs.cache

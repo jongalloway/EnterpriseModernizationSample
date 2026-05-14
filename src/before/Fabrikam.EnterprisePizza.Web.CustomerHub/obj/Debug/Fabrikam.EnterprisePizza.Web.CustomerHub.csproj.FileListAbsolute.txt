@@ -1,0 +1,2 @@
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Web.CustomerHub\obj\Debug\Fabrikam.EnterprisePizza.Web.CustomerHub.csproj.AssemblyReference.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Web.CustomerHub\obj\Debug\Fabrikam.EnterprisePizza.Web.CustomerHub.csproj.CoreCompileInputs.cache

@@ -1,0 +1,6 @@
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\bin\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\bin\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.csproj.AssemblyReference.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.pdb

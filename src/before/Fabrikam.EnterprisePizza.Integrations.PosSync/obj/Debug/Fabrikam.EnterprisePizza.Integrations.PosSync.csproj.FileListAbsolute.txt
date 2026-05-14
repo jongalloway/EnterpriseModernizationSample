@@ -1,0 +1,9 @@
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Integrations.PosSync\bin\Debug\Fabrikam.EnterprisePizza.Integrations.PosSync.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Integrations.PosSync\bin\Debug\Fabrikam.EnterprisePizza.Integrations.PosSync.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Integrations.PosSync\bin\Debug\Fabrikam.EnterprisePizza.Data.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Integrations.PosSync\bin\Debug\Fabrikam.EnterprisePizza.Data.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Integrations.PosSync\obj\Debug\Fabrikam.EnterprisePizza.Integrations.PosSync.csproj.AssemblyReference.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Integrations.PosSync\obj\Debug\Fabrikam.EnterprisePizza.Integrations.PosSync.csproj.CoreCompileInputs.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Integrations.PosSync\obj\Debug\Fabrikam.81284116.Up2Date
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Integrations.PosSync\obj\Debug\Fabrikam.EnterprisePizza.Integrations.PosSync.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Integrations.PosSync\obj\Debug\Fabrikam.EnterprisePizza.Integrations.PosSync.pdb

@@ -1,0 +1,9 @@
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.PartnerSync\bin\Fabrikam.EnterprisePizza.Services.PartnerSync.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.PartnerSync\bin\Fabrikam.EnterprisePizza.Services.PartnerSync.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.PartnerSync\bin\Fabrikam.EnterprisePizza.Business.CustomerHub.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.PartnerSync\bin\Fabrikam.EnterprisePizza.Business.CustomerHub.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.PartnerSync\obj\Debug\Fabrikam.EnterprisePizza.Services.PartnerSync.csproj.AssemblyReference.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.PartnerSync\obj\Debug\Fabrikam.EnterprisePizza.Services.PartnerSync.csproj.CoreCompileInputs.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.PartnerSync\obj\Debug\Fabrikam.BFC0A7A4.Up2Date
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.PartnerSync\obj\Debug\Fabrikam.EnterprisePizza.Services.PartnerSync.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.PartnerSync\obj\Debug\Fabrikam.EnterprisePizza.Services.PartnerSync.pdb

@@ -1,0 +1,11 @@
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\bin\Debug\Fabrikam.EnterprisePizza.Business.StoreOps.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\bin\Debug\Fabrikam.EnterprisePizza.Business.StoreOps.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\bin\Debug\Fabrikam.EnterprisePizza.Core.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\bin\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\bin\Debug\Fabrikam.EnterprisePizza.Core.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\bin\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\obj\Debug\Fabrikam.EnterprisePizza.Business.StoreOps.csproj.AssemblyReference.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\obj\Debug\Fabrikam.EnterprisePizza.Business.StoreOps.csproj.CoreCompileInputs.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\obj\Debug\Fabrikam.2732FFB7.Up2Date
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\obj\Debug\Fabrikam.EnterprisePizza.Business.StoreOps.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Business.StoreOps\obj\Debug\Fabrikam.EnterprisePizza.Business.StoreOps.pdb

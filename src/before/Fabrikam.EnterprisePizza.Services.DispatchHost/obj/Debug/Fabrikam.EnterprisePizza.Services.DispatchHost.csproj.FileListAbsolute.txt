@@ -1,0 +1,11 @@
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\bin\Fabrikam.EnterprisePizza.Services.DispatchHost.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\bin\Fabrikam.EnterprisePizza.Services.DispatchHost.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\bin\Fabrikam.EnterprisePizza.Business.StoreOps.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\bin\Fabrikam.EnterprisePizza.Shared.Contracts.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\bin\Fabrikam.EnterprisePizza.Business.StoreOps.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\bin\Fabrikam.EnterprisePizza.Shared.Contracts.pdb
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\obj\Debug\Fabrikam.EnterprisePizza.Services.DispatchHost.csproj.AssemblyReference.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\obj\Debug\Fabrikam.EnterprisePizza.Services.DispatchHost.csproj.CoreCompileInputs.cache
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\obj\Debug\Fabrikam.EE531874.Up2Date
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\obj\Debug\Fabrikam.EnterprisePizza.Services.DispatchHost.dll
+C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Services.DispatchHost\obj\Debug\Fabrikam.EnterprisePizza.Services.DispatchHost.pdb
