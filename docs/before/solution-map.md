@@ -4,7 +4,7 @@ The legacy solution is intentionally broad enough to demo modernization seams ac
 
 | Project | Type | Purpose |
 | --- | --- | --- |
-| `Fabrikam.EnterprisePizza.Core` | Class library | Shared domain models and low-level business primitives |
+| `Fabrikam.EnterprisePizza.Core` | Class library | Shared domain models, order-fulfillment policies, and Unity registration helpers |
 | `Fabrikam.EnterprisePizza.Shared.Contracts` | Class library | DTOs used by services and desktop tooling |
 | `Fabrikam.EnterprisePizza.Business.StoreOps` | Class library | Store dispatch, labor, and route orchestration |
 | `Fabrikam.EnterprisePizza.Business.CustomerHub` | Class library | Corporate accounts and partner workflow logic |

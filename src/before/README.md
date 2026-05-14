@@ -20,4 +20,4 @@ This folder holds the deliberately overgrown **before** solution for **Fabrikam 
 - `Fabrikam.EnterprisePizza.Reporting.Batch`
 - `Fabrikam.EnterprisePizza.Legacy.Tests` (NUnit)
 
-The scaffold intentionally mixes patterns and eras so the modernization story has visible seams: Web Forms and MVC side by side, WCF and ASMX still active, packages.config usage, Enterprise Library-era data access, and older ASP.NET Identity packages in the MVC storefront.
+The scaffold intentionally mixes patterns and eras so the modernization story has visible seams: Web Forms and MVC side by side, WCF and ASMX still active, packages.config usage, Unity/CommonServiceLocator composition in `Fabrikam.EnterprisePizza.Core`, Enterprise Library-era data access, and older ASP.NET Identity packages in the MVC storefront.
