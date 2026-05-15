@@ -16,4 +16,4 @@ Start with `data\sqlserver\before\deployment-guide.md` if you need the DBA-facin
 - `FabrikamPizza_CustomerHub`
 - `FabrikamPizza_Reporting`
 
-The split is intentionally uneven and batch-heavy: transactional store activity stays in StoreOps, customer and partner data drifts into CustomerHub, and finance and operational rollups land in Reporting after nightly ETL.
+The split is intentionally uneven and batch-heavy: store orders, dispatch, delivery routing, workforce alerts, and POS staging stay in StoreOps; customer and partner data drifts into CustomerHub; and finance and operational rollups land in Reporting after nightly ETL.

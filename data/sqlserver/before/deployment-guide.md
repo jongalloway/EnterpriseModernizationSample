@@ -6,7 +6,7 @@ This runbook covers the pre-migration SQL Server estate for **Fabrikam Enterpris
 
 ## Databases
 
-- `FabrikamPizza_StoreOps` - store dispatch, driver, route, and POS staging data
+- `FabrikamPizza_StoreOps` - store orders, dispatch tickets, delivery-zone bulletins, workforce alerts, driver, route, and POS staging data
 - `FabrikamPizza_CustomerHub` - corporate accounts, partner masters, and partner extract staging
 - `FabrikamPizza_Reporting` - nightly-fed delivery, labor, and partner rollups
 
