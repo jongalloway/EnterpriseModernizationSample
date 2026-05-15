@@ -17,8 +17,74 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM dbo.LaborDailySummary)
 BEGIN
-    INSERT INTO dbo.LaborDailySummary (StoreNumber, SummaryDate, DriverCount, ExceptionCount, OvertimeHours, LastLoadedUtc)
-    VALUES (N'014', CONVERT(DATE, GETUTCDATE()), 2, 1, 1.75, GETUTCDATE());
+    INSERT INTO dbo.LaborDailySummary
+    (
+        StoreNumber,
+        SummaryDate,
+        DriverCount,
+        ExceptionCount,
+        ScheduledHours,
+        WorkedHours,
+        OvertimeHours,
+        RegularLaborCost,
+        OvertimeLaborCost,
+        AgencyLaborCost,
+        NetSales,
+        LastLoadedUtc
+    )
+    VALUES (N'014', CONVERT(DATE, GETUTCDATE()), 2, 1, 164.00, 171.50, 7.50, 2448.00, 213.75, 96.00, 8200.00, GETUTCDATE());
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.LaborOvertimeWeeklySummary)
+BEGIN
+    INSERT INTO dbo.LaborOvertimeWeeklySummary
+    (
+        StoreNumber,
+        WeekEndingDate,
+        DriverOvertimeHours,
+        KitchenOvertimeHours,
+        ShiftLeadOvertimeHours,
+        LastLoadedUtc
+    )
+    VALUES
+        (N'014', DATEADD(DAY, -21, CONVERT(DATE, GETUTCDATE())), 5.00, 2.00, 1.00, GETUTCDATE()),
+        (N'014', DATEADD(DAY, -14, CONVERT(DATE, GETUTCDATE())), 4.50, 2.50, 1.25, GETUTCDATE()),
+        (N'014', DATEADD(DAY, -7, CONVERT(DATE, GETUTCDATE())), 5.75, 2.75, 1.50, GETUTCDATE()),
+        (N'014', CONVERT(DATE, GETUTCDATE()), 6.00, 3.00, 1.50, GETUTCDATE());
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.WorkforceTurnoverMonthlySummary)
+BEGIN
+    INSERT INTO dbo.WorkforceTurnoverMonthlySummary
+    (
+        StoreNumber,
+        SummaryMonth,
+        BeginningHeadcount,
+        HireCount,
+        SeparationCount,
+        EndingHeadcount,
+        LastLoadedUtc
+    )
+    VALUES (N'014', DATEFROMPARTS(YEAR(GETUTCDATE()), MONTH(GETUTCDATE()), 1), 27, 3, 2, 28, GETUTCDATE());
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.StaffingDailySummary)
+BEGIN
+    INSERT INTO dbo.StaffingDailySummary
+    (
+        StoreNumber,
+        SummaryDate,
+        ScheduledDriverSlots,
+        FilledDriverSlots,
+        OpenDriverSlots,
+        CrossTrainedTeamMembers,
+        CalloutCount,
+        LastLoadedUtc
+    )
+    VALUES (N'014', CONVERT(DATE, GETUTCDATE()), 18, 15, 3, 2, 1, GETUTCDATE());
 END
 GO
 

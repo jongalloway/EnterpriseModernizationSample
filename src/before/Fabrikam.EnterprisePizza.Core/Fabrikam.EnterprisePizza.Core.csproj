@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -51,6 +51,11 @@
     <Compile Include="Domain\FulfillmentLane.cs" />
     <Compile Include="Domain\OrderChannel.cs" />
     <Compile Include="Domain\OrderSummary.cs" />
+    <Compile Include="Domain\Reporting\LaborCostSummary.cs" />
+    <Compile Include="Domain\Reporting\OvertimeTrendPoint.cs" />
+    <Compile Include="Domain\Reporting\StaffingSummary.cs" />
+    <Compile Include="Domain\Reporting\TurnoverSummary.cs" />
+    <Compile Include="Domain\Reporting\WorkforceReportSnapshot.cs" />
     <Compile Include="Services\IBusinessClock.cs" />
     <Compile Include="Services\IOrderFulfillmentPolicy.cs" />
     <Compile Include="Services\LegacyOrderFulfillmentPolicy.cs" />

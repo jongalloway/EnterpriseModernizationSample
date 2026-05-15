@@ -50,7 +50,13 @@ BEGIN
         SummaryDate,
         DriverCount,
         ExceptionCount,
+        ScheduledHours,
+        WorkedHours,
         OvertimeHours,
+        RegularLaborCost,
+        OvertimeLaborCost,
+        AgencyLaborCost,
+        NetSales,
         LastLoadedUtc
     )
     SELECT
@@ -58,9 +64,18 @@ BEGIN
         @SummaryDate,
         ISNULL(driverSummary.DriverCount, 0),
         ISNULL(driverSummary.ExceptionCount, 0),
-        CAST(ISNULL(ticketSummary.TicketCount, 0) * 0.25 AS DECIMAL(9,2)),
+        pdi.ScheduledHours,
+        pdi.WorkedHours,
+        pdi.OvertimeHours,
+        pdi.RegularLaborCost,
+        pdi.OvertimeLaborCost,
+        pdi.AgencyLaborCost,
+        pdi.NetSales,
         GETUTCDATE()
     FROM [$(StoreOpsDatabase)].dbo.Store s
+    INNER JOIN [$(StoreOpsDatabase)].dbo.PayrollDailyImport pdi
+        ON pdi.StoreId = s.StoreId
+       AND pdi.WorkDate = @SummaryDate
     LEFT JOIN
     (
         SELECT
@@ -70,17 +85,93 @@ BEGIN
         FROM [$(StoreOpsDatabase)].dbo.Driver d
         GROUP BY d.StoreId
     ) driverSummary
-        ON driverSummary.StoreId = s.StoreId
-    LEFT JOIN
+        ON driverSummary.StoreId = s.StoreId;
+
+    DELETE FROM dbo.StaffingDailySummary
+    WHERE SummaryDate = @SummaryDate;
+
+    INSERT INTO dbo.StaffingDailySummary
     (
-        SELECT
-            dt.StoreId,
-            COUNT(*) AS TicketCount
-        FROM [$(StoreOpsDatabase)].dbo.DispatchTicket dt
-        WHERE CONVERT(DATE, dt.PromiseUtc) = @SummaryDate
-        GROUP BY dt.StoreId
-    ) ticketSummary
-        ON ticketSummary.StoreId = s.StoreId
+        StoreNumber,
+        SummaryDate,
+        ScheduledDriverSlots,
+        FilledDriverSlots,
+        OpenDriverSlots,
+        CrossTrainedTeamMembers,
+        CalloutCount,
+        LastLoadedUtc
+    )
+    SELECT
+        s.StoreNumber,
+        @SummaryDate,
+        pdi.ScheduledDriverSlots,
+        pdi.FilledDriverSlots,
+        pdi.OpenDriverSlots,
+        pdi.CrossTrainedTeamMembers,
+        pdi.CalloutCount,
+        GETUTCDATE()
+    FROM [$(StoreOpsDatabase)].dbo.Store s
+    INNER JOIN [$(StoreOpsDatabase)].dbo.PayrollDailyImport pdi
+        ON pdi.StoreId = s.StoreId
+       AND pdi.WorkDate = @SummaryDate;
+
+    DELETE target
+    FROM dbo.LaborOvertimeWeeklySummary target
+    INNER JOIN [$(StoreOpsDatabase)].dbo.PayrollOvertimeWeeklyImport source
+        ON source.WeekEndingDate = target.WeekEndingDate
+    INNER JOIN [$(StoreOpsDatabase)].dbo.Store storeMap
+        ON storeMap.StoreId = source.StoreId
+       AND storeMap.StoreNumber = target.StoreNumber;
+
+    INSERT INTO dbo.LaborOvertimeWeeklySummary
+    (
+        StoreNumber,
+        WeekEndingDate,
+        DriverOvertimeHours,
+        KitchenOvertimeHours,
+        ShiftLeadOvertimeHours,
+        LastLoadedUtc
+    )
+    SELECT
+        s.StoreNumber,
+        powi.WeekEndingDate,
+        powi.DriverOvertimeHours,
+        powi.KitchenOvertimeHours,
+        powi.ShiftLeadOvertimeHours,
+        GETUTCDATE()
+    FROM [$(StoreOpsDatabase)].dbo.PayrollOvertimeWeeklyImport powi
+    INNER JOIN [$(StoreOpsDatabase)].dbo.Store s
+        ON s.StoreId = powi.StoreId;
+
+    DELETE target
+    FROM dbo.WorkforceTurnoverMonthlySummary target
+    INNER JOIN [$(StoreOpsDatabase)].dbo.PayrollTurnoverMonthlyImport source
+        ON source.SummaryMonth = target.SummaryMonth
+    INNER JOIN [$(StoreOpsDatabase)].dbo.Store storeMap
+        ON storeMap.StoreId = source.StoreId
+       AND storeMap.StoreNumber = target.StoreNumber;
+
+    INSERT INTO dbo.WorkforceTurnoverMonthlySummary
+    (
+        StoreNumber,
+        SummaryMonth,
+        BeginningHeadcount,
+        HireCount,
+        SeparationCount,
+        EndingHeadcount,
+        LastLoadedUtc
+    )
+    SELECT
+        s.StoreNumber,
+        ptmi.SummaryMonth,
+        ptmi.BeginningHeadcount,
+        ptmi.HireCount,
+        ptmi.SeparationCount,
+        ptmi.EndingHeadcount,
+        GETUTCDATE()
+    FROM [$(StoreOpsDatabase)].dbo.PayrollTurnoverMonthlyImport ptmi
+    INNER JOIN [$(StoreOpsDatabase)].dbo.Store s
+        ON s.StoreId = ptmi.StoreId;
 END
 GO
 
@@ -162,7 +253,8 @@ BEGIN
 
     UPDATE dbo.ReportingBatchRun
     SET CompletedUtc = GETUTCDATE(),
-        RunStatus = N'Complete'
+        RunStatus = N'Complete',
+        Notes = N'Nightly rebuild refreshed delivery, labor, overtime, turnover, staffing, and partner summaries.'
     WHERE ReportingBatchRunId = @ReportingBatchRunId;
 END
 GO

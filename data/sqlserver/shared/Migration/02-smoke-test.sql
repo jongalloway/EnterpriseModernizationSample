@@ -13,6 +13,18 @@ EXEC [$(StoreOpsDatabase)].dbo.usp_DispatchBoard_GetActiveTickets @StoreNumber =
 PRINT 'Smoke test: reporting dashboard';
 EXEC [$(ReportingDatabase)].dbo.usp_DeliveryDashboard_GetDailySummary @StoreNumber = N'014', @SummaryDate = NULL;
 
+PRINT 'Smoke test: labor cost';
+EXEC [$(ReportingDatabase)].dbo.usp_WorkforceReports_GetLaborCostSummary @StoreNumber = N'014', @SummaryDate = NULL;
+
+PRINT 'Smoke test: overtime trend';
+EXEC [$(ReportingDatabase)].dbo.usp_WorkforceReports_GetOvertimeTrend @StoreNumber = N'014', @WeeksBack = 4;
+
+PRINT 'Smoke test: turnover summary';
+EXEC [$(ReportingDatabase)].dbo.usp_WorkforceReports_GetTurnoverSummary @StoreNumber = N'014', @SummaryMonth = NULL;
+
+PRINT 'Smoke test: staffing summary';
+EXEC [$(ReportingDatabase)].dbo.usp_WorkforceReports_GetStaffingSummary @StoreNumber = N'014', @SummaryDate = NULL;
+
 SELECT 'StoreOps deployment history' AS CheckName, COUNT(*) AS RowCount
 FROM [$(StoreOpsDatabase)].dbo.DatabaseDeploymentHistory
 UNION ALL

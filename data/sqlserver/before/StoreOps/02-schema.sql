@@ -90,6 +90,67 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID(N'dbo.PayrollDailyImport', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.PayrollDailyImport
+    (
+        PayrollDailyImportId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreId INT NOT NULL,
+        WorkDate DATE NOT NULL,
+        ScheduledHours DECIMAL(9,2) NOT NULL,
+        WorkedHours DECIMAL(9,2) NOT NULL,
+        OvertimeHours DECIMAL(9,2) NOT NULL,
+        RegularLaborCost MONEY NOT NULL,
+        OvertimeLaborCost MONEY NOT NULL,
+        AgencyLaborCost MONEY NOT NULL,
+        ScheduledDriverSlots INT NOT NULL,
+        FilledDriverSlots INT NOT NULL,
+        OpenDriverSlots INT NOT NULL,
+        CrossTrainedTeamMembers INT NOT NULL,
+        CalloutCount INT NOT NULL,
+        NetSales MONEY NOT NULL,
+        ImportedUtc DATETIME NOT NULL CONSTRAINT DF_PayrollDailyImport_ImportedUtc DEFAULT (GETUTCDATE())
+    );
+
+    CREATE UNIQUE INDEX UX_PayrollDailyImport_Store_WorkDate ON dbo.PayrollDailyImport (StoreId, WorkDate);
+END
+GO
+
+IF OBJECT_ID(N'dbo.PayrollOvertimeWeeklyImport', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.PayrollOvertimeWeeklyImport
+    (
+        PayrollOvertimeWeeklyImportId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreId INT NOT NULL,
+        WeekEndingDate DATE NOT NULL,
+        DriverOvertimeHours DECIMAL(9,2) NOT NULL,
+        KitchenOvertimeHours DECIMAL(9,2) NOT NULL,
+        ShiftLeadOvertimeHours DECIMAL(9,2) NOT NULL,
+        ImportedUtc DATETIME NOT NULL CONSTRAINT DF_PayrollOvertimeWeeklyImport_ImportedUtc DEFAULT (GETUTCDATE())
+    );
+
+    CREATE UNIQUE INDEX UX_PayrollOvertimeWeeklyImport_Store_WeekEndingDate ON dbo.PayrollOvertimeWeeklyImport (StoreId, WeekEndingDate);
+END
+GO
+
+IF OBJECT_ID(N'dbo.PayrollTurnoverMonthlyImport', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.PayrollTurnoverMonthlyImport
+    (
+        PayrollTurnoverMonthlyImportId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreId INT NOT NULL,
+        SummaryMonth DATE NOT NULL,
+        BeginningHeadcount INT NOT NULL,
+        HireCount INT NOT NULL,
+        SeparationCount INT NOT NULL,
+        EndingHeadcount INT NOT NULL,
+        ImportedUtc DATETIME NOT NULL CONSTRAINT DF_PayrollTurnoverMonthlyImport_ImportedUtc DEFAULT (GETUTCDATE())
+    );
+
+    CREATE UNIQUE INDEX UX_PayrollTurnoverMonthlyImport_Store_SummaryMonth ON dbo.PayrollTurnoverMonthlyImport (StoreId, SummaryMonth);
+END
+GO
+
 IF OBJECT_ID(N'dbo.PartnerAccountCache', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.PartnerAccountCache
@@ -155,6 +216,33 @@ IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_PosOrderImportBa
 BEGIN
     ALTER TABLE dbo.PosOrderImportBatch
         ADD CONSTRAINT FK_PosOrderImportBatch_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_PayrollDailyImport_Store')
+BEGIN
+    ALTER TABLE dbo.PayrollDailyImport
+        ADD CONSTRAINT FK_PayrollDailyImport_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_PayrollOvertimeWeeklyImport_Store')
+BEGIN
+    ALTER TABLE dbo.PayrollOvertimeWeeklyImport
+        ADD CONSTRAINT FK_PayrollOvertimeWeeklyImport_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_PayrollTurnoverMonthlyImport_Store')
+BEGIN
+    ALTER TABLE dbo.PayrollTurnoverMonthlyImport
+        ADD CONSTRAINT FK_PayrollTurnoverMonthlyImport_Store
         FOREIGN KEY (StoreId)
         REFERENCES dbo.Store (StoreId);
 END

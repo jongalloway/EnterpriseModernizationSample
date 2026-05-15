@@ -59,6 +59,76 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT 1 FROM dbo.PayrollDailyImport)
+BEGIN
+    INSERT INTO dbo.PayrollDailyImport
+    (
+        StoreId,
+        WorkDate,
+        ScheduledHours,
+        WorkedHours,
+        OvertimeHours,
+        RegularLaborCost,
+        OvertimeLaborCost,
+        AgencyLaborCost,
+        ScheduledDriverSlots,
+        FilledDriverSlots,
+        OpenDriverSlots,
+        CrossTrainedTeamMembers,
+        CalloutCount,
+        NetSales
+    )
+    SELECT StoreId, CONVERT(DATE, GETUTCDATE()), 164.00, 171.50, 7.50, 2448.00, 213.75, 96.00, 18, 15, 3, 2, 1, 8200.00
+    FROM dbo.Store
+    WHERE StoreNumber = N'014'
+    UNION ALL
+    SELECT StoreId, CONVERT(DATE, GETUTCDATE()), 118.00, 120.50, 2.50, 1711.00, 68.25, 0.00, 12, 11, 1, 1, 0, 5940.00
+    FROM dbo.Store
+    WHERE StoreNumber = N'022';
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.PayrollOvertimeWeeklyImport)
+BEGIN
+    INSERT INTO dbo.PayrollOvertimeWeeklyImport
+    (
+        StoreId,
+        WeekEndingDate,
+        DriverOvertimeHours,
+        KitchenOvertimeHours,
+        ShiftLeadOvertimeHours
+    )
+    SELECT StoreId, DATEADD(DAY, -21, CONVERT(DATE, GETUTCDATE())), 5.00, 2.00, 1.00 FROM dbo.Store WHERE StoreNumber = N'014'
+    UNION ALL
+    SELECT StoreId, DATEADD(DAY, -14, CONVERT(DATE, GETUTCDATE())), 4.50, 2.50, 1.25 FROM dbo.Store WHERE StoreNumber = N'014'
+    UNION ALL
+    SELECT StoreId, DATEADD(DAY, -7, CONVERT(DATE, GETUTCDATE())), 5.75, 2.75, 1.50 FROM dbo.Store WHERE StoreNumber = N'014'
+    UNION ALL
+    SELECT StoreId, CONVERT(DATE, GETUTCDATE()), 6.00, 3.00, 1.50 FROM dbo.Store WHERE StoreNumber = N'014'
+    UNION ALL
+    SELECT StoreId, DATEADD(DAY, -7, CONVERT(DATE, GETUTCDATE())), 2.00, 1.50, 0.50 FROM dbo.Store WHERE StoreNumber = N'022'
+    UNION ALL
+    SELECT StoreId, CONVERT(DATE, GETUTCDATE()), 2.25, 1.25, 0.50 FROM dbo.Store WHERE StoreNumber = N'022';
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.PayrollTurnoverMonthlyImport)
+BEGIN
+    INSERT INTO dbo.PayrollTurnoverMonthlyImport
+    (
+        StoreId,
+        SummaryMonth,
+        BeginningHeadcount,
+        HireCount,
+        SeparationCount,
+        EndingHeadcount
+    )
+    SELECT StoreId, DATEFROMPARTS(YEAR(GETUTCDATE()), MONTH(GETUTCDATE()), 1), 27, 3, 2, 28 FROM dbo.Store WHERE StoreNumber = N'014'
+    UNION ALL
+    SELECT StoreId, DATEFROMPARTS(YEAR(GETUTCDATE()), MONTH(GETUTCDATE()), 1), 19, 1, 1, 19 FROM dbo.Store WHERE StoreNumber = N'022';
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM dbo.DatabaseDeploymentHistory WHERE ScriptName = N'StoreOps\03-seed-data.sql')
 BEGIN
     INSERT INTO dbo.DatabaseDeploymentHistory (ScriptName)

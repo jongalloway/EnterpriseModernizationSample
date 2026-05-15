@@ -47,7 +47,13 @@ BEGIN
         SummaryDate DATE NOT NULL,
         DriverCount INT NOT NULL,
         ExceptionCount INT NOT NULL,
+        ScheduledHours DECIMAL(9,2) NOT NULL,
+        WorkedHours DECIMAL(9,2) NOT NULL,
         OvertimeHours DECIMAL(9,2) NOT NULL,
+        RegularLaborCost MONEY NOT NULL,
+        OvertimeLaborCost MONEY NOT NULL,
+        AgencyLaborCost MONEY NOT NULL,
+        NetSales MONEY NOT NULL,
         LastLoadedUtc DATETIME NOT NULL CONSTRAINT DF_LaborDailySummary_LastLoadedUtc DEFAULT (GETUTCDATE())
     );
 
@@ -55,20 +61,57 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID(N'dbo.PartnerProfitabilitySummary', N'U') IS NULL
+IF OBJECT_ID(N'dbo.LaborOvertimeWeeklySummary', N'U') IS NULL
 BEGIN
-    CREATE TABLE dbo.PartnerProfitabilitySummary
+    CREATE TABLE dbo.LaborOvertimeWeeklySummary
     (
-        PartnerProfitabilitySummaryId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-        PartnerCode NVARCHAR(20) NOT NULL,
-        SummaryDate DATE NOT NULL,
-        DeliveredOrders INT NOT NULL,
-        GrossSales MONEY NOT NULL,
-        FeePercentage DECIMAL(5,2) NOT NULL,
-        LastLoadedUtc DATETIME NOT NULL CONSTRAINT DF_PartnerProfitabilitySummary_LastLoadedUtc DEFAULT (GETUTCDATE())
+        LaborOvertimeWeeklySummaryId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreNumber NVARCHAR(10) NOT NULL,
+        WeekEndingDate DATE NOT NULL,
+        DriverOvertimeHours DECIMAL(9,2) NOT NULL,
+        KitchenOvertimeHours DECIMAL(9,2) NOT NULL,
+        ShiftLeadOvertimeHours DECIMAL(9,2) NOT NULL,
+        LastLoadedUtc DATETIME NOT NULL CONSTRAINT DF_LaborOvertimeWeeklySummary_LastLoadedUtc DEFAULT (GETUTCDATE())
     );
 
-    CREATE UNIQUE INDEX UX_PartnerProfitabilitySummary_Code_Date ON dbo.PartnerProfitabilitySummary (PartnerCode, SummaryDate);
+    CREATE UNIQUE INDEX UX_LaborOvertimeWeeklySummary_Store_WeekEndingDate ON dbo.LaborOvertimeWeeklySummary (StoreNumber, WeekEndingDate);
+END
+GO
+
+IF OBJECT_ID(N'dbo.WorkforceTurnoverMonthlySummary', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.WorkforceTurnoverMonthlySummary
+    (
+        WorkforceTurnoverMonthlySummaryId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreNumber NVARCHAR(10) NOT NULL,
+        SummaryMonth DATE NOT NULL,
+        BeginningHeadcount INT NOT NULL,
+        HireCount INT NOT NULL,
+        SeparationCount INT NOT NULL,
+        EndingHeadcount INT NOT NULL,
+        LastLoadedUtc DATETIME NOT NULL CONSTRAINT DF_WorkforceTurnoverMonthlySummary_LastLoadedUtc DEFAULT (GETUTCDATE())
+    );
+
+    CREATE UNIQUE INDEX UX_WorkforceTurnoverMonthlySummary_Store_Month ON dbo.WorkforceTurnoverMonthlySummary (StoreNumber, SummaryMonth);
+END
+GO
+
+IF OBJECT_ID(N'dbo.StaffingDailySummary', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.StaffingDailySummary
+    (
+        StaffingDailySummaryId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreNumber NVARCHAR(10) NOT NULL,
+        SummaryDate DATE NOT NULL,
+        ScheduledDriverSlots INT NOT NULL,
+        FilledDriverSlots INT NOT NULL,
+        OpenDriverSlots INT NOT NULL,
+        CrossTrainedTeamMembers INT NOT NULL,
+        CalloutCount INT NOT NULL,
+        LastLoadedUtc DATETIME NOT NULL CONSTRAINT DF_StaffingDailySummary_LastLoadedUtc DEFAULT (GETUTCDATE())
+    );
+
+    CREATE UNIQUE INDEX UX_StaffingDailySummary_Store_Date ON dbo.StaffingDailySummary (StoreNumber, SummaryDate);
 END
 GO
 
