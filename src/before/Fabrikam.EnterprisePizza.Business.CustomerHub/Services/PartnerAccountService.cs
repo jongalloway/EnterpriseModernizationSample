@@ -1,17 +1,26 @@
+using System;
 using System.Collections.Generic;
+using Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub;
 
 namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
 {
-    public class PartnerAccountService
+    public class PartnerAccountService : IPartnerAccountService
     {
+        private readonly IPartnerAccountRepository _partnerAccountRepository;
+
+        public PartnerAccountService()
+            : this(new PartnerAccountRepository())
+        {
+        }
+
+        public PartnerAccountService(IPartnerAccountRepository partnerAccountRepository)
+        {
+            _partnerAccountRepository = partnerAccountRepository ?? throw new ArgumentNullException(nameof(partnerAccountRepository));
+        }
+
         public IList<string> GetPreferredPartners()
         {
-            return new List<string>
-            {
-                "Contoso Office Parks",
-                "Northwind Youth Sports League",
-                "Adventure Works Bike Expo"
-            };
+            return _partnerAccountRepository.GetPreferredPartners();
         }
     }
 }
