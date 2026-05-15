@@ -24,6 +24,8 @@ Hudson owns regression thinking, repro detail, and reviewer enforcement for the 
 - 2026-05-14T15:35:48.472+02:00 — Service endpoint smoke coverage in `src\before\Fabrikam.EnterprisePizza.Legacy.Tests` is more believable when it checks the web-host files (`StoreDispatchService.svc`, `PartnerSync.asmx`) and `web.config` transport settings alongside the stubbed service payloads.
 - 2026-05-14T15:35:48.472+02:00 — Legacy NUnit smoke tests can safely locate `src\before` at runtime by walking up from `AppDomain.CurrentDomain.BaseDirectory` until `Fabrikam.EnterprisePizza.Legacy.sln` is found, which keeps file-based assertions stable across runner locations.
 - 2026-05-14T15:35:48.472+02:00 — In this repo, `packages.config` NUnit restores land in the user-level NuGet cache during CLI builds, so old-style test projects need a fallback `HintPath` to `$(USERPROFILE)\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll` if the legacy `src\before\packages` folder is absent.
+- 2026-05-15T08:40:39.286+02:00 — Issue #40 is best unblocked by restoring `src\before\Fabrikam.EnterprisePizza.Legacy.sln`, then running old-style NUnit assemblies with `dotnet vstest` plus `NUnit3TestAdapter`; the reusable entry point now lives in `scripts\Invoke-LegacyNUnit.ps1`, and the CI workflow is `.github\workflows\legacy-nunit-tests.yml`.
+- 2026-05-15T08:40:39.286+02:00 — `Fabrikam.EnterprisePizza.Tests.Unit` is a reliable foundation for follow-on issues #41 and #42 once `NUnit3TestAdapter` 4.5.0 is restored, but `Fabrikam.EnterprisePizza.Legacy.Tests` still fails under a real runner until the service-host paths initialize `LegacyServiceLocator` outside `Global.asax`.
 
 ## 2026-05-14: Ripley Workitem Setup Complete
 
