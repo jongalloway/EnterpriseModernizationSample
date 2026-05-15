@@ -30,13 +30,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DispatchBoardAppSettings.cs" />
     <Compile Include="DispatchBoardForm.cs" />
+    <Compile Include="DispatchBoardSettings.cs" />
+    <Compile Include="DispatchBoardSettingsForm.cs" />
+    <Compile Include="DriverAssignmentForm.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RoutePlanningForm.cs" />
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

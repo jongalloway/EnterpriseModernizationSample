@@ -74,6 +74,7 @@ notepad 00-set-environment.cmd
 - Migration procedures deliberately keep cross-database plumbing visible. CustomerHub builds a partner extract, StoreOps refreshes its local partner cache from that extract, and Reporting rebuilds daily snapshots from both operational databases.
 - The command wrappers are thin on purpose: a shared helper loads the environment file, passes SQLCMD variables once, picks integrated or SQL authentication, and then gets out of the way.
 - Wrapper-provided `-v` values are now the authoritative variable source; the `.sql` entry points only keep commented sample `:setvar` lines for manual SSMS runs so there is no confusion about which value wins.
+- CustomerHub keeps a rolling partner extract history instead of letting the staging table grow forever, and StoreOps treats the current batch as the full active-partner picture so inactive or removed partners fall back out of cache on the next sync.
 
 ## Operational cadence
 
