@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using Fabrikam.EnterprisePizza.Business.StoreOps.Services;
+using Fabrikam.EnterprisePizza.Data.Repositories.StoreOps;
+using Fabrikam.EnterprisePizza.Shared.Contracts.Routing;
 using NUnit.Framework;
 
 namespace Fabrikam.EnterprisePizza.Tests.Unit.Services
@@ -21,11 +24,13 @@ namespace Fabrikam.EnterprisePizza.Tests.Unit.Services
         [Test]
         public void GetOrderLookupRecords_normalizes_store_number_to_uppercase()
         {
-            var service = new StoreOperationsWorkbenchService();
+            var dispatchTicketRepository = new StubDispatchTicketRepository();
+            var service = new StoreOperationsWorkbenchService(new DispatchCoordinator(dispatchTicketRepository));
 
-            var records = service.GetOrderLookupRecords("031");
+            var records = service.GetOrderLookupRecords("  a31 ");
 
-            Assert.That(records.Select(r => r.StoreNumber), Is.All.EqualTo("031"));
+            Assert.That(dispatchTicketRepository.LastStoreNumber, Is.EqualTo("A31"));
+            Assert.That(records.Select(r => r.StoreNumber), Is.All.EqualTo("A31"));
         }
 
         [TestCase(null)]
@@ -129,6 +134,26 @@ namespace Fabrikam.EnterprisePizza.Tests.Unit.Services
             var records = service.GetStoreManagementRecords();
 
             Assert.That(records.Select(r => r.DispatchTerminalId), Has.All.Matches<string>(id => id.StartsWith("TERM-")));
+        }
+
+        private sealed class StubDispatchTicketRepository : IDispatchTicketRepository
+        {
+            public string LastStoreNumber { get; private set; }
+
+            public IList<DispatchTicket> GetActiveTickets(string storeNumber)
+            {
+                LastStoreNumber = storeNumber;
+                return new List<DispatchTicket>
+                {
+                    new DispatchTicket
+                    {
+                        TicketId = 12,
+                        StoreNumber = storeNumber,
+                        DriverCode = "DRV-12",
+                        RouteZone = "North"
+                    }
+                };
+            }
         }
     }
 }

@@ -52,12 +52,13 @@ namespace Fabrikam.EnterprisePizza.Tests.Unit.Services
         [Test]
         public void GetSnapshot_propagates_overtime_trend_points()
         {
-            var stub = new StubWorkforceReportRepository { OvertimeTrendWeeksToReturn = 4 };
+            var stub = new StubWorkforceReportRepository();
             var service = new WorkforceReportingService(stub);
 
             var snapshot = service.GetSnapshot("014", SummaryDate);
 
             Assert.That(snapshot.OvertimeTrend, Has.Count.EqualTo(4));
+            Assert.That(stub.LastOvertimeTrendWeeksBack, Is.EqualTo(4));
         }
 
         [Test]
@@ -79,7 +80,7 @@ namespace Fabrikam.EnterprisePizza.Tests.Unit.Services
 
         private sealed class StubWorkforceReportRepository : IWorkforceReportRepository
         {
-            public int OvertimeTrendWeeksToReturn { get; set; } = 4;
+            public int LastOvertimeTrendWeeksBack { get; private set; }
             public DateTime LastTurnoverMonth { get; private set; }
 
             public LaborCostSummary GetLaborCostSummary(string storeNumber, DateTime summaryDate)
@@ -101,6 +102,7 @@ namespace Fabrikam.EnterprisePizza.Tests.Unit.Services
 
             public IList<OvertimeTrendPoint> GetOvertimeTrend(string storeNumber, int weeksBack)
             {
+                LastOvertimeTrendWeeksBack = weeksBack;
                 var points = new List<OvertimeTrendPoint>();
                 for (int i = 0; i < weeksBack; i++)
                 {
