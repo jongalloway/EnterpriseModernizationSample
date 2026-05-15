@@ -7,7 +7,7 @@ This runbook covers the pre-migration SQL Server estate for **Fabrikam Enterpris
 ## Databases
 
 - `FabrikamPizza_StoreOps` - store orders, dispatch tickets, delivery-zone bulletins, workforce alerts, driver, route, and POS staging data
-- `FabrikamPizza_CustomerHub` - corporate accounts, partner masters, and partner extract staging
+- `FabrikamPizza_CustomerHub` - corporate accounts, franchise masters, contract pricing, and partner extract staging
 - `FabrikamPizza_Reporting` - nightly-fed delivery, labor, and partner rollups
 
 ## Prerequisites
@@ -70,7 +70,7 @@ notepad 00-set-environment.cmd
 ## What the scripts do
 
 - Each database gets an idempotent create script, a schema script, seed data, service procedures, and migration procedures.
-- Service procedures line up with the legacy application seams: dispatch board reads from StoreOps, preferred partner lists read from CustomerHub, and dashboard summaries read from Reporting.
+- Service procedures line up with the legacy application seams: dispatch board reads from StoreOps, preferred partner lists and contract lookups read from CustomerHub, and dashboard summaries read from Reporting.
 - Migration procedures deliberately keep cross-database plumbing visible. CustomerHub builds a partner extract, StoreOps refreshes its local partner cache from that extract, and Reporting rebuilds daily snapshots from both operational databases.
 - The command wrappers are thin on purpose: a shared helper loads the environment file, passes SQLCMD variables once, picks integrated or SQL authentication, and then gets out of the way.
 - Wrapper-provided `-v` values are now the authoritative variable source; the `.sql` entry points only keep commented sample `:setvar` lines for manual SSMS runs so there is no confusion about which value wins.
