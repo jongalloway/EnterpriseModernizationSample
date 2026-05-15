@@ -1,6 +1,8 @@
-:setvar StoreOpsDatabase FabrikamPizza_StoreOps
-:setvar CustomerHubDatabase FabrikamPizza_CustomerHub
-:setvar ReportingDatabase FabrikamPizza_Reporting
+:on error exit
+-- SQLCMD variable samples for manual SSMS runs:
+-- :setvar StoreOpsDatabase FabrikamPizza_StoreOps
+-- :setvar CustomerHubDatabase FabrikamPizza_CustomerHub
+-- :setvar ReportingDatabase FabrikamPizza_Reporting
 
 PRINT 'Smoke test: preferred partners';
 EXEC [$(CustomerHubDatabase)].dbo.usp_CorporateAccounts_GetPreferredPartners;

@@ -56,6 +56,9 @@ Vasquez owns the service and data layers that make the sample feel like a long-r
 - 2026-05-14T15:35:48.472+02:00: Package the SQL estate as numbered per-database SQLCMD scripts plus shared orchestration files so deployment order and cross-database seams stay visible.
 - 2026-05-14T15:35:48.472+02:00: Keep service-facing procedure names aligned with StoreOps dispatch reads, CustomerHub partner reads, and Reporting dashboard reads so later DAL work has a believable contract to target.
 - 2026-05-14T15:35:48.472+02:00: Key database deployment files now live under `data\sqlserver\before\Deploy\00-deploy-all.sql`, `data\sqlserver\shared\Migration\01-run-nightly-sync.sql`, and `data\sqlserver\before\deployment-guide.md`.
+- 2026-05-14T15:35:48.472+02:00: The deployment story lands better when the SQLCMD stack is paired with thin `.cmd` wrappers, a copied environment template, and a separate audit script instead of telling operators to edit SQL headers by hand every time.
+- 2026-05-14T15:35:48.472+02:00: Key issue #50 files are `data\sqlserver\before\Deploy\01-deploy-all.cmd`, `data\sqlserver\before\Deploy\00-set-environment.sample.cmd`, and `data\sqlserver\shared\Migration\03-deployment-audit.sql`.
+- 2026-05-15T03:18:24.845+02:00: Keep `data\sqlserver\before\Deploy\00-deploy-all.sql` on commented sample `:setvar` lines so wrapper-supplied `-v` values stay authoritative, then spell out manual `DeployRoot` handling in `data\sqlserver\before\README.md` and `data\sqlserver\before\deployment-guide.md`.
 ## 2026-05-14: Ripley Workitem Setup Complete
 
 Your Phases 2-3, 5, and 8 issues (Data/DAL, Services, Reporting) are routed with 'squad:vasquez' label. Phase 2-3 gates downstream; can parallelize after Phase 1 ~50% complete.

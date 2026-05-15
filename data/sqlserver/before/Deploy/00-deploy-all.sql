@@ -1,9 +1,14 @@
-:setvar StoreOpsDatabase FabrikamPizza_StoreOps
-:setvar CustomerHubDatabase FabrikamPizza_CustomerHub
-:setvar ReportingDatabase FabrikamPizza_Reporting
-:setvar DeployRoot .
+:on error exit
+-- SQLCMD variable samples for manual SSMS runs:
+-- :setvar StoreOpsDatabase FabrikamPizza_StoreOps
+-- :setvar CustomerHubDatabase FabrikamPizza_CustomerHub
+-- :setvar ReportingDatabase FabrikamPizza_Reporting
+-- :setvar DeployRoot C:\path\to\data\sqlserver\before\Deploy
 
 PRINT 'Deploying Fabrikam Enterprise Pizza legacy databases.';
+PRINT 'StoreOps database: $(StoreOpsDatabase)';
+PRINT 'CustomerHub database: $(CustomerHubDatabase)';
+PRINT 'Reporting database: $(ReportingDatabase)';
 
 :r "$(DeployRoot)\..\CustomerHub\01-create-database.sql"
 :r "$(DeployRoot)\..\CustomerHub\02-schema.sql"
