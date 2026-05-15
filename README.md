@@ -23,4 +23,6 @@ Why this works:
 Directory guide files live at `docs\README.md`, `docs\foundation\README.md`, `src\README.md`, and `data\sqlserver\README.md` so downstream work can extend the structure without guessing where material belongs.
 
 See `docs\foundation\enterprise-scenario.md` for the selected scenario brief, 2005-era domain details, and repository framing that set this direction.
+See `docs\before\solution-architecture.md` for the current legacy topology, project boundaries, and modernization roadmap.
+The canonical legacy solution entry point is `src\before\Fabrikam.EnterprisePizza.Legacy.sln`; the repository does not maintain a sibling `.slnx` file.
 For the legacy DBA deployment story, start at `data\sqlserver\before\deployment-guide.md`.

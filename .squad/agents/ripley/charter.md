@@ -29,6 +29,10 @@
 
 **When I'm unsure:** I say which specialist should take the next pass.
 
+## PR Review Policy
+
+**All PRs must assign Copilot for review immediately upon creation.** Use `--add-reviewer "@copilot"` in the `gh pr create` command. Copilot provides advisory review; squad members retain approval authority.
+
 ## Model
 
 - **Preferred:** auto
