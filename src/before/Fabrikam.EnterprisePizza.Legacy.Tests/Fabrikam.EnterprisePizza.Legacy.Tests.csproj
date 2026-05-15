@@ -45,6 +45,7 @@
     <Compile Include="IntegrationStubs\ScenarioStub.cs" />
     <Compile Include="SmokeTests\DispatchCoordinatorFixture.cs" />
     <Compile Include="SmokeTests\WorkforceReportingFixture.cs" />
+    <Compile Include="SmokeTests\StoreOperationsWorkbenchServiceFixture.cs" />
     <Compile Include="SmokeTests\LegacyServiceSmokePaths.cs" />
     <Compile Include="SmokeTests\LegacyDbGatewayFixture.cs" />
     <Compile Include="SmokeTests\NightlyPosImportJobFixture.cs" />

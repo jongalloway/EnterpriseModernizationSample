@@ -20,4 +20,7 @@ Why this works:
 - `src\after\` — migrated services, web apps, workers, and shared components
 - `data\sqlserver\` — SQL Server scripts, schema notes, and sample database assets
 
+Directory guide files live at `docs\README.md`, `docs\foundation\README.md`, `src\README.md`, and `data\sqlserver\README.md` so downstream work can extend the structure without guessing where material belongs.
+
 See `docs\foundation\enterprise-scenario.md` for the selected scenario brief, 2005-era domain details, and repository framing that set this direction.
+For the legacy DBA deployment story, start at `data\sqlserver\before\deployment-guide.md`.

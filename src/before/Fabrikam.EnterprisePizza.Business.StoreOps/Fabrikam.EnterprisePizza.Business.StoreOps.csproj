@@ -36,6 +36,7 @@
     <Compile Include="Services\DispatchCoordinator.cs" />
     <Compile Include="Services\IWorkforceReportingService.cs" />
     <Compile Include="Services\WorkforceReportingService.cs" />
+    <Compile Include="Services\StoreOperationsWorkbenchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Core\Fabrikam.EnterprisePizza.Core.csproj">

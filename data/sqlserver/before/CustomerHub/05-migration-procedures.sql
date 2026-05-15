@@ -6,7 +6,8 @@ IF OBJECT_ID(N'dbo.usp_PartnerSync_BuildStoreOpsExtract', N'P') IS NOT NULL
 GO
 
 CREATE PROCEDURE dbo.usp_PartnerSync_BuildStoreOpsExtract
-    @SyncBatchId UNIQUEIDENTIFIER OUTPUT
+    @SyncBatchId UNIQUEIDENTIFIER OUTPUT,
+    @ExtractRetentionDays INT = 14
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -14,6 +15,11 @@ BEGIN
     IF @SyncBatchId IS NULL
     BEGIN
         SET @SyncBatchId = NEWID();
+    END
+
+    IF @ExtractRetentionDays IS NULL OR @ExtractRetentionDays < 0
+    BEGIN
+        SET @ExtractRetentionDays = 14;
     END
 
     DELETE FROM dbo.PartnerAccountExtract
@@ -35,6 +41,10 @@ BEGIN
         pa.PreferredStoreNumber
     FROM dbo.PartnerAccount pa
     WHERE pa.StatusCode = N'Active';
+
+    DELETE FROM dbo.PartnerAccountExtract
+    WHERE SyncBatchId <> @SyncBatchId
+      AND ExtractedUtc < DATEADD(DAY, @ExtractRetentionDays * -1, GETUTCDATE());
 END
 GO
 

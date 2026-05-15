@@ -16,18 +16,23 @@ Use this when a legacy .NET sample needs database deployment assets that feel li
 - Keep deployment orchestration in SQLCMD include scripts so operators can see the order of operations instead of hiding it behind a generated tool.
 - Put cross-database movement behind stored procedures and a shared orchestration script; do not pretend the legacy estate had event-driven elegance.
 - Add a simple deployment-history table per database so reruns and smoke checks have something concrete to inspect.
+- Add thin `.cmd` wrappers plus a checked-in environment template when you want the deployment story to feel like a DBA runbook instead of a developer-only folder of loose SQL files.
 - Keep reporting batch-fed by rebuild procedures, not live operational joins from application code.
 
 ## Examples
 
 - `data\sqlserver\before\Deploy\00-deploy-all.sql`
+- `data\sqlserver\before\Deploy\01-deploy-all.cmd`
+- `data\sqlserver\before\Deploy\00-set-environment.sample.cmd`
 - `data\sqlserver\shared\Migration\01-run-nightly-sync.sql`
+- `data\sqlserver\shared\Migration\03-deployment-audit.sql`
 - `data\sqlserver\before\StoreOps\05-migration-procedures.sql`
 - `data\sqlserver\before\Reporting\05-migration-procedures.sql`
 
 ## Anti-Patterns
 
 - One giant setup script that hides database ownership and run order.
+- Telling operators to hand-edit the SQL every time because nobody packaged an environment template or command-line entry point.
 - Letting reporting read operational tables directly at runtime because it is easier for the demo.
 - Using shared migration helpers to own schema; ownership should stay with the individual database folders.
 - Replacing the ugly bridge job with a modern abstraction that erases the modernization story.

@@ -177,3 +177,6 @@ Ralph can now monitor 52 concrete GitHub issues across 9 phases, routed to squad
 - **Repo files:** Created in `docs/after/` with README updated; indexed from main `docs/README.md` (existing).
 - **Lesson:** Separating technical blueprint from stakeholder narrative from developer patterns yields clarity on three different audiences. Monolithic architecture docs try to be all three and fail at each.
 - The clean seam for early legacy DI is to let `Fabrikam.EnterprisePizza.Core` own Unity registrations plus the CommonServiceLocator bridge, while host and service projects consume that seam later instead of inventing their own containers.
+- Directory-shaping work lands more cleanly when each top-level seam has its own guide README, so later teams can extend docs, docs\\foundation, src, and data\\sqlserver without inventing new layout rules.
+- On 2026-05-15T03:18:24.845+02:00, PR #55 proved the repository-structure seam is best enforced with short README files at `docs\README.md`, `docs\foundation\README.md`, `src\README.md`, and `data\sqlserver\README.md`, while the root `README.md` stays the entry point that links those guides together.
+- The current repo still has no dedicated root-level docs validation harness, so docs-only PR validation is limited to git diff hygiene, path/link sanity, and PR mergeability checks rather than an automated docs build.
