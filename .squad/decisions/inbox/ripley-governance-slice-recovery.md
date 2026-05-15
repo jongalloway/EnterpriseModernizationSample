@@ -1,0 +1,27 @@
+# Governance slice recovery
+
+- Date: 2026-05-15T04:58:30.796+02:00
+- By: Ripley
+- Context: The backup stash still held durable governance and documentation updates after the legacy seam code had already landed through PR #67. The remaining work needed a clean recovery path that would not reintroduce stale branch drift.
+- Decision: Recover only the governance/policy/docs slice on a fresh branch from `main`, bundling Copilot review policy updates with the legacy-baseline guide updates that reference them.
+- Why:
+  - The stale branch already served its purpose; using it again would blur merged code with leftover policy/docs work.
+  - Governance files are only useful when the contributor-facing docs point to the same canonical paths and reviewer expectations.
+  - The backup stash remains the safety net until this narrower recovery is merged and the checkout is safely back on `main`.
+- Scope kept:
+  - `.copilot\skills\git-workflow\SKILL.md`
+  - `.squad\team.md`
+  - `.squad\routing.md`
+  - `.squad\agents\ripley\charter.md`
+  - `.squad\decisions.md`
+  - `.squad\agents\scribe\history.md`
+  - `README.md`
+  - `docs\before\README.md`
+  - `docs\before\solution-map.md`
+  - `docs\before\solution-architecture.md`
+  - `src\before\README.md`
+  - `.squad\skills\merged-worktree-cleanup\SKILL.md`
+- Scope excluded:
+  - Already-merged legacy seam code from PR #67
+  - Generated `bin\` and `obj\` output from validation builds
+  - Partial experiments that do not fit current `main` topology

@@ -2,6 +2,8 @@
 
 The legacy solution is intentionally broad enough to demo modernization seams across UI, services, data access, tests, and batch processing.
 
+Canonical entry point: `src\before\Fabrikam.EnterprisePizza.Legacy.sln`. Do not treat `.slnx` as an active companion format for this sample.
+
 | Project | Type | Purpose |
 | --- | --- | --- |
 | `Fabrikam.EnterprisePizza.Core` | Class library | Shared domain models, order-fulfillment policies, and Unity registration helpers |
@@ -20,6 +22,7 @@ The legacy solution is intentionally broad enough to demo modernization seams ac
 | `Fabrikam.EnterprisePizza.Desktop.DispatchBoard` | Windows Forms | In-store dispatch and driver board with a third-party docking shell |
 | `Fabrikam.EnterprisePizza.Reporting.Batch` | Console | Nightly exports and reporting feed generation |
 | `Fabrikam.EnterprisePizza.Legacy.Tests` | NUnit test library | Sparse in-solution regression checks |
+| `Fabrikam.EnterprisePizza.Tests.Unit` | NUnit test library | Focused unit coverage around legacy data and business seams |
 
 ## Intentional modernization pain points
 

@@ -227,3 +227,38 @@
 **Why:** That keeps the ugly part in the host where legacy teams actually hid it, while still exposing injectable seams for later tests and modernization work. It also avoids pretending the sample already had clean end-to-end DI everywhere.
 
 **Impact:** Future service, integration, desktop, or reporting hosts can register the same business/data interfaces without rewriting the business layer again.
+
+### 2026-05-15T03:56:17.791+02:00: Salvage intentional work from merged checkout on fresh main branch
+**By:** Ripley
+**Issue:** #66
+**What:** Do not merge the dirty checkout as-is. Create a fresh branch from `main`, salvage only the intentional legacy seam changes there, and leave regressions from the stale branch behind.
+**Why:** Isolates salvage work to a clean base instead of forcing reconciliation of a stale branch in place. Ensures recovered work stays reviewable and mergeable.
+
+**What was preserved:**
+- WCF dispatch host resolving `IDispatchCoordinator` through lightweight legacy service locator, exposing `DispatchBoardSnapshot` contract.
+- ASMX partner sync resolving `IPartnerAccountService` the same way, exposing partner snapshot envelope.
+- `Fabrikam.EnterprisePizza.Data` with explicit StoreOps and CustomerHub repository seams.
+- `Fabrikam.EnterprisePizza.Tests.Unit` capturing new connection catalog, gateway, dispatch, and partner seam behavior.
+
+**What was excluded:**
+- Reversions of portal projects, workforce reporting, SQL deployment assets (already merged in `main`).
+- Generated `bin/`, `obj/`, and build output from stale checkout.
+
+**Outcome:** PR #67 merged to `main` via merge commit `5f77a72`; salvage seam now on `main`.
+
+### 2026-05-15T04:37:01.332+02:00: Repo cleanup triage — treat main as source of truth
+**By:** Ripley
+**What:** Full backup the dirty checkout first, reset to `main`, then re-apply only the durable artifacts that still improve the repository in its current shape.
+**Why:** After PR #57 and salvage PR #67 landed real work in `main`, the active checkout carried 50+ local changes mixing already-merged files, stale branch regressions, and small amounts of durable documentation/cleanup guidance. Treating `main` as source of truth prevents legacy drift from contaminating the working tree.
+
+**What was kept:**
+- `docs\before\solution-architecture.md` as missing before-state topology baseline (updated to match current portal-heavy shape).
+- README and guide references pointing contributors to canonical legacy solution and restored architecture baseline.
+- `.squad\skills\merged-worktree-cleanup\SKILL.md` as reusable cleanup pattern extracted from triage.
+
+**What was not kept:**
+- Files already identical to `main` after PR #67.
+- Stale branch drift in service/data/desktop/test files that would have reverted `main` or duplicated seam work.
+- Orphaned `src\before\Fabrikam.EnterprisePizza.Data\Repositories\Reporting\DeliveryDashboardRepository.cs` experiment (preserved in backup storage but not live repo state).
+
+**Outcome:** Checkout reset to `main` with only durable, intentional artifacts restored; full dirty state preserved in backup stash for recovery.

@@ -11,6 +11,7 @@ How to decide who handles what.
 | Web Forms, MVC, and jQuery-era UI | Hicks | Master pages, Web Forms pages, MVC controllers/views, old JavaScript behavior |
 | WCF, ASMX, SOA, and data access plumbing | Vasquez | Service contracts, XML-heavy integrations, Enterprise Library-style layers |
 | Testing and legacy parity checks | Hudson | Smoke tests, scenario coverage, regression notes, reviewer feedback |
+| Good-fit autonomous coding tasks | @copilot | Small isolated fixes, docs updates, scaffolding, dependency bumps |
 | Code review | Ripley | Review PRs, check quality, enforce consistency across projects |
 | Testing | Hudson | Write tests, find edge cases, verify fixes |
 | Scope & priorities | Ripley | What to build next, trade-offs, decisions |
@@ -27,13 +28,15 @@ How to decide who handles what.
 | `squad:hicks` | Pick up Web Forms, MVC, or front-end web work | Hicks |
 | `squad:vasquez` | Pick up WCF, ASMX, or service/data integration work | Vasquez |
 | `squad:hudson` | Pick up tests, validation, and bug reproduction work | Hudson |
+| `squad:copilot` | Pick up autonomous coding-agent work that fits the capability profile | @copilot |
 
 ### How Issue Assignment Works
 
 1. When a GitHub issue gets the `squad` label, the **Lead** triages it — analyzing content, assigning the right `squad:{member}` label, and commenting with triage notes.
 2. When a `squad:{member}` label is applied, that member picks up the issue in their next session.
-3. Members can reassign by removing their label and adding another member's label.
-4. The `squad` label is the "inbox" — untriaged issues waiting for Lead review.
+3. When `squad:copilot` is applied, the coding agent picks up the issue automatically when auto-assign is enabled in `team.md`.
+4. Members can reassign by removing their label and adding another member's label.
+5. The `squad` label is the "inbox" — untriaged issues waiting for Lead review.
 
 ## Rules
 

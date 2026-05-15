@@ -38,10 +38,11 @@ Examples:
    gh issue edit {number} --add-label "status:in-progress"
    ```
 
-3. **Create draft PR targeting dev:**
+3. **Create draft PR targeting dev and assign Copilot for review:**
    ```bash
-   gh pr create --base dev --title "{description}" --body "Closes #{issue-number}" --draft
+   gh pr create --base dev --title "{description}" --body "Closes #{issue-number}" --draft --add-reviewer "@copilot"
    ```
+   All PRs route to Copilot for advisory review immediately upon creation.
 
 4. **Do the work.** Make changes, write tests, commit with issue reference.
 
@@ -102,8 +103,8 @@ cd ../squad-195
 git add -A && git commit -m "fix: stamp bug (#195)"
 git push -u origin squad/195-fix-stamp-bug
 
-# Create PR targeting dev
-gh pr create --base dev --title "fix: stamp bug" --body "Closes #195" --draft
+# Create PR targeting dev (always assign Copilot for review)
+gh pr create --base dev --title "fix: stamp bug" --body "Closes #195" --draft --add-reviewer "@copilot"
 ```
 
 All PRs target `dev` independently. Agents never interfere with each other's filesystem.
@@ -196,6 +197,7 @@ These compose naturally. You can have:
 - ❌ Switching branches in the main clone while worktrees are active (use worktrees instead)
 - ❌ Using worktrees for cross-repo work (use separate clones)
 - ❌ Leaving stale worktrees after PR merge (clean up immediately)
+- ❌ Creating PRs without assigning Copilot for review (always add `--add-reviewer "@copilot"`)
 
 ## Promotion Pipeline
 

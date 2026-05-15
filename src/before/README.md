@@ -4,7 +4,7 @@ This folder holds the deliberately overgrown **before** solution for **Fabrikam 
 
 ## Planned legacy solution
 
-- `Fabrikam.EnterprisePizza.Legacy.sln`
+- Canonical entry point: `Fabrikam.EnterprisePizza.Legacy.sln`
 - `Fabrikam.EnterprisePizza.Core`
 - `Fabrikam.EnterprisePizza.Shared.Contracts`
 - `Fabrikam.EnterprisePizza.Business.StoreOps`
@@ -14,14 +14,15 @@ This folder holds the deliberately overgrown **before** solution for **Fabrikam 
 - `Fabrikam.EnterprisePizza.Services.DispatchHost` (WCF)
 - `Fabrikam.EnterprisePizza.Services.PartnerSync` (ASMX)
 - `Fabrikam.EnterprisePizza.Portal` (ASP.NET Web Forms main partner portal)
+- `Fabrikam.EnterprisePizza.StoreOps.Portal` (ASP.NET Web Forms dispatch and labor intranet shell)
 - `Fabrikam.EnterprisePizza.Web.Storefront` (ASP.NET MVC 5)
 - `Fabrikam.EnterprisePizza.Web.FranchisePortal` (ASP.NET Web Forms + AJAX Control Toolkit + FreeTextBox)
 - `Fabrikam.EnterprisePizza.Web.CustomerHub` (ASP.NET Web Forms)
 - `Fabrikam.EnterprisePizza.Desktop.DispatchBoard` (Windows Forms + DockPanelSuite)
 - `Fabrikam.EnterprisePizza.Reporting.Batch`
 - `Fabrikam.EnterprisePizza.Legacy.Tests` (NUnit)
+- `Fabrikam.EnterprisePizza.Tests.Unit` (NUnit)
 
-The scaffold intentionally mixes patterns and eras so the modernization story has visible seams: Web Forms and MVC side by side, WCF and ASMX still active, packages.config usage, Enterprise Library-era data access, and older ASP.NET Identity packages in the MVC storefront.
 The scaffold intentionally mixes patterns and eras so the modernization story has visible seams: Web Forms and MVC side by side, WCF and ASMX still active, packages.config usage, Unity/CommonServiceLocator composition in `Fabrikam.EnterprisePizza.Core`, Enterprise Library-era data access, and older ASP.NET Identity packages in the MVC storefront.
 
 ## Smoke coverage notes
