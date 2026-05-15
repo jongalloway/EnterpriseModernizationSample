@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Composition\CoreContainer.cs" />
+    <Compile Include="Composition\ILegacyServiceRegistry.cs" />
+    <Compile Include="Composition\LegacyServiceLocator.cs" />
     <Compile Include="Composition\UnityServiceLocatorAdapter.cs" />
     <Compile Include="Domain\DeliveryPromise.cs" />
     <Compile Include="Domain\FulfillmentLane.cs" />

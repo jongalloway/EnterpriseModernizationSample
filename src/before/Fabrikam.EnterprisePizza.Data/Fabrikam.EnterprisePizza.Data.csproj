@@ -39,8 +39,12 @@
     <Compile Include="Gateways\GatewayParameter.cs" />
     <Compile Include="Gateways\LegacyDbGateway.cs" />
     <Compile Include="Gateways\StoredProcedureCall.cs" />
+    <Compile Include="Repositories\CustomerHub\IPartnerAccountRepository.cs" />
+    <Compile Include="Repositories\CustomerHub\PartnerAccountRepository.cs" />
     <Compile Include="Repositories\Reporting\IWorkforceReportRepository.cs" />
     <Compile Include="Repositories\Reporting\WorkforceReportRepository.cs" />
+    <Compile Include="Repositories\StoreOps\IDispatchTicketRepository.cs" />
+    <Compile Include="Repositories\StoreOps\DispatchTicketRepository.cs" />
     <Compile Include="StoredProcedures\LegacyStoredProcedures.cs" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -48,6 +52,10 @@
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Core\Fabrikam.EnterprisePizza.Core.csproj">
       <Project>{56A8F5D9-F129-4FCB-ACB7-6FBBABB05AC9}</Project>
       <Name>Fabrikam.EnterprisePizza.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Shared.Contracts\Fabrikam.EnterprisePizza.Shared.Contracts.csproj">
+      <Project>{A58AAE3E-3DC3-4011-8E67-3AB7D7C1608F}</Project>
+      <Name>Fabrikam.EnterprisePizza.Shared.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

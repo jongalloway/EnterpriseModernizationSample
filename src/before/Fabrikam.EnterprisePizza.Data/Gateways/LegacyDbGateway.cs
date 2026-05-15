@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using Fabrikam.EnterprisePizza.Data.Configuration;
 using Fabrikam.EnterprisePizza.Data.StoredProcedures;
+using Fabrikam.EnterprisePizza.Shared.Contracts.Routing;
 
 namespace Fabrikam.EnterprisePizza.Data.Gateways
 {
@@ -23,18 +24,17 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
 
         public string GetConnectionName(string area)
         {
-            if (string.IsNullOrWhiteSpace(area))
-            {
-                throw new ArgumentException("A database area is required.", nameof(area));
-            }
+            return connectionCatalog.GetConnectionName(area);
+        }
 
-            LegacyDatabaseArea databaseArea;
-            if (Enum.TryParse(area, true, out databaseArea))
-            {
-                return connectionCatalog.GetConnectionName(databaseArea);
-            }
+        public string GetConnectionName(LegacyDatabaseArea area)
+        {
+            return connectionCatalog.GetConnectionName(area);
+        }
 
-            return "FabrikamPizza_" + area.Trim();
+        public StoredProcedureCall CreateStoredProcedureCall(LegacyDatabaseArea area, string procedureName, params GatewayParameter[] parameters)
+        {
+            return new StoredProcedureCall(GetConnectionName(area), procedureName, parameters);
         }
 
         public DataSet ExecuteDataSet(StoredProcedureCall call)
@@ -46,6 +46,10 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
 
             switch (call.ProcedureName)
             {
+                case LegacyStoredProcedures.StoreOps.GetActiveDispatchTickets:
+                    return BuildDispatchTickets(call);
+                case LegacyStoredProcedures.CustomerHub.GetPreferredPartners:
+                    return BuildPreferredPartners(call);
                 case LegacyStoredProcedures.Reporting.GetLaborCostSummary:
                     return BuildLaborCostSummary(call);
                 case LegacyStoredProcedures.Reporting.GetOvertimeTrend:
@@ -57,6 +61,37 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
                 default:
                     throw new InvalidOperationException("No legacy stub exists for procedure " + call.ProcedureName + ".");
             }
+        }
+
+        private static DataSet BuildDispatchTickets(StoredProcedureCall call)
+        {
+            var storeNumber = GetString(call, "@StoreNumber", "014");
+            var dataSet = CreateDataSet("DispatchTickets");
+            var table = dataSet.Tables[0];
+            table.Columns.Add("TicketId", typeof(int));
+            table.Columns.Add("StoreNumber", typeof(string));
+            table.Columns.Add("DriverCode", typeof(string));
+            table.Columns.Add("RouteZone", typeof(string));
+
+            table.Rows.Add(4105, storeNumber, "DRV-17", "Northwest Corporate Corridor");
+            table.Rows.Add(4106, storeNumber, "DRV-03", "Mall Annex");
+
+            return dataSet;
+        }
+
+        private static DataSet BuildPreferredPartners(StoredProcedureCall call)
+        {
+            var dataSet = CreateDataSet("PreferredPartners");
+            var table = dataSet.Tables[0];
+            table.Columns.Add("PartnerName", typeof(string));
+            table.Columns.Add("AccountCode", typeof(string));
+            table.Columns.Add("RelationshipTier", typeof(string));
+
+            table.Rows.Add("Contoso Office Parks", "CORP-1002", "Gold");
+            table.Rows.Add("Northwind Youth Sports League", "COMM-8821", "Community");
+            table.Rows.Add("Adventure Works Bike Expo", "EVT-4405", "Seasonal");
+
+            return dataSet;
         }
 
         private static DataSet BuildLaborCostSummary(StoredProcedureCall call)

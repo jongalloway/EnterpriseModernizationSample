@@ -42,6 +42,14 @@
       <Project>{89F7206D-170D-4F54-B96F-0409FE93DAEE}</Project>
       <Name>Fabrikam.EnterprisePizza.Business.StoreOps</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Core\Fabrikam.EnterprisePizza.Core.csproj">
+      <Project>{56A8F5D9-F129-4FCB-ACB7-6FBBABB05AC9}</Project>
+      <Name>Fabrikam.EnterprisePizza.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Data\Fabrikam.EnterprisePizza.Data.csproj">
+      <Project>{39A41B6B-FDB8-44BC-A346-645E1FBA1E55}</Project>
+      <Name>Fabrikam.EnterprisePizza.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Shared.Contracts\Fabrikam.EnterprisePizza.Shared.Contracts.csproj">
       <Project>{A58AAE3E-3DC3-4011-8E67-3AB7D7C1608F}</Project>
       <Name>Fabrikam.EnterprisePizza.Shared.Contracts</Name>
