@@ -1,3 +1,4 @@
+using System.Linq;
 using Fabrikam.EnterprisePizza.Business.StoreOps.Services;
 using NUnit.Framework;
 
@@ -12,7 +13,10 @@ namespace Fabrikam.EnterprisePizza.Legacy.Tests.SmokeTests
             var coordinator = new DispatchCoordinator();
             var tickets = coordinator.GetActiveTickets("014");
 
-            Assert.That(tickets.Count, Is.GreaterThan(0));
+            Assert.That(tickets, Has.Count.EqualTo(2));
+            Assert.That(tickets.Select(ticket => ticket.StoreNumber), Is.All.EqualTo("014"));
+            Assert.That(tickets.Select(ticket => ticket.DriverCode), Does.Contain("DRV-17"));
+            Assert.That(tickets.Select(ticket => ticket.RouteZone), Does.Contain("Mall Annex"));
         }
     }
 }
