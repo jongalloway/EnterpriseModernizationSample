@@ -54,12 +54,55 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID(N'dbo.StoreOperationsStatus', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.StoreOperationsStatus
+    (
+        StoreOperationsStatusId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreId INT NOT NULL,
+        DistrictName NVARCHAR(60) NOT NULL,
+        DispatchTerminalId NVARCHAR(20) NOT NULL,
+        ManagerOnDuty NVARCHAR(100) NOT NULL,
+        BoardMode NVARCHAR(30) NOT NULL,
+        LastStatusRefreshUtc DATETIME NOT NULL,
+        StoreStatus NVARCHAR(30) NOT NULL,
+        EscalationNote NVARCHAR(250) NULL
+    );
+
+    CREATE UNIQUE INDEX UX_StoreOperationsStatus_StoreId ON dbo.StoreOperationsStatus (StoreId);
+END
+GO
+
+IF OBJECT_ID(N'dbo.StoreOrder', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.StoreOrder
+    (
+        StoreOrderId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        OrderNumber INT NOT NULL,
+        StoreId INT NOT NULL,
+        CustomerName NVARCHAR(120) NOT NULL,
+        ChannelCode NVARCHAR(20) NOT NULL,
+        ServiceMode NVARCHAR(20) NOT NULL,
+        PromiseUtc DATETIME NOT NULL,
+        TicketTotal MONEY NOT NULL,
+        KitchenStatus NVARCHAR(20) NOT NULL,
+        DispatchStatus NVARCHAR(20) NOT NULL,
+        PaymentStatus NVARCHAR(20) NOT NULL,
+        CreatedUtc DATETIME NOT NULL CONSTRAINT DF_StoreOrder_CreatedUtc DEFAULT (GETUTCDATE())
+    );
+
+    CREATE UNIQUE INDEX UX_StoreOrder_OrderNumber ON dbo.StoreOrder (OrderNumber);
+    CREATE INDEX IX_StoreOrder_Store_PromiseUtc ON dbo.StoreOrder (StoreId, PromiseUtc);
+END
+GO
+
 IF OBJECT_ID(N'dbo.DispatchTicket', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.DispatchTicket
     (
         DispatchTicketId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
         TicketNumber INT NOT NULL,
+        StoreOrderId INT NULL,
         StoreId INT NOT NULL,
         DriverId INT NULL,
         RouteZoneId INT NOT NULL,
@@ -75,6 +118,13 @@ BEGIN
 END
 GO
 
+IF COL_LENGTH(N'dbo.DispatchTicket', N'StoreOrderId') IS NULL
+BEGIN
+    ALTER TABLE dbo.DispatchTicket
+        ADD StoreOrderId INT NULL;
+END
+GO
+
 IF OBJECT_ID(N'dbo.PosOrderImportBatch', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.PosOrderImportBatch
@@ -87,6 +137,59 @@ BEGIN
         BatchStatus NVARCHAR(20) NOT NULL,
         ItemCount INT NOT NULL
     );
+END
+GO
+
+IF OBJECT_ID(N'dbo.PosOrderImportItem', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.PosOrderImportItem
+    (
+        PosOrderImportItemId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        PosOrderImportBatchId INT NOT NULL,
+        OrderNumber INT NOT NULL,
+        ChannelCode NVARCHAR(20) NOT NULL,
+        ServiceMode NVARCHAR(20) NOT NULL,
+        ImportStatus NVARCHAR(20) NOT NULL,
+        ImportedTicketTotal MONEY NOT NULL,
+        ExceptionNote NVARCHAR(200) NULL
+    );
+
+    CREATE UNIQUE INDEX UX_PosOrderImportItem_Batch_OrderNumber ON dbo.PosOrderImportItem (PosOrderImportBatchId, OrderNumber);
+END
+GO
+
+IF OBJECT_ID(N'dbo.WorkforceAlert', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.WorkforceAlert
+    (
+        WorkforceAlertId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreId INT NOT NULL,
+        TeamName NVARCHAR(50) NOT NULL,
+        ConcernText NVARCHAR(200) NOT NULL,
+        ActionRequired NVARCHAR(200) NOT NULL,
+        SeverityCode NVARCHAR(20) NOT NULL,
+        EffectiveUtc DATETIME NOT NULL,
+        ResolvedUtc DATETIME NULL
+    );
+
+    CREATE INDEX IX_WorkforceAlert_Store_EffectiveUtc ON dbo.WorkforceAlert (StoreId, EffectiveUtc);
+END
+GO
+
+IF OBJECT_ID(N'dbo.RouteZoneBulletin', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.RouteZoneBulletin
+    (
+        RouteZoneBulletinId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreId INT NOT NULL,
+        RouteZoneId INT NULL,
+        BulletinText NVARCHAR(250) NOT NULL,
+        EffectiveUtc DATETIME NOT NULL,
+        ExpiresUtc DATETIME NULL,
+        RequiresAcknowledgement BIT NOT NULL CONSTRAINT DF_RouteZoneBulletin_RequiresAcknowledgement DEFAULT (0)
+    );
+
+    CREATE INDEX IX_RouteZoneBulletin_Store_EffectiveUtc ON dbo.RouteZoneBulletin (StoreId, EffectiveUtc);
 END
 GO
 
@@ -185,6 +288,24 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_StoreOperationsStatus_Store')
+BEGIN
+    ALTER TABLE dbo.StoreOperationsStatus
+        ADD CONSTRAINT FK_StoreOperationsStatus_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_StoreOrder_Store')
+BEGIN
+    ALTER TABLE dbo.StoreOrder
+        ADD CONSTRAINT FK_StoreOrder_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_DispatchTicket_Store')
 BEGIN
     ALTER TABLE dbo.DispatchTicket
@@ -212,12 +333,57 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_DispatchTicket_StoreOrder')
+BEGIN
+    ALTER TABLE dbo.DispatchTicket
+        ADD CONSTRAINT FK_DispatchTicket_StoreOrder
+        FOREIGN KEY (StoreOrderId)
+        REFERENCES dbo.StoreOrder (StoreOrderId);
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_PosOrderImportBatch_Store')
 BEGIN
     ALTER TABLE dbo.PosOrderImportBatch
         ADD CONSTRAINT FK_PosOrderImportBatch_Store
         FOREIGN KEY (StoreId)
         REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_PosOrderImportItem_PosOrderImportBatch')
+BEGIN
+    ALTER TABLE dbo.PosOrderImportItem
+        ADD CONSTRAINT FK_PosOrderImportItem_PosOrderImportBatch
+        FOREIGN KEY (PosOrderImportBatchId)
+        REFERENCES dbo.PosOrderImportBatch (PosOrderImportBatchId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_WorkforceAlert_Store')
+BEGIN
+    ALTER TABLE dbo.WorkforceAlert
+        ADD CONSTRAINT FK_WorkforceAlert_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_RouteZoneBulletin_Store')
+BEGIN
+    ALTER TABLE dbo.RouteZoneBulletin
+        ADD CONSTRAINT FK_RouteZoneBulletin_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_RouteZoneBulletin_RouteZone')
+BEGIN
+    ALTER TABLE dbo.RouteZoneBulletin
+        ADD CONSTRAINT FK_RouteZoneBulletin_RouteZone
+        FOREIGN KEY (RouteZoneId)
+        REFERENCES dbo.RouteZone (RouteZoneId);
 END
 GO
 

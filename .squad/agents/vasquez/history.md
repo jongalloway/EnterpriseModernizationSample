@@ -85,3 +85,9 @@ Your Phases 2-3, 5, and 8 issues (Data/DAL, Services, Reporting) are routed with
   - "Data project stored procedure seam" — connection catalog, stored-procedure gateway, repository classes for DAL seam
 - **Cross-team:** Vasquez Phase 2 (database schema) is critical path for Phases 3, 4, 5. Ripley baseline topology ready; services integrate against documented seams.
 - **Orchestration log:** .squad/orchestration-log/2026-05-14T01-23-27Z-vasquez.md
+
+## Learnings
+
+- 2026-05-15T08:40:39.286+02:00: Issue #12 landed best by extending `data\sqlserver\before\StoreOps\02-schema.sql` with `StoreOperationsStatus`, `StoreOrder`, `PosOrderImportItem`, `WorkforceAlert`, and `RouteZoneBulletin`, then seeding the same operational seam in `data\sqlserver\before\StoreOps\03-seed-data.sql`.
+- 2026-05-15T08:40:39.286+02:00: Keep delivery dispatch rows tied back to `StoreOrder` through `DispatchTicket.StoreOrderId` so later DAL work can replace hardcoded order lookup lists without pretending carryout and delivery flow through one perfectly clean boundary.
+- 2026-05-15T08:40:39.286+02:00: Local validation works through LocalDB plus `sqlcmd` against the numbered scripts, but the repo-wide cross-database smoke still hits the pre-existing missing `dbo.PartnerProfitabilitySummary` object in `data\sqlserver\before\Reporting\03-seed-data.sql`.
