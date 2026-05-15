@@ -48,6 +48,8 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             {
                 case LegacyStoredProcedures.StoreOps.GetActiveDispatchTickets:
                     return BuildDispatchTickets(call);
+                case LegacyStoredProcedures.StoreOps.GetLatestPosImportBatch:
+                    return BuildLatestPosImportBatch(call);
                 case LegacyStoredProcedures.CustomerHub.GetPreferredPartners:
                     return BuildPreferredPartners(call);
                 case LegacyStoredProcedures.Reporting.GetLaborCostSummary:
@@ -90,6 +92,39 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             table.Rows.Add("Contoso Office Parks", "CORP-1002", "Gold");
             table.Rows.Add("Northwind Youth Sports League", "COMM-8821", "Community");
             table.Rows.Add("Adventure Works Bike Expo", "EVT-4405", "Seasonal");
+
+            return dataSet;
+        }
+
+        private static DataSet BuildLatestPosImportBatch(StoredProcedureCall call)
+        {
+            var storeNumber = GetString(call, "@StoreNumber", "014");
+            var dataSet = CreateDataSet("LatestPosImportBatch");
+            var table = dataSet.Tables[0];
+            table.Columns.Add("PosOrderImportBatchId", typeof(int));
+            table.Columns.Add("StoreNumber", typeof(string));
+            table.Columns.Add("SourceSystem", typeof(string));
+            table.Columns.Add("BatchDate", typeof(DateTime));
+            table.Columns.Add("ImportedUtc", typeof(DateTime));
+            table.Columns.Add("BatchStatus", typeof(string));
+            table.Columns.Add("ItemCount", typeof(int));
+
+            if (string.Equals(storeNumber, "999", StringComparison.OrdinalIgnoreCase))
+            {
+                return dataSet;
+            }
+
+            var batchDate = DateTime.UtcNow.Date;
+            var importedUtc = batchDate.AddHours(6).AddMinutes(12);
+
+            if (string.Equals(storeNumber, "022", StringComparison.OrdinalIgnoreCase))
+            {
+                table.Rows.Add(8802, storeNumber, "RedmondPOS", batchDate, importedUtc, "Partial", 34);
+            }
+            else
+            {
+                table.Rows.Add(8801, storeNumber, "CampusPOS", batchDate, importedUtc, "Complete", 57);
+            }
 
             return dataSet;
         }
