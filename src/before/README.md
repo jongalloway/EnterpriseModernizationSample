@@ -29,3 +29,13 @@ The scaffold intentionally mixes patterns and eras so the modernization story ha
 
 - `Fabrikam.EnterprisePizza.Legacy.Tests` keeps the WCF `StoreDispatchService.svc` host file, metadata endpoint wiring, and sample dispatch payload observable.
 - The same test project checks the ASMX `PartnerSync.asmx` directive, basic-profile attributes, and sample partner responses so reviewers can catch broken endpoint shells before deeper modernization work starts.
+
+## Running the NUnit backlog locally
+
+Restore the legacy packages first so the NUnit adapter lands in `src\before\packages`:
+
+```powershell
+nuget restore src\before\Fabrikam.EnterprisePizza.Legacy.sln
+dotnet msbuild src\before\Fabrikam.EnterprisePizza.Tests.Unit\Fabrikam.EnterprisePizza.Tests.Unit.csproj /t:Build /p:Configuration=Debug
+powershell -ExecutionPolicy Bypass -File .\scripts\Invoke-LegacyNUnit.ps1 -AssemblyPath .\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Fabrikam.EnterprisePizza.Tests.Unit.dll
+```

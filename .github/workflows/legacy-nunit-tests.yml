@@ -1,0 +1,41 @@
+name: legacy-nunit-tests
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/legacy-nunit-tests.yml"
+      - "scripts/Invoke-LegacyNUnit.ps1"
+      - "src/before/**"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/legacy-nunit-tests.yml"
+      - "scripts/Invoke-LegacyNUnit.ps1"
+      - "src/before/**"
+
+jobs:
+  tests-unit:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore legacy solution packages
+        run: nuget restore src\before\Fabrikam.EnterprisePizza.Legacy.sln
+
+      - name: Build NUnit unit test project
+        run: dotnet msbuild src\before\Fabrikam.EnterprisePizza.Tests.Unit\Fabrikam.EnterprisePizza.Tests.Unit.csproj /t:Build /p:Configuration=Debug /v:m
+
+      - name: Run NUnit unit tests
+        shell: pwsh
+        run: .\scripts\Invoke-LegacyNUnit.ps1 -AssemblyPath .\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Fabrikam.EnterprisePizza.Tests.Unit.dll
