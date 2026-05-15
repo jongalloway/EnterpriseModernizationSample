@@ -54,6 +54,52 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID(N'dbo.FranchiseLocation', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.FranchiseLocation
+    (
+        FranchiseLocationId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        FranchiseCode NVARCHAR(20) NOT NULL,
+        FranchiseName NVARCHAR(120) NOT NULL,
+        PrimaryStoreNumber NVARCHAR(10) NOT NULL,
+        MarketName NVARCHAR(80) NOT NULL,
+        OwnerName NVARCHAR(120) NOT NULL,
+        PrimaryPartnerAccountId INT NULL,
+        StatusCode NVARCHAR(20) NOT NULL,
+        LastPortalSyncUtc DATETIME NOT NULL CONSTRAINT DF_FranchiseLocation_LastPortalSyncUtc DEFAULT (GETUTCDATE())
+    );
+
+    CREATE UNIQUE INDEX UX_FranchiseLocation_FranchiseCode ON dbo.FranchiseLocation (FranchiseCode);
+    CREATE INDEX IX_FranchiseLocation_PrimaryStoreNumber ON dbo.FranchiseLocation (PrimaryStoreNumber);
+END
+GO
+
+IF OBJECT_ID(N'dbo.PartnerContract', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.PartnerContract
+    (
+        PartnerContractId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ContractCode NVARCHAR(30) NOT NULL,
+        PartnerAccountId INT NOT NULL,
+        CorporateAccountId INT NULL,
+        FranchiseLocationId INT NULL,
+        ContractType NVARCHAR(30) NOT NULL,
+        PricingScheduleName NVARCHAR(80) NOT NULL,
+        ReferralChannel NVARCHAR(40) NULL,
+        EffectiveDate DATE NOT NULL,
+        ExpirationDate DATE NULL,
+        MinimumOrderAmount MONEY NOT NULL,
+        DiscountPercentage DECIMAL(5,2) NOT NULL,
+        CateringLeadHours SMALLINT NOT NULL,
+        StatusCode NVARCHAR(20) NOT NULL,
+        LastReviewedUtc DATETIME NOT NULL CONSTRAINT DF_PartnerContract_LastReviewedUtc DEFAULT (GETUTCDATE())
+    );
+
+    CREATE UNIQUE INDEX UX_PartnerContract_ContractCode ON dbo.PartnerContract (ContractCode);
+    CREATE INDEX IX_PartnerContract_PartnerAccount_StatusCode ON dbo.PartnerContract (PartnerAccountId, StatusCode);
+END
+GO
+
 IF OBJECT_ID(N'dbo.PartnerAccountExtract', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.PartnerAccountExtract
@@ -94,6 +140,58 @@ BEGIN
         ADD CONSTRAINT FK_PartnerContact_PartnerAccount
         FOREIGN KEY (PartnerAccountId)
         REFERENCES dbo.PartnerAccount (PartnerAccountId);
+END
+GO
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_FranchiseLocation_PartnerAccount'
+)
+BEGIN
+    ALTER TABLE dbo.FranchiseLocation
+        ADD CONSTRAINT FK_FranchiseLocation_PartnerAccount
+        FOREIGN KEY (PrimaryPartnerAccountId)
+        REFERENCES dbo.PartnerAccount (PartnerAccountId);
+END
+GO
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_PartnerContract_PartnerAccount'
+)
+BEGIN
+    ALTER TABLE dbo.PartnerContract
+        ADD CONSTRAINT FK_PartnerContract_PartnerAccount
+        FOREIGN KEY (PartnerAccountId)
+        REFERENCES dbo.PartnerAccount (PartnerAccountId);
+END
+GO
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_PartnerContract_CorporateAccount'
+)
+BEGIN
+    ALTER TABLE dbo.PartnerContract
+        ADD CONSTRAINT FK_PartnerContract_CorporateAccount
+        FOREIGN KEY (CorporateAccountId)
+        REFERENCES dbo.CorporateAccount (CorporateAccountId);
+END
+GO
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_PartnerContract_FranchiseLocation'
+)
+BEGIN
+    ALTER TABLE dbo.PartnerContract
+        ADD CONSTRAINT FK_PartnerContract_FranchiseLocation
+        FOREIGN KEY (FranchiseLocationId)
+        REFERENCES dbo.FranchiseLocation (FranchiseLocationId);
 END
 GO
 
