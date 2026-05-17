@@ -10,7 +10,6 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.StoreOps
     public class PosImportBatchRepository : IPosImportBatchRepository
     {
         private readonly LegacyDbGateway gateway;
-        private readonly LegacyConnectionCatalog connectionCatalog;
 
         public PosImportBatchRepository()
             : this(new LegacyDbGateway())
@@ -18,23 +17,17 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.StoreOps
         }
 
         public PosImportBatchRepository(LegacyDbGateway gateway)
-            : this(gateway, new LegacyConnectionCatalog())
-        {
-        }
-
-        public PosImportBatchRepository(LegacyDbGateway gateway, LegacyConnectionCatalog connectionCatalog)
         {
             this.gateway = gateway ?? throw new ArgumentNullException(nameof(gateway));
-            this.connectionCatalog = connectionCatalog ?? throw new ArgumentNullException(nameof(connectionCatalog));
         }
 
         public PosImportBatchSnapshot GetLatestBatch(string storeNumber)
         {
-            var dataSet = gateway.ExecuteDataSet(
-                new StoredProcedureCall(
-                    connectionCatalog.GetConnectionName(LegacyDatabaseArea.StoreOps),
-                    LegacyStoredProcedures.StoreOps.GetLatestPosImportBatch,
-                    new GatewayParameter("@StoreNumber", storeNumber)));
+            var call = gateway.CreateStoredProcedureCall(
+                LegacyDatabaseArea.StoreOps,
+                LegacyStoredProcedures.StoreOps.GetLatestPosImportBatch,
+                new GatewayParameter("@StoreNumber", storeNumber));
+            var dataSet = gateway.ExecuteDataSet(call);
 
             var table = dataSet == null || dataSet.Tables.Count == 0 ? null : dataSet.Tables[0];
             if (table == null || table.Rows.Count == 0)
