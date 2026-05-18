@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Fabrikam.EnterprisePizza.Core.Domain.CustomerHub;
 using System.Globalization;
 using System.Linq;
 using Fabrikam.EnterprisePizza.Business.CustomerHub.Configuration;
@@ -561,6 +562,11 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
         public PartnerReferralRecord SubmitReferral(PartnerReferralSubmission request)
         {
             return Execute(() => _partnerAccountRepository.SubmitReferral(request), "SubmitReferral");
+        }
+
+        public IList<PartnerAccountSnapshot> GetPreferredPartnerSnapshots()
+        {
+            return _partnerAccountRepository.GetPreferredPartnerSnapshots();
         }
     }
 }

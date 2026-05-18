@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Fabrikam.EnterprisePizza.Core.Domain.CustomerHub;
 using Fabrikam.EnterprisePizza.Shared.Contracts.CustomerHub;
 using Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync;
 
@@ -8,6 +9,7 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
     {
         IList<string> GetPreferredPartners();
 
+        IList<PartnerAccountSnapshot> GetPreferredPartnerSnapshots();
         PartnerContractRecord CreateContract(PartnerContractRequest request);
 
         PartnerContractRecord RenewContract(PartnerContractRenewalRequest request);

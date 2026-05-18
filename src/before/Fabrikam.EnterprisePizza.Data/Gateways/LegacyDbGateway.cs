@@ -125,13 +125,16 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
         {
             var dataSet = CreateDataSet("PreferredPartners");
             var table = dataSet.Tables[0];
+            table.Columns.Add("PartnerCode", typeof(string));
             table.Columns.Add("PartnerName", typeof(string));
-            table.Columns.Add("AccountCode", typeof(string));
             table.Columns.Add("RelationshipTier", typeof(string));
+            table.Columns.Add("PreferredStoreNumber", typeof(string));
+            table.Columns.Add("AccountCode", typeof(string));
+            table.Columns.Add("AccountName", typeof(string));
 
-            table.Rows.Add("Contoso Office Parks", "CORP-1002", "Gold");
-            table.Rows.Add("Northwind Youth Sports League", "COMM-8821", "Community");
-            table.Rows.Add("Adventure Works Bike Expo", "EVT-4405", "Seasonal");
+            table.Rows.Add("CORP-1002", "Contoso Office Parks", "Gold", "014", "CAT-0140", "Fabrikam Regional Catering Desk");
+            table.Rows.Add("COMM-8821", "Northwind Youth Sports League", "Community", "014", "LEAGUE-8821", "Northwind League Concessions");
+            table.Rows.Add("EVT-4405", "Adventure Works Bike Expo", "Seasonal", "022", "EVENT-4405", "Adventure Works Expo Events");
 
             return dataSet;
         }

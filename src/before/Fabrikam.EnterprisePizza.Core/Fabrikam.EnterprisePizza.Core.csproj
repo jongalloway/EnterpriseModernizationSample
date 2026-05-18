@@ -52,6 +52,7 @@
     <Compile Include="Composition\LegacyObjectBuilder.cs" />
     <Compile Include="Composition\LegacyServiceLocator.cs" />
     <Compile Include="Composition\UnityServiceLocatorAdapter.cs" />
+    <Compile Include="Domain\CustomerHub\PartnerAccountSnapshot.cs" />
     <Compile Include="ExceptionHandling\ExceptionPolicy.cs" />
     <Compile Include="Domain\Batch\BatchJobDefinition.cs" />
     <Compile Include="Domain\Batch\BatchJobExecutionResult.cs" />

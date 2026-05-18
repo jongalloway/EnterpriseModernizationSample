@@ -1,3 +1,5 @@
+using System;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
 using Fabrikam.EnterprisePizza.Core.Domain.Batch;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Execution;
 
@@ -7,6 +9,7 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch.Jobs
     {
         string JobName { get; }
 
+        BatchJobExecutionResult Execute(BatchJobDefinition definition, DateTime processDate);
         NightlyBatchStage Execute(BatchJobDefinition definition, NightlyBatchContext context);
     }
 }
