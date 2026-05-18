@@ -59,33 +59,36 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
         };
 
         private readonly LegacyConnectionCatalog connectionCatalog;
-        private readonly LegacyEnterpriseLibraryDatabaseFactory databaseFactory;
+        private readonly LegacyEnterpriseLibraryDatabaseFactory enterpriseLibraryDatabaseFactory;
         private readonly IDictionary<string, Database> configuredDatabases;
         private readonly LegacyDatabaseFactory databaseFactory;
 
         public LegacyDbGateway()
-            : this(new LegacyConnectionCatalog(), new LegacyDatabaseFactory())
+            : this(new LegacyConnectionCatalog(), new LegacyEnterpriseLibraryDatabaseFactory(), new LegacyDatabaseFactory())
         {
         }
 
         public LegacyDbGateway(LegacyConnectionCatalog connectionCatalog)
-            : this(connectionCatalog, new LegacyEnterpriseLibraryDatabaseFactory(connectionCatalog, new DatabaseProviderFactory()))
+            : this(connectionCatalog, new LegacyEnterpriseLibraryDatabaseFactory(connectionCatalog, new DatabaseProviderFactory()), new LegacyDatabaseFactory(connectionCatalog))
         {
         }
 
-        public LegacyDbGateway(LegacyConnectionCatalog connectionCatalog, LegacyEnterpriseLibraryDatabaseFactory databaseFactory)
-        {
-            this.connectionCatalog = connectionCatalog ?? throw new ArgumentNullException(nameof(connectionCatalog));
-            this.databaseFactory = databaseFactory ?? throw new ArgumentNullException(nameof(databaseFactory));
-            configuredDatabases = new Dictionary<string, Database>(StringComparer.OrdinalIgnoreCase);
-            : this(connectionCatalog, new LegacyDatabaseFactory())
+        public LegacyDbGateway(LegacyConnectionCatalog connectionCatalog, LegacyEnterpriseLibraryDatabaseFactory enterpriseLibraryDatabaseFactory)
+            : this(connectionCatalog, enterpriseLibraryDatabaseFactory, new LegacyDatabaseFactory(connectionCatalog))
         {
         }
 
         public LegacyDbGateway(LegacyConnectionCatalog connectionCatalog, LegacyDatabaseFactory databaseFactory)
+            : this(connectionCatalog, new LegacyEnterpriseLibraryDatabaseFactory(connectionCatalog, new DatabaseProviderFactory()), databaseFactory)
+        {
+        }
+
+        private LegacyDbGateway(LegacyConnectionCatalog connectionCatalog, LegacyEnterpriseLibraryDatabaseFactory enterpriseLibraryDatabaseFactory, LegacyDatabaseFactory databaseFactory)
         {
             this.connectionCatalog = connectionCatalog ?? throw new ArgumentNullException(nameof(connectionCatalog));
+            this.enterpriseLibraryDatabaseFactory = enterpriseLibraryDatabaseFactory ?? throw new ArgumentNullException(nameof(enterpriseLibraryDatabaseFactory));
             this.databaseFactory = databaseFactory ?? throw new ArgumentNullException(nameof(databaseFactory));
+            configuredDatabases = new Dictionary<string, Database>(StringComparer.OrdinalIgnoreCase);
         }
 
         public virtual string GetConnectionName(string area)
@@ -107,13 +110,12 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
         {
             if (!configuredDatabases.ContainsKey(connectionName))
             {
-                configuredDatabases[connectionName] = databaseFactory.Create(connectionName);
+                configuredDatabases[connectionName] = enterpriseLibraryDatabaseFactory.Create(connectionName);
             }
 
             return configuredDatabases[connectionName];
         }
 
-        public StoredProcedureCall CreateStoredProcedureCall(LegacyDatabaseArea area, string procedureName, params GatewayParameter[] parameters)
         public virtual StoredProcedureCall CreateStoredProcedureCall(LegacyDatabaseArea area, string procedureName, params GatewayParameter[] parameters)
         {
             return new StoredProcedureCall(GetConnectionName(area), procedureName, parameters);
@@ -889,6 +891,11 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
                     current.DayOfWeek.ToString(),
                     current.DayOfWeek == DayOfWeek.Friday || current.DayOfWeek == DayOfWeek.Saturday ? "Dinner Rush" : "Weekday Core",
                     current.DayOfWeek == DayOfWeek.Saturday || current.DayOfWeek == DayOfWeek.Sunday);
+            }
+
+            return dataSet;
+        }
+
         private static DataSet BuildOrder(StoredProcedureCall call)
         {
             var orderNumber = GetInt32(call, "@OrderNumber", 74105);
@@ -1006,6 +1013,11 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             {
                 table.Rows.Add(8001, ToDateKey(summaryDate), 101, 301, "Web", 5, 28.60m, 143.00m, 8.50m, 134.50m);
                 table.Rows.Add(8002, ToDateKey(summaryDate), 101, 0, "Phone", 4, 24.25m, 97.00m, 4.00m, 93.00m);
+            }
+
+            return dataSet;
+        }
+
         private static DataSet BuildPlacedOrder(StoredProcedureCall call)
         {
             var storeNumber = GetString(call, "@StoreNumber", "014");
@@ -1178,6 +1190,9 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             {
                 table.Rows.Add("014", "Redmond Ridge", summaryMonth.ToString("yyyy-MM"), "PART-100", "Contoso Office Parks", 31, 1819.80m, 0.14m, 254.77m, 502.73m);
             }
+
+            return dataSet;
+        }
 
         private static DataSet BuildOrderHistory(StoredProcedureCall call)
         {
@@ -1414,6 +1429,8 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             return "PARTNER-" + (sanitized.Length > 10
                 ? sanitized.Substring(sanitized.Length - 10)
                 : sanitized);
+        }
+
         private static DataTable CreatePartnerTable(string tableName)
         {
             var table = new DataTable(tableName);
@@ -1651,12 +1668,18 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
         }
 
         private static decimal GetDecimal(StoredProcedureCall call, string name, decimal defaultValue)
-        private static int? GetNullableInt32(StoredProcedureCall call, string name, int? defaultValue)
         {
             var parameter = GetParameter(call, name);
             return parameter == null || parameter.Value == null || parameter.Value == DBNull.Value
                 ? defaultValue
                 : Convert.ToDecimal(parameter.Value);
+        }
+
+        private static int? GetNullableInt32(StoredProcedureCall call, string name, int? defaultValue)
+        {
+            var parameter = GetParameter(call, name);
+            return parameter == null || parameter.Value == null || parameter.Value == DBNull.Value
+                ? defaultValue
                 : Convert.ToInt32(parameter.Value);
         }
 
@@ -1684,6 +1707,8 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
         private static int ToDateKey(DateTime value)
         {
             return (value.Year * 10000) + (value.Month * 100) + value.Day;
+        }
+
         private static void AddOrderColumns(DataTable table)
         {
             table.Columns.Add("OrderNumber", typeof(int));
@@ -2059,12 +2084,6 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             public decimal DeliveryMileage { get; set; }
 
             public string CurrentDriverCode { get; set; }
-        private static decimal GetDecimal(StoredProcedureCall call, string name, decimal defaultValue)
-        {
-            var parameter = GetParameter(call, name);
-            return parameter == null || parameter.Value == null || parameter.Value == DBNull.Value
-                ? defaultValue
-                : Convert.ToDecimal(parameter.Value);
         }
     }
 }

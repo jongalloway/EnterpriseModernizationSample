@@ -57,10 +57,8 @@
     <Compile Include="Domain\Batch\BatchJobDefinition.cs" />
     <Compile Include="Domain\Batch\BatchJobExecutionResult.cs" />
     <Compile Include="Configuration\EnterpriseLibraryConfigurationReader.cs" />
-    <Compile Include="ExceptionHandling\ExceptionPolicy.cs" />
     <Compile Include="Logging\LegacyLogWriter.cs" />
     <Compile Include="Domain\DeliveryPromise.cs" />
-    <Compile Include="ExceptionHandling\ExceptionPolicy.cs" />
     <Compile Include="Domain\FulfillmentLane.cs" />
     <Compile Include="Domain\OrderChannel.cs" />
     <Compile Include="Domain\PosImportBatchSnapshot.cs" />
@@ -70,7 +68,6 @@
     <Compile Include="Domain\Reporting\StaffingSummary.cs" />
     <Compile Include="Domain\Reporting\TurnoverSummary.cs" />
     <Compile Include="Domain\Reporting\WorkforceReportSnapshot.cs" />
-    <Compile Include="Services\ExceptionPolicy.cs" />
     <Compile Include="Services\IBusinessClock.cs" />
     <Compile Include="Services\IOrderFulfillmentPolicy.cs" />
     <Compile Include="Services\LegacyOrderFulfillmentPolicy.cs" />

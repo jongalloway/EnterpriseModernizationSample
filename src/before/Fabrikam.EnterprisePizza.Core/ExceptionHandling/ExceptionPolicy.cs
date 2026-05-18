@@ -8,10 +8,6 @@ namespace Fabrikam.EnterprisePizza.Core.ExceptionHandling
 {
     public static class ExceptionPolicy
     {
-        public static bool HandleException(Exception exception, string policyName, out Exception exceptionToThrow)
-        {
-            exceptionToThrow = exception;
-            return exceptionToThrow != null;
         private static readonly object SyncRoot = new object();
         private static readonly IDictionary<string, LegacyExceptionPolicyDefinition> policies = new Dictionary<string, LegacyExceptionPolicyDefinition>(StringComparer.OrdinalIgnoreCase);
         private static string defaultPolicyName = "ServiceBoundaryPolicy";

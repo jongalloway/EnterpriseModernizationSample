@@ -142,6 +142,41 @@ namespace Fabrikam.EnterprisePizza.Tests.Unit.Services
                     "Adventure Works Bike Expo"
                 };
             }
+
+            public IList<Fabrikam.EnterprisePizza.Core.Domain.CustomerHub.PartnerAccountSnapshot> GetPreferredPartnerSnapshots()
+            {
+                return new List<Fabrikam.EnterprisePizza.Core.Domain.CustomerHub.PartnerAccountSnapshot>();
+            }
+
+            public Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerProfile GetPartner(string partnerId)
+            {
+                return new Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerProfile();
+            }
+
+            public Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerProfile RegisterPartner(Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerRegistrationRequest request)
+            {
+                return new Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerProfile();
+            }
+
+            public Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerContractRecord UpdateContract(Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerContractUpdateRequest request)
+            {
+                return new Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerContractRecord();
+            }
+
+            public Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerReferralRecord[] GetReferrals(string partnerId)
+            {
+                return Array.Empty<Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerReferralRecord>();
+            }
+
+            public Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.CommissionProcessingResult ProcessCommission(Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.CommissionProcessingRequest request)
+            {
+                return new Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.CommissionProcessingResult();
+            }
+
+            public Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerReferralRecord SubmitReferral(Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerReferralSubmission request)
+            {
+                return new Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerReferralRecord();
+            }
         }
     }
 }

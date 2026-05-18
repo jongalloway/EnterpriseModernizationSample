@@ -6,13 +6,10 @@ using Fabrikam.EnterprisePizza.Business.StoreOps.Services;
 using Fabrikam.EnterprisePizza.Core.Domain.Reporting;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Analytics;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Configuration;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Logging;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Services;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Configuration;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Execution;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Logging;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Services;
 
 namespace Fabrikam.EnterprisePizza.Reporting.Batch
 {
@@ -42,7 +39,6 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch
 
         private static void WriteNightlySummary(NightlyBatchRunSummary summary)
         {
-            Console.WriteLine("Fabrikam Enterprise Pizza - Nightly Reporting Batch");
             Console.WriteLine("Fabrikam Enterprise Pizza - Nightly ETL and Integration Batch");
             Console.WriteLine("Window started : {0}", summary.StartedUtc.ToString("u", CultureInfo.InvariantCulture));
             Console.WriteLine("Window finished: {0}", summary.CompletedUtc.ToString("u", CultureInfo.InvariantCulture));
@@ -51,11 +47,6 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch
             foreach (var result in summary.JobResults)
             {
                 Console.WriteLine(
-                    "{0} - {1} (reports: {2}, sql stubs: {3})",
-                    result.JobName,
-                    result.Succeeded ? "Succeeded" : "Failed",
-                    result.ReportsGenerated,
-                    result.SqlScriptsPrepared);
                     "{0} - {1} (attempts: {2}, extracted: {3}, loaded: {4})",
                     result.JobName,
                     result.Succeeded ? "Succeeded" : "Failed",

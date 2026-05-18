@@ -27,3 +27,15 @@ D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.
 D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
 D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
 D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Reports\DataSources\FabrikamPizza_Reporting.rds
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Reports\Definitions\DeliveryPerformance.rdl
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Reports\Definitions\PartnerProfitability.rdl
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Reports\Definitions\StoreOperationsSummary.rdl
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Fabrikam.EnterprisePizza.Tests.Unit.dll.config
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Fabrikam.EnterprisePizza.Reporting.Batch.exe
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Fabrikam.EnterprisePizza.Integrations.PosSync.dll
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Fabrikam.EnterprisePizza.Reporting.Batch.pdb
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Fabrikam.EnterprisePizza.Reporting.Batch.exe.config
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Tests.Unit\bin\Debug\Fabrikam.EnterprisePizza.Integrations.PosSync.pdb

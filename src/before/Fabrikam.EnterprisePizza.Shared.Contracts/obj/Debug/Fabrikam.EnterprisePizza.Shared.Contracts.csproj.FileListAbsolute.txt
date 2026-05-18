@@ -4,3 +4,9 @@ C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.S
 C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.csproj.CoreCompileInputs.cache
 C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.dll
 C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.pdb
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\bin\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.dll
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\bin\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.pdb
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.csproj.AssemblyReference.cache
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.csproj.CoreCompileInputs.cache
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.dll
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Shared.Contracts\obj\Debug\Fabrikam.EnterprisePizza.Shared.Contracts.pdb

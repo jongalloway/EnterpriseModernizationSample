@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="InventoryManagement.aspx.cs">
       <DependentUpon>InventoryManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetails.aspx.cs">
       <DependentUpon>OrderDetails.aspx</DependentUpon>
     </Compile>

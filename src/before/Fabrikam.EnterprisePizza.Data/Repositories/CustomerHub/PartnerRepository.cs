@@ -7,10 +7,10 @@ using Fabrikam.EnterprisePizza.Data.StoredProcedures;
 
 namespace Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub
 {
-    public class PartnerRepository : IPartnerAccountRepository
+    public class PartnerRepository
     {
-        private readonly LegacyDbGateway _dbGateway;
-        private readonly CustomerHubDatabaseFactory _databaseFactory;
+        protected readonly LegacyDbGateway _dbGateway;
+        protected readonly CustomerHubDatabaseFactory _databaseFactory;
 
         public PartnerRepository()
             : this(new LegacyDbGateway(), new CustomerHubDatabaseFactory())

@@ -4,3 +4,15 @@ C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.C
 C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.csproj.CoreCompileInputs.cache
 C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.dll
 C:\Users\Jon\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.pdb
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.csproj.AssemblyReference.cache
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.csproj.CoreCompileInputs.cache
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.dll
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.EnterprisePizza.Core.pdb
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\bin\Debug\Fabrikam.EnterprisePizza.Core.dll
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\bin\Debug\Fabrikam.EnterprisePizza.Core.pdb
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\bin\Debug\Microsoft.Practices.Unity.xml
+D:\Users\Jon\Documents\GitHub\EnterpriseModernizationSample\src\before\Fabrikam.EnterprisePizza.Core\obj\Debug\Fabrikam.3185DDEE.Up2Date

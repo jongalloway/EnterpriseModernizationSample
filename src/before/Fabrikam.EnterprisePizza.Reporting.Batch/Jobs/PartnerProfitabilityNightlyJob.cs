@@ -1,9 +1,11 @@
 using System;
+using System.Data;
 using System.Globalization;
 using System.Linq;
+using Fabrikam.EnterprisePizza.Core.Domain.Batch;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Analytics;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Execution;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Logging;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
 
 namespace Fabrikam.EnterprisePizza.Reporting.Batch.Jobs
 {
@@ -47,8 +49,9 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch.Jobs
                     StartedUtc = startedUtc,
                     CompletedUtc = DateTime.UtcNow,
                     Succeeded = true,
-                    ReportsGenerated = reports.Count,
-                    SqlScriptsPrepared = 3,
+                    AttemptCount = 1,
+                    RowsExtracted = reports.Count,
+                    RowsLoaded = reports.Count,
                     SummaryMessage = string.Format(
                         CultureInfo.InvariantCulture,
                         "Prepared {0} partner profitability scorecards covering {1}, {2} in commissions, and {3} in net chargeback exposure.",
@@ -67,12 +70,24 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch.Jobs
                 return new BatchJobExecutionResult
                 {
                     JobName = definition.Name,
+                    AttemptCount = 1,
+                    RowsExtracted = 0,
+                    RowsLoaded = 0,
                     StartedUtc = startedUtc,
                     CompletedUtc = DateTime.UtcNow,
                     Succeeded = false,
                     SummaryMessage = ex.Message
                 };
             }
+        }
+
+        public NightlyBatchStage Execute(BatchJobDefinition definition, NightlyBatchContext context)
+        {
+            return new NightlyBatchStage
+            {
+                WorkingSet = new DataSet("PartnerProfitabilityWorkingSet"),
+                Result = Execute(definition, context.ProcessDate)
+            };
         }
     }
 }

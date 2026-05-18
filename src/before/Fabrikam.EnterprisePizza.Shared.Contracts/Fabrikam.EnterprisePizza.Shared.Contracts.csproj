@@ -78,7 +78,6 @@
     <Compile Include="StoreOps\OrderStatusUpdateRequest.cs" />
     <Compile Include="StoreOps\AppliedDiscount.cs" />
     <Compile Include="StoreOps\OrderLineItem.cs" />
-    <Compile Include="StoreOps\OrderLookupRecord.cs" />
     <Compile Include="StoreOps\OrderPricingResult.cs" />
     <Compile Include="StoreOps\OrderProcessingResult.cs" />
     <Compile Include="StoreOps\OrderRequest.cs" />

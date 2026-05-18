@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Analytics;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Configuration;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Jobs;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Logging;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
 using Fabrikam.EnterprisePizza.Core.Domain.Batch;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Analytics;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Configuration;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Execution;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Jobs;
@@ -32,7 +28,7 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch
                         new PartnerRevenueAggregator(),
                         new CommissionCalculator(),
                         new ChargebackProcessor())
-                }
+                },
                 { "StoreOpsRollup", new StoreOpsRollupJob(logger) },
                 { "CustomerHubSync", new CustomerHubSyncJob(logger) },
                 { "PayrollFeedImport", new PayrollFeedImportJob(logger) },
@@ -74,7 +70,6 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch
                     continue;
                 }
 
-                summary.JobResults.Add(job.Execute(definition, processDate));
                 var stage = job.Execute(definition, context);
                 summary.JobResults.Add(stage.Result);
                 context.RecordStage(definition.Name, stage.WorkingSet);

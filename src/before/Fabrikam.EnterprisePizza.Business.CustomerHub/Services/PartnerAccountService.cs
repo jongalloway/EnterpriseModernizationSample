@@ -7,13 +7,15 @@ using Fabrikam.EnterprisePizza.Business.CustomerHub.Configuration;
 using Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub;
 using Fabrikam.EnterprisePizza.Shared.Contracts.CustomerHub;
 using Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync;
+using CustomerHubPartnerContractRecord = Fabrikam.EnterprisePizza.Shared.Contracts.CustomerHub.PartnerContractRecord;
+using PartnerSyncPartnerContractRecord = Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerContractRecord;
 
 namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
 {
     public class PartnerAccountService : CustomerHubServiceBase, IPartnerAccountService
     {
         private static readonly DateTime DefaultEffectiveDateUtc = new DateTime(2006, 9, 1, 0, 0, 0, DateTimeKind.Utc);
-        private readonly IDictionary<string, PartnerContractRecord> _contracts;
+        private readonly IDictionary<string, CustomerHubPartnerContractRecord> _contracts;
         private readonly IDictionary<string, CorporateAccountProfile> _accounts;
         private readonly IPartnerAccountRepository _partnerAccountRepository;
         private readonly PartnerAccountBusinessRules _businessRules;
@@ -32,7 +34,7 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
         {
             _partnerAccountRepository = partnerAccountRepository ?? throw new ArgumentNullException(nameof(partnerAccountRepository));
             _businessRules = businessRules ?? throw new ArgumentNullException(nameof(businessRules));
-            _contracts = new Dictionary<string, PartnerContractRecord>(StringComparer.OrdinalIgnoreCase);
+            _contracts = new Dictionary<string, CustomerHubPartnerContractRecord>(StringComparer.OrdinalIgnoreCase);
             _accounts = new Dictionary<string, CorporateAccountProfile>(StringComparer.OrdinalIgnoreCase);
             SeedCorporateAccounts();
             SeedContracts();
@@ -43,7 +45,7 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
             return Execute(() => _partnerAccountRepository.GetPreferredPartners(), "GetPreferredPartners");
         }
 
-        public PartnerContractRecord CreateContract(PartnerContractRequest request)
+        public CustomerHubPartnerContractRecord CreateContract(PartnerContractRequest request)
         {
             return Execute(delegate
             {
@@ -51,7 +53,7 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
                 var effectiveDate = request.EffectiveDateUtc == default(DateTime) ? DefaultEffectiveDateUtc : request.EffectiveDateUtc;
                 var termMonths = request.TermMonths > 0 ? request.TermMonths : _businessRules.DefaultContractTermMonths;
                 var relationshipTier = _businessRules.DetermineRelationshipTier(request.MinimumMonthlyCommitment, GetLocationCount(request.AccountCode));
-                var contract = new PartnerContractRecord
+                var contract = new CustomerHubPartnerContractRecord
                 {
                     ContractNumber = BuildContractNumber(request.PartnerCode, request.AccountCode, effectiveDate),
                     PartnerCode = NormalizeCode(request.PartnerCode, "PARTNER"),
@@ -72,7 +74,7 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
             }, "CreateContract");
         }
 
-        public PartnerContractRecord RenewContract(PartnerContractRenewalRequest request)
+        public CustomerHubPartnerContractRecord RenewContract(PartnerContractRenewalRequest request)
         {
             return Execute(delegate
             {
@@ -93,7 +95,7 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
             }, "RenewContract");
         }
 
-        public PartnerContractRecord TerminateContract(PartnerContractTerminationRequest request)
+        public CustomerHubPartnerContractRecord TerminateContract(PartnerContractTerminationRequest request)
         {
             return Execute(delegate
             {
@@ -298,14 +300,14 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
             }, "GetCorporateAccount");
         }
 
-        private PartnerContractRecord GetStoredContract(string contractNumber)
+        private CustomerHubPartnerContractRecord GetStoredContract(string contractNumber)
         {
             if (string.IsNullOrWhiteSpace(contractNumber))
             {
                 throw new ArgumentException("Contract number is required.", nameof(contractNumber));
             }
 
-            PartnerContractRecord contract;
+            CustomerHubPartnerContractRecord contract;
             if (!_contracts.TryGetValue(contractNumber.Trim(), out contract))
             {
                 throw new KeyNotFoundException("No contract exists for number " + contractNumber + ".");
@@ -353,7 +355,7 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
 
         private void SeedContracts()
         {
-            var contract = new PartnerContractRecord
+            var contract = new CustomerHubPartnerContractRecord
             {
                 ContractNumber = "CTR-CONT-CORP-200609",
                 PartnerCode = "CONTOSO",
@@ -466,9 +468,9 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
             return shortCode.Length > 0 ? shortCode : "CODE";
         }
 
-        private static PartnerContractRecord Clone(PartnerContractRecord contract)
+        private static CustomerHubPartnerContractRecord Clone(CustomerHubPartnerContractRecord contract)
         {
-            return new PartnerContractRecord
+            return new CustomerHubPartnerContractRecord
             {
                 ContractNumber = contract.ContractNumber,
                 PartnerCode = contract.PartnerCode,
@@ -518,6 +520,8 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
             }
 
             return clone;
+        }
+
         public PartnerProfile GetPartner(string partnerId)
         {
             return Execute(() => _partnerAccountRepository.GetPartner(partnerId), "GetPartner");
@@ -528,7 +532,7 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
             return Execute(() => _partnerAccountRepository.RegisterPartner(request), "RegisterPartner");
         }
 
-        public PartnerContractRecord UpdateContract(PartnerContractUpdateRequest request)
+        public PartnerSyncPartnerContractRecord UpdateContract(PartnerContractUpdateRequest request)
         {
             return Execute(() => _partnerAccountRepository.UpdateContract(request), "UpdateContract");
         }

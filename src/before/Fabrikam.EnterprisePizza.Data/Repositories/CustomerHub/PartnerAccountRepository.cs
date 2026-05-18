@@ -7,25 +7,27 @@ using Fabrikam.EnterprisePizza.Data.Configuration;
 using Fabrikam.EnterprisePizza.Data.Gateways;
 using Fabrikam.EnterprisePizza.Data.StoredProcedures;
 using Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync;
-using Fabrikam.EnterprisePizza.Data.Configuration;
-using Fabrikam.EnterprisePizza.Data.Gateways;
 
 namespace Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub
 {
     public class PartnerAccountRepository : PartnerRepository, IPartnerAccountRepository
     {
         public PartnerAccountRepository()
+            : base()
         {
         }
 
         public PartnerAccountRepository(LegacyDbGateway dbGateway)
             : base(dbGateway)
         {
-            _dbGateway = dbGateway ?? throw new System.ArgumentNullException(nameof(dbGateway));
         }
 
         public PartnerAccountRepository(LegacyDbGateway dbGateway, CustomerHubDatabaseFactory databaseFactory)
             : base(dbGateway, databaseFactory)
+        {
+        }
+
+        public new IList<string> GetPreferredPartners()
         {
             return GetPreferredPartnerSnapshots().Select(snapshot => snapshot.PartnerName).ToList();
         }
@@ -36,10 +38,8 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub
                 LegacyDatabaseArea.CustomerHub,
                 LegacyStoredProcedures.CustomerHub.GetPreferredPartners);
             var dataSet = _dbGateway.ExecuteDataSet(call);
-            var partners = new List<string>();
-            var table = dataSet == null ? null : dataSet.Tables["PreferredPartners"];
             var partners = new List<PartnerAccountSnapshot>();
-            var table = dataSet.Tables["PreferredPartners"];
+            var table = dataSet == null ? null : dataSet.Tables["PreferredPartners"];
 
             if (table == null)
             {
@@ -50,14 +50,13 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub
             {
                 partners.Add(new PartnerAccountSnapshot
                 {
-                    PartnerCode = row["PartnerCode"].ToString(),
-                    PartnerName = row["PartnerName"].ToString(),
-                    RelationshipTier = row["RelationshipTier"].ToString(),
-                    PreferredStoreNumber = row["PreferredStoreNumber"].ToString(),
-                    AccountCode = row["AccountCode"].ToString(),
-                    AccountName = row["AccountName"].ToString()
+                    PartnerCode = ReadString(row, "PartnerCode"),
+                    PartnerName = ReadString(row, "PartnerName"),
+                    RelationshipTier = ReadString(row, "RelationshipTier"),
+                    PreferredStoreNumber = ReadString(row, "PreferredStoreNumber"),
+                    AccountCode = ReadString(row, "AccountCode"),
+                    AccountName = ReadString(row, "AccountName")
                 });
-                partners.Add(Convert.ToString(row["PartnerName"]));
             }
 
             return partners;

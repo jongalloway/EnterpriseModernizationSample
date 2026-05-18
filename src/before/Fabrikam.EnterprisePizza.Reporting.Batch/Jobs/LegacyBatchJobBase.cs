@@ -25,6 +25,11 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch.Jobs
             get { return logger; }
         }
 
+        public BatchJobExecutionResult Execute(BatchJobDefinition definition, DateTime processDate)
+        {
+            return Execute(definition, new NightlyBatchContext(processDate)).Result;
+        }
+
         public NightlyBatchStage Execute(BatchJobDefinition definition, NightlyBatchContext context)
         {
             if (definition == null)

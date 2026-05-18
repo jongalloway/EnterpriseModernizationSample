@@ -1,5 +1,4 @@
 using System;
-using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
 using Fabrikam.EnterprisePizza.Core.Domain.Batch;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Execution;
 

@@ -1,50 +1,4 @@
 using System;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-
-namespace Fabrikam.EnterprisePizza.Data.Configuration
-{
-    public class LegacyDatabaseFactory
-    {
-        private readonly LegacyConnectionCatalog connectionCatalog;
-        private readonly Func<string, Database> databaseResolver;
-
-        public LegacyDatabaseFactory()
-            : this(new LegacyConnectionCatalog())
-        {
-        }
-
-        public LegacyDatabaseFactory(LegacyConnectionCatalog connectionCatalog)
-            : this(connectionCatalog, CreateDatabaseWithEnterpriseLibrary)
-        {
-        }
-
-        public LegacyDatabaseFactory(LegacyConnectionCatalog connectionCatalog, Func<string, Database> databaseResolver)
-        {
-            this.connectionCatalog = connectionCatalog ?? throw new ArgumentNullException(nameof(connectionCatalog));
-            this.databaseResolver = databaseResolver ?? throw new ArgumentNullException(nameof(databaseResolver));
-        }
-
-        public Database CreateDatabase(LegacyDatabaseArea area)
-        {
-            return databaseResolver(connectionCatalog.GetConnectionName(area));
-        }
-
-        public Database CreateDatabase(string area)
-        {
-            return databaseResolver(connectionCatalog.GetConnectionName(area));
-        }
-
-        private static Database CreateDatabaseWithEnterpriseLibrary(string connectionName)
-        {
-            var providerFactory = new DatabaseProviderFactory();
-            var database = providerFactory.Create(connectionName);
-            if (database == null)
-            {
-                throw new InvalidOperationException("Enterprise Library could not resolve database '" + connectionName + "'.");
-            }
-
-            return database;
-using System.Configuration;
 using Fabrikam.EnterprisePizza.Core.Configuration;
 
 namespace Fabrikam.EnterprisePizza.Data.Configuration
@@ -67,36 +21,59 @@ namespace Fabrikam.EnterprisePizza.Data.Configuration
 
     public class LegacyDatabaseFactory
     {
+        private readonly LegacyConnectionCatalog connectionCatalog;
         private readonly EnterpriseLibraryConfigurationReader configurationReader;
 
         public LegacyDatabaseFactory()
-            : this(new EnterpriseLibraryConfigurationReader())
+            : this(new LegacyConnectionCatalog(), new EnterpriseLibraryConfigurationReader())
+        {
+        }
+
+        public LegacyDatabaseFactory(LegacyConnectionCatalog connectionCatalog)
+            : this(connectionCatalog, new EnterpriseLibraryConfigurationReader())
         {
         }
 
         public LegacyDatabaseFactory(EnterpriseLibraryConfigurationReader configurationReader)
+            : this(new LegacyConnectionCatalog(configurationReader), configurationReader)
         {
+        }
+
+        private LegacyDatabaseFactory(LegacyConnectionCatalog connectionCatalog, EnterpriseLibraryConfigurationReader configurationReader)
+        {
+            this.connectionCatalog = connectionCatalog ?? throw new ArgumentNullException(nameof(connectionCatalog));
             this.configurationReader = configurationReader ?? throw new ArgumentNullException(nameof(configurationReader));
         }
 
         public LegacyDatabase CreateDatabase(LegacyDatabaseArea area)
         {
-            return CreateDatabase(configurationReader.GetConnectionName(area.ToString(), LegacyConnectionCatalog.GetDefaultConnectionName(area)));
+            return CreateDatabase(connectionCatalog.GetConnectionName(area));
         }
 
-        public LegacyDatabase CreateDatabase(string connectionName)
+        public LegacyDatabase CreateDatabase(string areaOrConnectionName)
         {
-            if (string.IsNullOrWhiteSpace(connectionName))
+            if (string.IsNullOrWhiteSpace(areaOrConnectionName))
             {
-                throw new ArgumentException("A connection name is required.", nameof(connectionName));
+                throw new ArgumentException("A connection name is required.", nameof(areaOrConnectionName));
             }
 
-            var settings = configurationReader.GetConnectionStringSettings(connectionName.Trim());
+            var trimmedValue = areaOrConnectionName.Trim();
+            string connectionName;
+            try
+            {
+                connectionName = connectionCatalog.GetConnectionName(trimmedValue);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                connectionName = trimmedValue;
+            }
+
+            var settings = configurationReader.GetConnectionStringSettings(connectionName);
             if (settings == null)
             {
                 return new LegacyDatabase(
-                    connectionName.Trim(),
-                    "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=" + connectionName.Trim() + ";Integrated Security=True;",
+                    connectionName,
+                    "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=" + connectionName + ";Integrated Security=True;",
                     "System.Data.SqlClient");
             }
 

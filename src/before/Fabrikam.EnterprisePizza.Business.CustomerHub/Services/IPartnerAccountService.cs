@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Fabrikam.EnterprisePizza.Core.Domain.CustomerHub;
 using Fabrikam.EnterprisePizza.Shared.Contracts.CustomerHub;
 using Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync;
+using CustomerHubPartnerContractRecord = Fabrikam.EnterprisePizza.Shared.Contracts.CustomerHub.PartnerContractRecord;
+using PartnerSyncPartnerContractRecord = Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync.PartnerContractRecord;
 
 namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
 {
@@ -10,11 +12,11 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
         IList<string> GetPreferredPartners();
 
         IList<PartnerAccountSnapshot> GetPreferredPartnerSnapshots();
-        PartnerContractRecord CreateContract(PartnerContractRequest request);
+        CustomerHubPartnerContractRecord CreateContract(PartnerContractRequest request);
 
-        PartnerContractRecord RenewContract(PartnerContractRenewalRequest request);
+        CustomerHubPartnerContractRecord RenewContract(PartnerContractRenewalRequest request);
 
-        PartnerContractRecord TerminateContract(PartnerContractTerminationRequest request);
+        CustomerHubPartnerContractRecord TerminateContract(PartnerContractTerminationRequest request);
 
         ReferralAttributionRecord TrackReferral(ReferralTrackingRequest request);
 
@@ -29,7 +31,7 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
 
         PartnerProfile RegisterPartner(PartnerRegistrationRequest request);
 
-        PartnerContractRecord UpdateContract(PartnerContractUpdateRequest request);
+        PartnerSyncPartnerContractRecord UpdateContract(PartnerContractUpdateRequest request);
 
         PartnerReferralRecord[] GetReferrals(string partnerId);
 

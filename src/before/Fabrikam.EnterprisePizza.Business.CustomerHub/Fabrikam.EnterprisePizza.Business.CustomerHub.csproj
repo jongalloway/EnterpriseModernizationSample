@@ -34,10 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Configuration\PartnerAccountBusinessRules.cs" />
-=======
->>>>>>> origin/dev
     <Compile Include="Services\CustomerHubServiceBase.cs" />
     <Compile Include="Services\IPartnerAccountService.cs" />
     <Compile Include="Services\PartnerAccountService.cs" />
