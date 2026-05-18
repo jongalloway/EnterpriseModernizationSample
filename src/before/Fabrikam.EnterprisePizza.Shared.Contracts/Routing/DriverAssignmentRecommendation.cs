@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Fabrikam.EnterprisePizza.Shared.Contracts.Routing
 {
     [DataContract]
-    public class DispatchTicket
+    public class DriverAssignmentRecommendation
     {
         [DataMember(Order = 1)]
         public int TicketId { get; set; }
@@ -19,30 +19,21 @@ namespace Fabrikam.EnterprisePizza.Shared.Contracts.Routing
         public string RouteZone { get; set; }
 
         [DataMember(Order = 5)]
-        public string CustomerName { get; set; }
+        public string ZoneMatch { get; set; }
 
         [DataMember(Order = 6)]
-        public string DeliveryAddress { get; set; }
+        public int DeliveryCountAfterAssignment { get; set; }
 
         [DataMember(Order = 7)]
-        public DateTime ReadyAtLocal { get; set; }
+        public DateTime EstimatedDepartureLocal { get; set; }
 
         [DataMember(Order = 8)]
-        public DateTime PromiseTimeLocal { get; set; }
+        public DateTime EstimatedArrivalLocal { get; set; }
 
         [DataMember(Order = 9)]
-        public decimal RouteDistanceMiles { get; set; }
+        public decimal WorkloadScore { get; set; }
 
         [DataMember(Order = 10)]
-        public int EstimatedTravelMinutes { get; set; }
-
-        [DataMember(Order = 11)]
-        public bool RequiresPairing { get; set; }
-
-        [DataMember(Order = 12)]
-        public DeliveryStatus Status { get; set; }
-
-        [DataMember(Order = 13)]
-        public int PriorityScore { get; set; }
+        public string RecommendationNote { get; set; }
     }
 }
