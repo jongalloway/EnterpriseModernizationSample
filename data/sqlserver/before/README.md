@@ -4,7 +4,7 @@ Use this folder for the pre-migration database estate.
 
 ## Layout
 
-- `StoreOps\` - operational schema, seed data, service procedures, and partner-cache migration procedures for store orders, dispatch, delivery zones, POS staging, and workforce alerts
+- `StoreOps\` - operational schema, split seed-data scripts, service procedures, and partner-cache migration procedures for store orders, dispatch, store configuration, delivery history, menu items, POS staging, and workforce alerts
 - `CustomerHub\` - customer, franchise, and contract master data plus extraction procedures used by store and reporting jobs
 - `Reporting\` - reporting schema plus nightly rollup procedures fed from StoreOps and CustomerHub
 - `Deploy\` - SQLCMD entry points, Windows command wrappers, a shared invocation helper, and environment templates for first-time deployment and validation; set `DeployRoot` when running `00-deploy-all.sql` manually from a different working directory

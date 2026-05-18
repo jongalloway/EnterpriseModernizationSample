@@ -1,9 +1,13 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using Fabrikam.EnterprisePizza.Business.StoreOps.Services;
 using Fabrikam.EnterprisePizza.Core.Domain.Reporting;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Services;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Configuration;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Execution;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Logging;
 
 namespace Fabrikam.EnterprisePizza.Reporting.Batch
 {
@@ -11,7 +15,41 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch
     {
         private static readonly CultureInfo DisplayCulture = CultureInfo.GetCultureInfo("en-US");
 
-        private static void Main()
+        private static int Main(string[] args)
+        {
+            if (args != null && args.Any(argument => string.Equals(argument, "/workforce-report", StringComparison.OrdinalIgnoreCase)))
+            {
+                RunWorkforceSnapshotReport();
+                return 0;
+            }
+
+            var scheduler = new BatchScheduler(new BatchSettingsProvider(), new LegacyBatchLogger());
+            var summary = scheduler.RunNightlyWindow(DateTime.UtcNow.Date);
+            WriteNightlySummary(summary);
+            return summary.HasFailures ? 1 : 0;
+        }
+
+        private static void WriteNightlySummary(NightlyBatchRunSummary summary)
+        {
+            Console.WriteLine("Fabrikam Enterprise Pizza - Nightly ETL and Integration Batch");
+            Console.WriteLine("Window started : {0}", summary.StartedUtc.ToString("u", CultureInfo.InvariantCulture));
+            Console.WriteLine("Window finished: {0}", summary.CompletedUtc.ToString("u", CultureInfo.InvariantCulture));
+            Console.WriteLine();
+
+            foreach (var result in summary.JobResults)
+            {
+                Console.WriteLine(
+                    "{0} - {1} (attempts: {2}, extracted: {3}, loaded: {4})",
+                    result.JobName,
+                    result.Succeeded ? "Succeeded" : "Failed",
+                    result.AttemptCount,
+                    result.RowsExtracted,
+                    result.RowsLoaded);
+                Console.WriteLine("  {0}", result.SummaryMessage);
+            }
+        }
+
+        private static void RunWorkforceSnapshotReport()
         {
             var summaryDate = DateTime.UtcNow.Date;
             var workforceReportingService = new WorkforceReportingService();

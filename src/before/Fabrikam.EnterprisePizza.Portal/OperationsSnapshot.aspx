@@ -20,13 +20,29 @@
     </div>
 
     <div class="column-wrap">
-        <div class="module">
-            <h3>Route Notes</h3>
-            <asp:BulletedList ID="RouteNotesBullets" runat="server" CssClass="checklist" />
+        <div class="module collapsibleModule">
+            <asp:Panel ID="RouteNotesHeaderPanel" runat="server" CssClass="module-toggle">
+                <h3>Route Notes</h3>
+                <span class="module-toggle-state" id="RouteNotesToggleStateLabel" runat="server">Hide route notes</span>
+            </asp:Panel>
+            <asp:Panel ID="RouteNotesBodyPanel" runat="server" CssClass="module-body">
+                <asp:BulletedList ID="RouteNotesBullets" runat="server" CssClass="checklist" />
+            </asp:Panel>
+            <ajaxToolkit:CollapsiblePanelExtender ID="RouteNotesCollapsible" runat="server" TargetControlID="RouteNotesBodyPanel"
+                ExpandControlID="RouteNotesHeaderPanel" CollapseControlID="RouteNotesHeaderPanel" TextLabelID="RouteNotesToggleStateLabel"
+                CollapsedText="Show route notes" ExpandedText="Hide route notes" Collapsed="false" />
         </div>
-        <div class="module">
-            <h3>Partner Services Queue</h3>
-            <asp:BulletedList ID="PartnerQueueBullets" runat="server" CssClass="checklist" />
+        <div class="module collapsibleModule">
+            <asp:Panel ID="PartnerQueueHeaderPanel" runat="server" CssClass="module-toggle">
+                <h3>Partner Services Queue</h3>
+                <span class="module-toggle-state" id="PartnerQueueToggleStateLabel" runat="server">Hide queue details</span>
+            </asp:Panel>
+            <asp:Panel ID="PartnerQueueBodyPanel" runat="server" CssClass="module-body">
+                <asp:BulletedList ID="PartnerQueueBullets" runat="server" CssClass="checklist" />
+            </asp:Panel>
+            <ajaxToolkit:CollapsiblePanelExtender ID="PartnerQueueCollapsible" runat="server" TargetControlID="PartnerQueueBodyPanel"
+                ExpandControlID="PartnerQueueHeaderPanel" CollapseControlID="PartnerQueueHeaderPanel" TextLabelID="PartnerQueueToggleStateLabel"
+                CollapsedText="Show queue details" ExpandedText="Hide queue details" Collapsed="true" />
         </div>
     </div>
 </asp:Content>
