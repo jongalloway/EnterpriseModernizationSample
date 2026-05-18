@@ -1,5 +1,9 @@
 using System;
 using System.Configuration;
+using System.Globalization;
+using System.Linq;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Fabrikam.EnterprisePizza.StoreOps.Portal.Data;
@@ -8,6 +12,8 @@ namespace Fabrikam.EnterprisePizza.StoreOps.Portal
 {
     public partial class OrderLookup : Page
     {
+        private static readonly string[] LookupStores = { "014", "022", "031", "057", "081" };
+
         private const string StoreFilterViewStateKey = "OrderLookup.Store";
         private const string SearchFilterViewStateKey = "OrderLookup.Search";
         private const string StatusFilterViewStateKey = "OrderLookup.Status";
@@ -65,6 +71,33 @@ namespace Fabrikam.EnterprisePizza.StoreOps.Portal
             e.InputParameters["statusFilter"] = GetFilterValue(StatusFilterViewStateKey, "All");
             e.InputParameters["serviceModeFilter"] = GetFilterValue(ServiceModeFilterViewStateKey, "All");
             e.InputParameters["sortExpression"] = GetFilterValue(SortExpressionViewStateKey, "PromiseWindow");
+        }
+
+        [WebMethod]
+        [ScriptMethod]
+        public static string[] GetLookupSuggestions(string prefixText, int count)
+        {
+            if (string.IsNullOrWhiteSpace(prefixText))
+            {
+                return new string[0];
+            }
+
+            var normalizedPrefix = prefixText.Trim();
+            var suggestionCount = count <= 0 ? 8 : count;
+            var dataSource = new OrderManagementLegacyDataSource();
+
+            return LookupStores
+                .SelectMany(storeNumber => dataSource.GetLookupOrders(storeNumber, string.Empty, "All", "All", "OrderNumber"))
+                .SelectMany(row => new[]
+                {
+                    row.CustomerName,
+                    row.OrderNumber.ToString(CultureInfo.InvariantCulture),
+                    row.CustomerName + " (" + row.OrderNumber.ToString(CultureInfo.InvariantCulture) + ")"
+                })
+                .Where(value => value.IndexOf(normalizedPrefix, StringComparison.OrdinalIgnoreCase) >= 0)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .Take(suggestionCount)
+                .ToArray();
         }
 
         private void BindLookupGrid(string statusMessage)

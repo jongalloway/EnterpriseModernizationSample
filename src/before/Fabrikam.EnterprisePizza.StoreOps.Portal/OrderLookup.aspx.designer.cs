@@ -5,7 +5,9 @@ namespace Fabrikam.EnterprisePizza.StoreOps.Portal
         protected global::System.Web.UI.WebControls.DropDownList LookupStoreFilter;
 
         protected global::System.Web.UI.WebControls.TextBox LookupSearchTextBox;
-
+ 
+        protected global::AjaxControlToolkit.AutoCompleteExtender LookupSearchAutoComplete;
+ 
         protected global::System.Web.UI.WebControls.DropDownList LookupStatusFilter;
 
         protected global::System.Web.UI.WebControls.DropDownList LookupServiceModeFilter;

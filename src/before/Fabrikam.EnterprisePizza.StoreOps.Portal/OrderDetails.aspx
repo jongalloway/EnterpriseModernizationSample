@@ -20,6 +20,7 @@
             <div class="legacyPanel detailToolbarPanel">
                 <div class="toolbar toolbarCompact">
                     <asp:Button ID="RefreshDetailsButton" runat="server" Text="Refresh Ticket" CssClass="legacyButton" OnClick="RefreshDetailsButton_Click" />
+                    <asp:LinkButton ID="ReleaseChecklistLink" runat="server" CssClass="legacyButtonLink">Review release checklist</asp:LinkButton>
                     <a href="OrderLookup.aspx" class="legacyButtonLink">Back to lookup</a>
                     <a href="OrderHistory.aspx" class="legacyButtonLink">Open history</a>
                     <asp:Label ID="OrderDetailsStatusLabel" runat="server" CssClass="toolbarNote statusInlineLabel" />
@@ -82,4 +83,16 @@
             </div>
         </div>
     </div>
+
+    <asp:Panel ID="ReleaseChecklistPanel" runat="server" CssClass="modalPanel" Style="display: none;">
+        <div class="modalHeader">Release checklist</div>
+        <ul class="sidebarBulletList modalBulletList">
+            <li>Match the callback initials against the issue card before release.</li>
+            <li>Confirm the payment hold is cleared on the counter printer tape.</li>
+            <li>Log the handoff station before the shift lead signs the packet.</li>
+        </ul>
+        <asp:Button ID="CloseReleaseChecklistButton" runat="server" Text="Close" CssClass="legacyButton" />
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="ReleaseChecklistPopup" runat="server" TargetControlID="ReleaseChecklistLink"
+        PopupControlID="ReleaseChecklistPanel" CancelControlID="CloseReleaseChecklistButton" BackgroundCssClass="modalBackdrop" />
 </asp:Content>

@@ -24,13 +24,19 @@
                         <td class="filterLabel"><label for="HistoryStoreFilter">Store</label></td>
                         <td><asp:DropDownList ID="HistoryStoreFilter" runat="server" CssClass="legacySelect" /></td>
                         <td class="filterLabel"><label for="HistoryStartDateTextBox">Start date</label></td>
-                        <td><asp:TextBox ID="HistoryStartDateTextBox" runat="server" CssClass="legacyTextBox legacyDateTextBox" /></td>
+                        <td>
+                            <asp:TextBox ID="HistoryStartDateTextBox" runat="server" CssClass="legacyTextBox legacyDateTextBox" />
+                            <ajaxToolkit:CalendarExtender ID="HistoryStartDateCalendar" runat="server" TargetControlID="HistoryStartDateTextBox" Format="MM/dd/yyyy" CssClass="legacyCalendarPopup" />
+                        </td>
                     </tr>
                     <tr>
                         <td class="filterLabel"><label for="HistoryServiceModeFilter">Service mode</label></td>
                         <td><asp:DropDownList ID="HistoryServiceModeFilter" runat="server" CssClass="legacySelect" /></td>
                         <td class="filterLabel"><label for="HistoryEndDateTextBox">End date</label></td>
-                        <td><asp:TextBox ID="HistoryEndDateTextBox" runat="server" CssClass="legacyTextBox legacyDateTextBox" /></td>
+                        <td>
+                            <asp:TextBox ID="HistoryEndDateTextBox" runat="server" CssClass="legacyTextBox legacyDateTextBox" />
+                            <ajaxToolkit:CalendarExtender ID="HistoryEndDateCalendar" runat="server" TargetControlID="HistoryEndDateTextBox" Format="MM/dd/yyyy" CssClass="legacyCalendarPopup" />
+                        </td>
                     </tr>
                 </table>
                 <div class="toolbar toolbarCompact">

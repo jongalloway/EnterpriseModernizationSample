@@ -5,11 +5,15 @@ namespace Fabrikam.EnterprisePizza.StoreOps.Portal
         protected global::System.Web.UI.WebControls.DropDownList HistoryStoreFilter;
 
         protected global::System.Web.UI.WebControls.TextBox HistoryStartDateTextBox;
-
+ 
+        protected global::AjaxControlToolkit.CalendarExtender HistoryStartDateCalendar;
+ 
         protected global::System.Web.UI.WebControls.DropDownList HistoryServiceModeFilter;
 
         protected global::System.Web.UI.WebControls.TextBox HistoryEndDateTextBox;
-
+ 
+        protected global::AjaxControlToolkit.CalendarExtender HistoryEndDateCalendar;
+ 
         protected global::System.Web.UI.WebControls.Button ApplyHistoryButton;
 
         protected global::System.Web.UI.WebControls.Button ResetHistoryButton;

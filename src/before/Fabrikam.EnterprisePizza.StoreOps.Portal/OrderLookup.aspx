@@ -24,7 +24,14 @@
                         <td class="filterLabel"><label for="LookupStoreFilter">Store</label></td>
                         <td><asp:DropDownList ID="LookupStoreFilter" runat="server" CssClass="legacySelect" /></td>
                         <td class="filterLabel"><label for="LookupSearchTextBox">Guest / order</label></td>
-                        <td><asp:TextBox ID="LookupSearchTextBox" runat="server" CssClass="legacyTextBox" MaxLength="40" /></td>
+                        <td>
+                            <asp:TextBox ID="LookupSearchTextBox" runat="server" CssClass="legacyTextBox" MaxLength="40" />
+                            <ajaxToolkit:AutoCompleteExtender ID="LookupSearchAutoComplete" runat="server" TargetControlID="LookupSearchTextBox"
+                                ServiceMethod="GetLookupSuggestions" MinimumPrefixLength="2" CompletionInterval="200" CompletionSetCount="8"
+                                CompletionListCssClass="legacyAutoCompleteList" CompletionListItemCssClass="legacyAutoCompleteItem"
+                                CompletionListHighlightedItemCssClass="legacyAutoCompleteItemSelected" />
+                            <span class="fieldHint">Type two letters or ticket digits for ready-made suggestions.</span>
+                        </td>
                     </tr>
                     <tr>
                         <td class="filterLabel"><label for="LookupStatusFilter">Status</label></td>

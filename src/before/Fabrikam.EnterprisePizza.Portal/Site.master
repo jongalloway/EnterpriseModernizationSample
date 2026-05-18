@@ -9,6 +9,7 @@
 </head>
 <body>
     <form id="PortalForm" runat="server">
+        <asp:ScriptManager ID="PortalScriptManager" runat="server" EnablePageMethods="true" />
         <div class="page-shell">
             <div class="utility-nav">
                 <a href="Default.aspx">Portal Home</a>
