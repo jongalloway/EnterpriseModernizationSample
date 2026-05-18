@@ -46,6 +46,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Services\DispatchCoordinator.cs" />
     <Compile Include="Services\IDispatchCoordinator.cs" />
     <Compile Include="Services\IOrderPricingEngine.cs" />
@@ -55,6 +56,20 @@
     <Compile Include="Services\IPaymentGateway.cs" />
     <Compile Include="Services\IPosWorkflowService.cs" />
     <Compile Include="Services\IStoreOpsBusinessRuleProvider.cs" />
+=======
+    <Compile Include="Configuration\DispatchBusinessRules.cs" />
+    <Compile Include="Services\IDeliveryTrackingService.cs" />
+    <Compile Include="Services\DeliveryTrackingService.cs" />
+    <Compile Include="Services\IDispatchCoordinator.cs" />
+    <Compile Include="Services\DispatchCoordinator.cs" />
+    <Compile Include="Services\IDispatchQueueService.cs" />
+    <Compile Include="Services\DispatchQueueService.cs" />
+    <Compile Include="Services\IDriverAssignmentService.cs" />
+    <Compile Include="Services\DriverAssignmentService.cs" />
+    <Compile Include="Services\IRoutePlanningService.cs" />
+    <Compile Include="Services\RoutePlanningService.cs" />
+    <Compile Include="Services\StoreOpsServiceBase.cs" />
+>>>>>>> origin/dev
     <Compile Include="Services\IWorkforceReportingService.cs" />
     <Compile Include="Services\OrderPricingEngine.cs" />
     <Compile Include="Services\OrderProcessingService.cs" />

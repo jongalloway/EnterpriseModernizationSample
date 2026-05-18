@@ -35,11 +35,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PartnerSync\CommissionProcessingRequest.cs" />
+    <Compile Include="PartnerSync\CommissionProcessingResult.cs" />
     <Compile Include="PartnerSync\PartnerAccountSummary.cs" />
+    <Compile Include="PartnerSync\PartnerContractRecord.cs" />
+    <Compile Include="PartnerSync\PartnerContractUpdateRequest.cs" />
+    <Compile Include="PartnerSync\PartnerProfile.cs" />
+    <Compile Include="PartnerSync\PartnerReferralRecord.cs" />
+    <Compile Include="PartnerSync\PartnerReferralSubmission.cs" />
+    <Compile Include="PartnerSync\PartnerRegistrationRequest.cs" />
+    <Compile Include="PartnerSync\PartnerStatusRecord.cs" />
     <Compile Include="PartnerSync\PartnerSyncEnvelope.cs" />
     <Compile Include="PartnerSync\PartnerSyncRequest.cs" />
+    <Compile Include="Routing\DeliveryStatus.cs" />
+    <Compile Include="Routing\DeliveryStatusEvent.cs" />
+    <Compile Include="Routing\DeliveryTrackingRecord.cs" />
+    <Compile Include="Routing\DispatchBatch.cs" />
     <Compile Include="Routing\DispatchBoardSnapshot.cs" />
+    <Compile Include="Routing\DispatchQueueEntry.cs" />
     <Compile Include="Routing\DispatchTicket.cs" />
+    <Compile Include="Routing\DriverAssignmentRecommendation.cs" />
+    <Compile Include="Routing\DriverAvailability.cs" />
+    <Compile Include="Routing\RoutePlan.cs" />
+    <Compile Include="Routing\RouteStop.cs" />
     <Compile Include="Routing\StoreDispatchRequest.cs" />
     <Compile Include="StoreOps\AppliedDiscount.cs" />
     <Compile Include="StoreOps\OrderLineItem.cs" />
