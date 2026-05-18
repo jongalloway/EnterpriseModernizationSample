@@ -91,8 +91,12 @@
         <div class="dashboardSidebar">
             <div class="sidebarPanel">
                 <h2>Supervisor quick actions</h2>
-                <p>Use this shortcut before the dinner window gets noisy.</p>
+                <p>Use these shortcuts before the dinner window gets noisy.</p>
                 <asp:LinkButton ID="TerminalReminderLink" runat="server" CssClass="legacyButtonLink">Show terminal reminders</asp:LinkButton>
+                <div class="sidebarLinkGroup">
+                    <a href="OrderLookup.aspx" class="legacyButtonLink">Open order lookup</a>
+                    <a href="OrderHistory.aspx" class="legacyButtonLink">Review order history</a>
+                </div>
             </div>
 
             <div class="sidebarPanel sidebarPanelMuted">

@@ -22,6 +22,10 @@
             <div class="utilityBar">
                 <a href="Default.aspx">Dispatch Dashboard</a>
                 <span class="navDivider">|</span>
+                <a href="OrderLookup.aspx">Order Lookup</a>
+                <span class="navDivider">|</span>
+                <a href="OrderHistory.aspx">Order History</a>
+                <span class="navDivider">|</span>
                 <a href="Default.aspx#laborWatch">Labor Watch</a>
                 <span class="navDivider">|</span>
                 <a href="Default.aspx#zoneNotes">Zone Notes</a>

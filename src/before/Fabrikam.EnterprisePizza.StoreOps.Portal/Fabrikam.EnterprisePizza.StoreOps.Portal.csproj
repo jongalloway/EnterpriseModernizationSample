@@ -34,6 +34,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\OrderManagementLegacyDataSource.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
@@ -42,6 +43,24 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetails.aspx.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetails.aspx.designer.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrderHistory.aspx.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrderHistory.aspx.designer.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrderLookup.aspx.cs">
+      <DependentUpon>OrderLookup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OrderLookup.aspx.designer.cs">
+      <DependentUpon>OrderLookup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.master.cs">
       <DependentUpon>Site.master</DependentUpon>
@@ -52,6 +71,9 @@
     <Content Include="Content\Portal.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="OrderDetails.aspx" />
+    <Content Include="OrderHistory.aspx" />
+    <Content Include="OrderLookup.aspx" />
     <Content Include="Scripts\portal-shell.js" />
     <Content Include="Site.master" />
     <Content Include="web.config" />
