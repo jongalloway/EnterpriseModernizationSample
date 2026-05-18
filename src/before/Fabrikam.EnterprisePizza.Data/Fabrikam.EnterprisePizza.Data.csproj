@@ -47,6 +47,8 @@
     <Compile Include="Repositories\Reporting\WorkforceReportRepository.cs" />
     <Compile Include="Repositories\StoreOps\IDispatchTicketRepository.cs" />
     <Compile Include="Repositories\StoreOps\DispatchTicketRepository.cs" />
+    <Compile Include="Repositories\StoreOps\IOrderRepository.cs" />
+    <Compile Include="Repositories\StoreOps\OrderRepository.cs" />
     <Compile Include="Repositories\StoreOps\IPosImportBatchRepository.cs" />
     <Compile Include="Repositories\StoreOps\PosImportBatchRepository.cs" />
     <Compile Include="StoredProcedures\LegacyStoredProcedures.cs" />

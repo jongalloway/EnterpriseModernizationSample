@@ -5,6 +5,11 @@ namespace Fabrikam.EnterprisePizza.Data.StoredProcedures
         public static class StoreOps
         {
             public const string GetActiveDispatchTickets = "dbo.usp_DispatchBoard_GetActiveTickets";
+            public const string GetOrder = "dbo.usp_OrderService_GetOrder";
+            public const string SearchOrders = "dbo.usp_OrderService_SearchOrders";
+            public const string PlaceOrder = "dbo.usp_OrderService_PlaceOrder";
+            public const string UpdateOrderStatus = "dbo.usp_OrderService_UpdateOrderStatus";
+            public const string GetOrderHistory = "dbo.usp_OrderService_GetOrderHistory";
             public const string GetLatestPosImportBatch = "dbo.usp_PosImport_GetLatestBatch";
         }
 

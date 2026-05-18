@@ -59,6 +59,12 @@
     <Compile Include="Routing\RoutePlan.cs" />
     <Compile Include="Routing\RouteStop.cs" />
     <Compile Include="Routing\StoreDispatchRequest.cs" />
+    <Compile Include="StoreOps\OrderHistoryRecord.cs" />
+    <Compile Include="StoreOps\OrderLookupRecord.cs" />
+    <Compile Include="StoreOps\OrderPlacementRequest.cs" />
+    <Compile Include="StoreOps\OrderRecord.cs" />
+    <Compile Include="StoreOps\OrderSearchRequest.cs" />
+    <Compile Include="StoreOps\OrderStatusUpdateRequest.cs" />
     <Compile Include="StoreOps\AppliedDiscount.cs" />
     <Compile Include="StoreOps\OrderLineItem.cs" />
     <Compile Include="StoreOps\OrderLookupRecord.cs" />
