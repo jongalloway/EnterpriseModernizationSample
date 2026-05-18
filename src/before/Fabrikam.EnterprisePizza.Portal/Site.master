@@ -19,6 +19,16 @@
                 <a href="#">Privacy Policy</a>
                 <span>|</span>
                 <a href="#">Terms of Use</a>
+            <div class="utility-nav">
+                <a href="Default.aspx">Portal Home</a>
+                <a href="PartnerDashboard.aspx">Partner Dashboard</a>
+                <a href="PartnerSignup.aspx">Partner Signup</a>
+                <a href="ContractReview.aspx">Contract Review</a>
+                <a href="ReferralTracking.aspx">Referral Tracking</a>
+                <a href="OperationsSnapshot.aspx">Operations Snapshot</a>
+                <a href="/CustomerHub/CorporateAccounts.aspx">Corporate Accounts</a>
+                <a href="/FranchisePortal/Default.aspx">Franchise Bulletins</a>
+                <a href="/Storefront/">Storefront</a>
             </div>
             <div class="utility-nav">
                 <div class="utility-links">
@@ -64,6 +74,10 @@
             </div>
             <div class="tab-strip">
                 <a href="Default.aspx">Executive Snapshot</a>
+                <a href="PartnerDashboard.aspx">Partner Dashboard</a>
+                <a href="PartnerSignup.aspx">Signup Intake</a>
+                <a href="ContractReview.aspx">Contract Review</a>
+                <a href="ReferralTracking.aspx">Referral Tracking</a>
                 <a href="OperationsSnapshot.aspx">Store Rollups</a>
                 <a href="<%= ResolveUrl("~/Account/Manage.aspx") %>">Account Center</a>
                 <span class="status-chip">Trusted Partner Access</span>

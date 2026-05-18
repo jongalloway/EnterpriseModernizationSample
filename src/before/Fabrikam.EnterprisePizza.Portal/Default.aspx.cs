@@ -13,15 +13,18 @@ namespace Fabrikam.EnterprisePizza.Portal
 
             QuickLaunchRepeater.DataSource = new[]
             {
+                new PortalLink("Partner dashboard", "PartnerDashboard.aspx", "Scan intake backlog, contract watch items, and referral momentum in one binder view."),
+                new PortalLink("Partner signup intake", "PartnerSignup.aspx", "Log new franchise groups and external channel operators before the morning review."),
+                new PortalLink("Contract review queue", "ContractReview.aspx", "Sort expiring agreements and update signature status without leaving the portal."),
+                new PortalLink("Referral tracking", "ReferralTracking.aspx", "Track attribution, booked orders, and commission payouts for partner channels."),
                 new PortalLink("Corporate catering queue", "/CustomerHub/CorporateAccounts.aspx", "Review preferred partner accounts and re-key faxed orders."),
-                new PortalLink("Franchise bulletin center", "/FranchisePortal/Default.aspx", "Publish campaign art, compliance notices, and district talking points."),
-                new PortalLink("Online storefront", "/Storefront/", "Check customer-facing offers before the Tuesday coupon blast.")
+                new PortalLink("Franchise bulletin center", "/FranchisePortal/Default.aspx", "Publish campaign art, compliance notices, and district talking points.")
             };
             QuickLaunchRepeater.DataBind();
 
             HeadlineRepeater.DataSource = new[]
             {
-                new PortalHeadline("Coupon kit posted", "PROMO", "Extreme Value Tuesday artwork is staged for all 42 stores. Print packets before lunch for the counter teams."),
+                new PortalHeadline("Partner binder refreshed", "B2B", "New signup, contract review, and referral tracking binders are staged for the franchise support desk."),
                 new PortalHeadline("Driver maps refreshed", "OPS", "Updated delivery-zone notes were uploaded after the overnight MapQuest route export completed."),
                 new PortalHeadline("Catering follow-up", "SALES", "Eight corporate account renewals still need signed menu pricing sheets from regional reps.")
             };
