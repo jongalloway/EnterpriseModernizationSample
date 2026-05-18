@@ -11,6 +11,12 @@ namespace Fabrikam.EnterprisePizza.Data.StoredProcedures
         public static class CustomerHub
         {
             public const string GetPreferredPartners = "dbo.usp_CorporateAccounts_GetPreferredPartners";
+            public const string GetPartnerProfile = "dbo.usp_PartnerAccounts_GetPartnerProfile";
+            public const string RegisterPartner = "dbo.usp_PartnerAccounts_RegisterPartner";
+            public const string UpdatePartnerContract = "dbo.usp_PartnerContracts_UpdateCurrent";
+            public const string GetPartnerReferrals = "dbo.usp_PartnerReferrals_GetByPartner";
+            public const string SubmitPartnerReferral = "dbo.usp_PartnerReferrals_Submit";
+            public const string ProcessPartnerCommission = "dbo.usp_PartnerSettlements_ProcessCommission";
         }
 
         public static class Reporting
