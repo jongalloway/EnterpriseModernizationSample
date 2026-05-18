@@ -12,6 +12,10 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>false</Deterministic>
+    <EnterpriseLibraryCommonReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
+    <EnterpriseLibraryCommonReferencePath Condition="'$(EnterpriseLibraryCommonReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.common\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
+    <EnterpriseLibraryExceptionReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</EnterpriseLibraryExceptionReferencePath>
+    <EnterpriseLibraryExceptionReferencePath Condition="'$(EnterpriseLibraryExceptionReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.exceptionhandling\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</EnterpriseLibraryExceptionReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,11 +33,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>$(EnterpriseLibraryCommonReferencePath)</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling">
+      <HintPath>$(EnterpriseLibraryExceptionReferencePath)</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="Services\DispatchCoordinator.cs" />
+    <Compile Include="Services\IDispatchCoordinator.cs" />
+    <Compile Include="Services\IOrderPricingEngine.cs" />
+    <Compile Include="Services\IOrderProcessingService.cs" />
+    <Compile Include="Services\IOrderStatusService.cs" />
+    <Compile Include="Services\IOrderValidationService.cs" />
+    <Compile Include="Services\IPaymentGateway.cs" />
+    <Compile Include="Services\IPosWorkflowService.cs" />
+    <Compile Include="Services\IStoreOpsBusinessRuleProvider.cs" />
+=======
     <Compile Include="Configuration\DispatchBusinessRules.cs" />
     <Compile Include="Services\IDeliveryTrackingService.cs" />
     <Compile Include="Services\DeliveryTrackingService.cs" />
@@ -46,9 +69,19 @@
     <Compile Include="Services\IRoutePlanningService.cs" />
     <Compile Include="Services\RoutePlanningService.cs" />
     <Compile Include="Services\StoreOpsServiceBase.cs" />
+>>>>>>> origin/dev
     <Compile Include="Services\IWorkforceReportingService.cs" />
-    <Compile Include="Services\WorkforceReportingService.cs" />
+    <Compile Include="Services\OrderPricingEngine.cs" />
+    <Compile Include="Services\OrderProcessingService.cs" />
+    <Compile Include="Services\OrderStatusService.cs" />
+    <Compile Include="Services\OrderValidationService.cs" />
+    <Compile Include="Services\PosWorkflowService.cs" />
+    <Compile Include="Services\StoreOpsBusinessRuleProvider.cs" />
+    <Compile Include="Services\StoreOpsExceptionShield.cs" />
     <Compile Include="Services\StoreOperationsWorkbenchService.cs" />
+    <Compile Include="Services\StubPaymentGateway.cs" />
+    <Compile Include="Services\WorkforceReportingService.cs" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Core\Fabrikam.EnterprisePizza.Core.csproj">

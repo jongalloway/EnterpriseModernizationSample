@@ -52,10 +52,19 @@
     <Compile Include="Repositories\StoreOps\PosImportBatchRepositoryFixture.cs" />
     <Compile Include="Services\DeliveryTrackingServiceFixture.cs" />
     <Compile Include="Services\DispatchCoordinatorFixture.cs" />
+<<<<<<< HEAD
+    <Compile Include="Services\OrderPricingEngineFixture.cs" />
+    <Compile Include="Services\OrderProcessingServiceFixture.cs" />
+    <Compile Include="Services\OrderStatusServiceFixture.cs" />
+    <Compile Include="Services\OrderValidationServiceFixture.cs" />
+    <Compile Include="Services\PartnerAccountServiceFixture.cs" />
+    <Compile Include="Services\PosWorkflowServiceFixture.cs" />
+=======
     <Compile Include="Services\DispatchQueueServiceFixture.cs" />
     <Compile Include="Services\DriverAssignmentServiceFixture.cs" />
     <Compile Include="Services\PartnerAccountServiceFixture.cs" />
     <Compile Include="Services\RoutePlanningServiceFixture.cs" />
+>>>>>>> origin/dev
     <Compile Include="Services\StoreOperationsWorkbenchServiceFixture.cs" />
     <Compile Include="Services\WorkforceReportingServiceFixture.cs" />
     <None Include="packages.config" />
