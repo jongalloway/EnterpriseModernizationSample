@@ -38,8 +38,17 @@
     <Compile Include="PartnerSync\PartnerAccountSummary.cs" />
     <Compile Include="PartnerSync\PartnerSyncEnvelope.cs" />
     <Compile Include="PartnerSync\PartnerSyncRequest.cs" />
+    <Compile Include="Routing\DeliveryStatus.cs" />
+    <Compile Include="Routing\DeliveryStatusEvent.cs" />
+    <Compile Include="Routing\DeliveryTrackingRecord.cs" />
+    <Compile Include="Routing\DispatchBatch.cs" />
     <Compile Include="Routing\DispatchBoardSnapshot.cs" />
+    <Compile Include="Routing\DispatchQueueEntry.cs" />
     <Compile Include="Routing\DispatchTicket.cs" />
+    <Compile Include="Routing\DriverAssignmentRecommendation.cs" />
+    <Compile Include="Routing\DriverAvailability.cs" />
+    <Compile Include="Routing\RoutePlan.cs" />
+    <Compile Include="Routing\RouteStop.cs" />
     <Compile Include="Routing\StoreDispatchRequest.cs" />
     <Compile Include="StoreOps\OrderLookupRecord.cs" />
     <Compile Include="StoreOps\StoreManagementRecord.cs" />
