@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Fabrikam.EnterprisePizza.Core.Configuration;
 
 namespace Fabrikam.EnterprisePizza.Data.Configuration
 {
@@ -13,26 +14,21 @@ namespace Fabrikam.EnterprisePizza.Data.Configuration
                 { "Reporting", LegacyDatabaseArea.Reporting }
             };
 
-        private readonly IDictionary<LegacyDatabaseArea, string> connectionNames;
+        private readonly EnterpriseLibraryConfigurationReader configurationReader;
 
         public LegacyConnectionCatalog()
+            : this(new EnterpriseLibraryConfigurationReader())
         {
-            connectionNames = new Dictionary<LegacyDatabaseArea, string>
-            {
-                { LegacyDatabaseArea.StoreOps, "FabrikamPizza_StoreOps" },
-                { LegacyDatabaseArea.CustomerHub, "FabrikamPizza_CustomerHub" },
-                { LegacyDatabaseArea.Reporting, "FabrikamPizza_Reporting" }
-            };
+        }
+
+        public LegacyConnectionCatalog(EnterpriseLibraryConfigurationReader configurationReader)
+        {
+            this.configurationReader = configurationReader ?? throw new ArgumentNullException(nameof(configurationReader));
         }
 
         public string GetConnectionName(LegacyDatabaseArea area)
         {
-            if (!connectionNames.ContainsKey(area))
-            {
-                throw new ArgumentOutOfRangeException(nameof(area), area, "Unknown legacy database area.");
-            }
-
-            return connectionNames[area];
+            return configurationReader.GetConnectionName(area.ToString(), GetDefaultConnectionName(area));
         }
 
         public string GetConnectionName(string area)
@@ -49,6 +45,21 @@ namespace Fabrikam.EnterprisePizza.Data.Configuration
             }
 
             return GetConnectionName(databaseArea);
+        }
+
+        public static string GetDefaultConnectionName(LegacyDatabaseArea area)
+        {
+            switch (area)
+            {
+                case LegacyDatabaseArea.StoreOps:
+                    return "FabrikamPizza_StoreOps";
+                case LegacyDatabaseArea.CustomerHub:
+                    return "FabrikamPizza_CustomerHub";
+                case LegacyDatabaseArea.Reporting:
+                    return "FabrikamPizza_Reporting";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(area), area, "Unknown legacy database area.");
+            }
         }
     }
 }

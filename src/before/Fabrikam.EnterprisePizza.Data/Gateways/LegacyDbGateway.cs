@@ -11,15 +11,22 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
     public class LegacyDbGateway
     {
         private readonly LegacyConnectionCatalog connectionCatalog;
+        private readonly LegacyDatabaseFactory databaseFactory;
 
         public LegacyDbGateway()
-            : this(new LegacyConnectionCatalog())
+            : this(new LegacyConnectionCatalog(), new LegacyDatabaseFactory())
         {
         }
 
         public LegacyDbGateway(LegacyConnectionCatalog connectionCatalog)
+            : this(connectionCatalog, new LegacyDatabaseFactory())
+        {
+        }
+
+        public LegacyDbGateway(LegacyConnectionCatalog connectionCatalog, LegacyDatabaseFactory databaseFactory)
         {
             this.connectionCatalog = connectionCatalog ?? throw new ArgumentNullException(nameof(connectionCatalog));
+            this.databaseFactory = databaseFactory ?? throw new ArgumentNullException(nameof(databaseFactory));
         }
 
         public string GetConnectionName(string area)
@@ -29,7 +36,7 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
 
         public string GetConnectionName(LegacyDatabaseArea area)
         {
-            return connectionCatalog.GetConnectionName(area);
+            return databaseFactory.CreateDatabase(area).ConnectionName;
         }
 
         public StoredProcedureCall CreateStoredProcedureCall(LegacyDatabaseArea area, string procedureName, params GatewayParameter[] parameters)
