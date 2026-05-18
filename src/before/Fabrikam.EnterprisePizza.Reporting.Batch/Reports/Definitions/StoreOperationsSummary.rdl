@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="FabrikamPizza_Reporting">
+      <DataSourceReference>/Fabrikam Enterprise Pizza/Shared Data Sources/FabrikamPizza_Reporting</DataSourceReference>
+      <rd:SecurityType>Integrated</rd:SecurityType>
+      <rd:DataSourceID>8f4594c4-6c7b-4be0-84c4-98fae4f8a245</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <ReportParameters>
+    <ReportParameter Name="StoreNumber"><DataType>String</DataType><Prompt>Store Number</Prompt><DefaultValue><Values><Value>014</Value></Values></DefaultValue></ReportParameter>
+    <ReportParameter Name="StartDate"><DataType>DateTime</DataType><Prompt>Start Date</Prompt><DefaultValue><Values><Value>=DateAdd("d", -6, Today())</Value></Values></DefaultValue></ReportParameter>
+    <ReportParameter Name="EndDate"><DataType>DateTime</DataType><Prompt>End Date</Prompt><DefaultValue><Values><Value>=Today()</Value></Values></DefaultValue></ReportParameter>
+    <ReportParameter Name="RollupMode"><DataType>String</DataType><Prompt>Rollup Mode</Prompt><DefaultValue><Values><Value>Daily</Value></Values></DefaultValue></ReportParameter>
+  </ReportParameters>
+  <DataSets>
+    <DataSet Name="StoreOperationsSummaryDataSet">
+      <Query>
+        <DataSourceName>FabrikamPizza_Reporting</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.usp_StoreOperationsSummaryReport_GetRollup</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@StoreNumber"><Value>=Parameters!StoreNumber.Value</Value></QueryParameter>
+          <QueryParameter Name="@StartDate"><Value>=Parameters!StartDate.Value</Value></QueryParameter>
+          <QueryParameter Name="@EndDate"><Value>=Parameters!EndDate.Value</Value></QueryParameter>
+          <QueryParameter Name="@RollupMode"><Value>=Parameters!RollupMode.Value</Value></QueryParameter>
+        </QueryParameters>
+      </Query>
+      <Fields>
+        <Field Name="StoreNumber"><DataField>StoreNumber</DataField><rd:TypeName>System.String</rd:TypeName></Field>
+        <Field Name="PeriodStart"><DataField>PeriodStart</DataField><rd:TypeName>System.DateTime</rd:TypeName></Field>
+        <Field Name="CompletedRuns"><DataField>CompletedRuns</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+        <Field Name="LateRuns"><DataField>LateRuns</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+        <Field Name="DriverCount"><DataField>DriverCount</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+        <Field Name="ExceptionCount"><DataField>ExceptionCount</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+        <Field Name="WorkedHours"><DataField>WorkedHours</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="NetSales"><DataField>NetSales</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="StaffingCoveragePercentage"><DataField>StaffingCoveragePercentage</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Body>
+    <ReportItems>
+      <Textbox Name="StoreOperationsSummaryTitle"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Store Operations Summary</Value><Style><FontSize>16pt</FontSize><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Top>0in</Top><Left>0in</Left><Height>0.3in</Height><Width>6.8in</Width><Style /></Textbox>
+      <Tablix Name="StoreOperationsSummaryTablix">
+        <DataSetName>StoreOperationsSummaryDataSet</DataSetName>
+        <Top>0.45in</Top>
+        <Left>0in</Left>
+        <Height>0.6in</Height>
+        <Width>7in</Width>
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn><Width>0.95in</Width></TablixColumn>
+            <TablixColumn><Width>1.0in</Width></TablixColumn>
+            <TablixColumn><Width>0.75in</Width></TablixColumn>
+            <TablixColumn><Width>0.75in</Width></TablixColumn>
+            <TablixColumn><Width>0.75in</Width></TablixColumn>
+            <TablixColumn><Width>0.9in</Width></TablixColumn>
+            <TablixColumn><Width>0.9in</Width></TablixColumn>
+            <TablixColumn><Width>1.0in</Width></TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow><Height>0.22in</Height><TablixCells>
+              <TablixCell><CellContents><Textbox Name="OpsHdrPeriod"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Period</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsHdrStore"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Store</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsHdrRuns"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Runs</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsHdrLate"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Late</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsHdrDrivers"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Drivers</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsHdrExceptions"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Exceptions</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsHdrHours"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Hours</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsHdrCoverage"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Coverage %</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+            </TablixCells></TablixRow>
+            <TablixRow><Height>0.22in</Height><TablixCells>
+              <TablixCell><CellContents><Textbox Name="OpsPeriodValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Format(Fields!PeriodStart.Value, "yyyy-MM-dd")</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsStoreValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!StoreNumber.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsRunsValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!CompletedRuns.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsLateValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!LateRuns.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsDriversValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!DriverCount.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsExceptionsValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!ExceptionCount.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsHoursValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=FormatNumber(Fields!WorkedHours.Value, 1)</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="OpsCoverageValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=FormatNumber(Fields!StaffingCoveragePercentage.Value, 1) &amp; "%"</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+            </TablixCells></TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy><TablixMembers><TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember /></TablixMembers></TablixColumnHierarchy>
+        <TablixRowHierarchy><TablixMembers><TablixMember><KeepWithGroup>After</KeepWithGroup><RepeatOnNewPage>true</RepeatOnNewPage></TablixMember><TablixMember><Group Name="StoreOperationsSummaryDetailGroup" /></TablixMember></TablixMembers></TablixRowHierarchy>
+      </Tablix>
+    </ReportItems>
+    <Height>1.25in</Height>
+    <Style />
+  </Body>
+  <Width>7in</Width>
+  <Page><PageHeight>11in</PageHeight><PageWidth>8.5in</PageWidth><LeftMargin>0.5in</LeftMargin><RightMargin>0.5in</RightMargin><TopMargin>0.5in</TopMargin><BottomMargin>0.5in</BottomMargin><Style /></Page>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>24bcbc35-2eb5-44ce-97af-ae0a98b75e53</rd:ReportID>
+</Report>
