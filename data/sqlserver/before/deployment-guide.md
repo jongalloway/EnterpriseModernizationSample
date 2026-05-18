@@ -70,6 +70,7 @@ notepad 00-set-environment.cmd
 ## What the scripts do
 
 - Each database gets an idempotent create script, a schema script, seed data, service procedures, and migration procedures.
+- StoreOps now splits its operational seed pass across `03-seed-data.sql`, `03-menu-products.sql`, `03-store-configuration.sql`, and `03-delivery-records.sql` so DBAs can review roster/order data separately from menu, configuration, and completed-delivery history.
 - Service procedures line up with the legacy application seams: dispatch board reads from StoreOps, preferred partner lists and contract lookups read from CustomerHub, and dashboard summaries read from Reporting.
 - Migration procedures deliberately keep cross-database plumbing visible. CustomerHub builds a partner extract, StoreOps refreshes its local partner cache from that extract, and Reporting rebuilds daily snapshots from both operational databases.
 - The command wrappers are thin on purpose: a shared helper loads the environment file, passes SQLCMD variables once, picks integrated or SQL authentication, and then gets out of the way.

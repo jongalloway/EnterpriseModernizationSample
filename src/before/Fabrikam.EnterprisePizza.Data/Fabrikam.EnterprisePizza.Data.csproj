@@ -30,12 +30,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\LegacyConnectionCatalog.cs" />
     <Compile Include="Configuration\LegacyDatabaseArea.cs" />
+    <Compile Include="Configuration\LegacyDatabaseFactory.cs" />
     <Compile Include="Gateways\GatewayParameter.cs" />
     <Compile Include="Gateways\LegacyDbGateway.cs" />
     <Compile Include="Gateways\StoredProcedureCall.cs" />
@@ -45,6 +47,8 @@
     <Compile Include="Repositories\Reporting\WorkforceReportRepository.cs" />
     <Compile Include="Repositories\StoreOps\IDispatchTicketRepository.cs" />
     <Compile Include="Repositories\StoreOps\DispatchTicketRepository.cs" />
+    <Compile Include="Repositories\StoreOps\IOrderRepository.cs" />
+    <Compile Include="Repositories\StoreOps\OrderRepository.cs" />
     <Compile Include="Repositories\StoreOps\IPosImportBatchRepository.cs" />
     <Compile Include="Repositories\StoreOps\PosImportBatchRepository.cs" />
     <Compile Include="StoredProcedures\LegacyStoredProcedures.cs" />

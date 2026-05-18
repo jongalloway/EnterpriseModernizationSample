@@ -1,0 +1,39 @@
+using System;
+using System.Runtime.Serialization;
+
+namespace Fabrikam.EnterprisePizza.Shared.Contracts.Routing
+{
+    [DataContract]
+    public class DriverAssignmentRecommendation
+    {
+        [DataMember(Order = 1)]
+        public int TicketId { get; set; }
+
+        [DataMember(Order = 2)]
+        public string StoreNumber { get; set; }
+
+        [DataMember(Order = 3)]
+        public string DriverCode { get; set; }
+
+        [DataMember(Order = 4)]
+        public string RouteZone { get; set; }
+
+        [DataMember(Order = 5)]
+        public string ZoneMatch { get; set; }
+
+        [DataMember(Order = 6)]
+        public int DeliveryCountAfterAssignment { get; set; }
+
+        [DataMember(Order = 7)]
+        public DateTime EstimatedDepartureLocal { get; set; }
+
+        [DataMember(Order = 8)]
+        public DateTime EstimatedArrivalLocal { get; set; }
+
+        [DataMember(Order = 9)]
+        public decimal WorkloadScore { get; set; }
+
+        [DataMember(Order = 10)]
+        public string RecommendationNote { get; set; }
+    }
+}

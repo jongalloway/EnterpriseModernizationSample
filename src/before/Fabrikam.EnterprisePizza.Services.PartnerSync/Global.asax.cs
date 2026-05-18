@@ -10,12 +10,7 @@ namespace Fabrikam.EnterprisePizza.Services.PartnerSync
     {
         protected void Application_Start(object sender, System.EventArgs e)
         {
-            LegacyServiceLocator.Initialize(registry =>
-            {
-                registry.Register<LegacyDbGateway>();
-                registry.Register<IPartnerAccountRepository, PartnerAccountRepository>();
-                registry.Register<IPartnerAccountService, PartnerAccountService>();
-            });
+            LegacyServiceLocator.InitializeFromConfiguration("PartnerSyncHost");
         }
     }
 }
