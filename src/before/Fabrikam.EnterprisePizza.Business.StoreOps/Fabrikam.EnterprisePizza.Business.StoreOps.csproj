@@ -69,6 +69,8 @@
     <Compile Include="Services\IRoutePlanningService.cs" />
     <Compile Include="Services\RoutePlanningService.cs" />
     <Compile Include="Services\StoreOpsServiceBase.cs" />
+    <Compile Include="Services\IOrderManagementService.cs" />
+    <Compile Include="Services\OrderManagementService.cs" />
     <Compile Include="Services\IWorkforceReportingService.cs" />
     <Compile Include="Services\OrderPricingEngine.cs" />
     <Compile Include="Services\OrderProcessingService.cs" />
