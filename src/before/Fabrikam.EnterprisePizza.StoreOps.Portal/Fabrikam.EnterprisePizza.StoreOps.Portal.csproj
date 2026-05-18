@@ -23,6 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit">
+      <HintPath>$(USERPROFILE)\.nuget\packages\ajaxcontroltoolkit\15.1.4\lib\net40\AjaxControlToolkit.dll</HintPath>
       <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -42,9 +43,14 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DispatchBoard.aspx.cs">
+      <DependentUpon>DispatchBoard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="InventoryManagement.aspx.cs">
+      <DependentUpon>InventoryManagement.aspx</DependentUpon>
     <Compile Include="OrderDetails.aspx.cs">
       <DependentUpon>OrderDetails.aspx</DependentUpon>
     </Compile>
@@ -69,14 +75,25 @@
     <Compile Include="Site.master.designer.cs">
       <DependentUpon>Site.master</DependentUpon>
     </Compile>
+    <Compile Include="StaffSchedule.aspx.cs">
+      <DependentUpon>StaffSchedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreOperationsPortalService.cs" />
+    <Compile Include="StoreSettings.aspx.cs">
+      <DependentUpon>StoreSettings.aspx</DependentUpon>
+    </Compile>
     <Content Include="Content\Portal.css" />
     <Content Include="Default.aspx" />
+    <Content Include="DispatchBoard.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="InventoryManagement.aspx" />
     <Content Include="OrderDetails.aspx" />
     <Content Include="OrderHistory.aspx" />
     <Content Include="OrderLookup.aspx" />
     <Content Include="Scripts\portal-shell.js" />
     <Content Include="Site.master" />
+    <Content Include="StaffSchedule.aspx" />
+    <Content Include="StoreSettings.aspx" />
     <Content Include="web.config" />
     <None Include="packages.config" />
   </ItemGroup>

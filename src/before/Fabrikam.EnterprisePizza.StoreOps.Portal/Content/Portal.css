@@ -442,3 +442,87 @@ body {
 .modalBackdrop {
     background: rgba(34, 54, 78, 0.45);
 }
+
+.pageIntro {
+    padding: 22px 22px 12px;
+}
+
+.pageIntro h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    color: #1f456b;
+}
+
+.pageIntro p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.pageLayout {
+    display: flex;
+    gap: 18px;
+    padding: 0 22px 22px;
+}
+
+.pageLayoutWide {
+    align-items: flex-start;
+}
+
+.pagePrimaryColumn {
+    width: 680px;
+}
+
+.pageWideColumn {
+    width: 760px;
+}
+
+.pageSecondaryColumn {
+    width: 238px;
+}
+
+.legacyDetails {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.legacyDetails td,
+.legacyDetails th {
+    padding: 7px 8px;
+    border-bottom: 1px solid #d7e1ea;
+    vertical-align: top;
+}
+
+.legacyDetails th {
+    width: 110px;
+    background: #eef4fa;
+    color: #34506d;
+    text-align: left;
+}
+
+.selectedRow td {
+    background: #fff4c8 !important;
+}
+
+.legacyTextBox {
+    width: 92px;
+    padding: 3px 5px;
+    border: 1px solid #7f9db9;
+}
+
+.toolbarWithCalendar label {
+    margin-left: 8px;
+}
+
+.toolbarWithCalendar label:first-child {
+    margin-left: 0;
+}
+
+.legacyGridCompact {
+    font-size: 11px;
+}
+
+.legacyGridCompact th,
+.legacyGridCompact td {
+    padding: 6px 5px;
+}
