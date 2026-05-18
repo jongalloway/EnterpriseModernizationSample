@@ -30,11 +30,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\DispatchBusinessRules.cs" />
+    <Compile Include="Services\IDeliveryTrackingService.cs" />
+    <Compile Include="Services\DeliveryTrackingService.cs" />
     <Compile Include="Services\IDispatchCoordinator.cs" />
     <Compile Include="Services\DispatchCoordinator.cs" />
+    <Compile Include="Services\IDispatchQueueService.cs" />
+    <Compile Include="Services\DispatchQueueService.cs" />
+    <Compile Include="Services\IDriverAssignmentService.cs" />
+    <Compile Include="Services\DriverAssignmentService.cs" />
+    <Compile Include="Services\IRoutePlanningService.cs" />
+    <Compile Include="Services\RoutePlanningService.cs" />
+    <Compile Include="Services\StoreOpsServiceBase.cs" />
     <Compile Include="Services\IOrderManagementService.cs" />
     <Compile Include="Services\OrderManagementService.cs" />
     <Compile Include="Services\IWorkforceReportingService.cs" />
