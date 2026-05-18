@@ -35,7 +35,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PartnerSync\CommissionProcessingRequest.cs" />
+    <Compile Include="PartnerSync\CommissionProcessingResult.cs" />
     <Compile Include="PartnerSync\PartnerAccountSummary.cs" />
+    <Compile Include="PartnerSync\PartnerContractRecord.cs" />
+    <Compile Include="PartnerSync\PartnerContractUpdateRequest.cs" />
+    <Compile Include="PartnerSync\PartnerProfile.cs" />
+    <Compile Include="PartnerSync\PartnerReferralRecord.cs" />
+    <Compile Include="PartnerSync\PartnerReferralSubmission.cs" />
+    <Compile Include="PartnerSync\PartnerRegistrationRequest.cs" />
+    <Compile Include="PartnerSync\PartnerStatusRecord.cs" />
     <Compile Include="PartnerSync\PartnerSyncEnvelope.cs" />
     <Compile Include="PartnerSync\PartnerSyncRequest.cs" />
     <Compile Include="Routing\DispatchBoardSnapshot.cs" />
