@@ -268,3 +268,160 @@ a:hover {
 .best-viewed {
     color: #7b8c9e;
 }
+
+.module-body {
+    padding-bottom: 12px;
+}
+
+.form-module .module-body {
+    padding: 12px;
+}
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 14px;
+    padding: 12px;
+}
+
+.compact-filter-bar {
+    padding-bottom: 0;
+}
+
+.filter-field {
+    min-width: 190px;
+}
+
+.filter-field label {
+    display: block;
+    margin-bottom: 4px;
+    color: #516579;
+    font-weight: bold;
+}
+
+.filter-actions {
+    padding-bottom: 1px;
+}
+
+.entry-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+}
+
+.entry-table th,
+.entry-table td {
+    padding: 10px 8px;
+    border-top: 1px solid #d6e1ed;
+    vertical-align: top;
+}
+
+.entry-table th {
+    width: 150px;
+    color: #365270;
+    text-align: left;
+}
+
+.field-error {
+    display: block;
+    margin-top: 4px;
+    color: #9c2528;
+}
+
+.validation-summary,
+.message-panel {
+    margin: 12px 8px;
+    padding: 10px 12px;
+    border: 1px solid #cbb87c;
+    background: #fff8d9;
+    color: #6c571e;
+}
+
+.success-panel {
+    border-color: #89ad76;
+    background: #edf7e7;
+    color: #36592e;
+}
+
+.form-actions {
+    padding: 14px 8px 0;
+}
+
+.portal-button {
+    margin-right: 8px;
+    padding: 7px 14px;
+    border: 1px solid #5e7da1;
+    background: linear-gradient(#ffffff, #d8e7f6);
+    color: #21496c;
+    font-weight: bold;
+}
+
+.secondary-button {
+    border-color: #97a9bc;
+    background: linear-gradient(#ffffff, #ecf2f8);
+    color: #53697f;
+}
+
+.metric-board {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 0 22px 18px;
+}
+
+.metric-card {
+    min-width: 150px;
+    padding: 12px 14px;
+    border: 1px solid #adc0d5;
+    background: linear-gradient(#ffffff, #edf4fb);
+}
+
+.metric-card strong,
+.summary-pill strong {
+    display: block;
+    color: #516579;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.metric-card span,
+.summary-pill span {
+    display: block;
+    margin-top: 6px;
+    color: #17395d;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.accent-card {
+    border-color: #c49a37;
+    background: linear-gradient(#fffce9, #f5e7a6);
+}
+
+.summary-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 0 12px 12px;
+}
+
+.summary-pill {
+    min-width: 155px;
+    padding: 10px 12px;
+    border: 1px solid #adc0d5;
+    background: #f8fbff;
+}
+
+.compact-grid {
+    margin-top: 0;
+}
+
+.portal-grid .pager-row,
+.portal-grid .pager-row table {
+    background: #f8fbff;
+}
+
+.portal-grid .pager-row td {
+    border-top: 1px solid #d6e1ed;
+}

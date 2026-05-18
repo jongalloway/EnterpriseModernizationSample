@@ -9,9 +9,14 @@
 </head>
 <body>
     <form id="PortalForm" runat="server">
+        <asp:ScriptManager ID="PortalScriptManager" runat="server" EnablePageMethods="true" />
         <div class="page-shell">
             <div class="utility-nav">
                 <a href="Default.aspx">Portal Home</a>
+                <a href="PartnerDashboard.aspx">Partner Dashboard</a>
+                <a href="PartnerSignup.aspx">Partner Signup</a>
+                <a href="ContractReview.aspx">Contract Review</a>
+                <a href="ReferralTracking.aspx">Referral Tracking</a>
                 <a href="OperationsSnapshot.aspx">Operations Snapshot</a>
                 <a href="/CustomerHub/CorporateAccounts.aspx">Corporate Accounts</a>
                 <a href="/FranchisePortal/Default.aspx">Franchise Bulletins</a>
@@ -31,6 +36,10 @@
             </div>
             <div class="tab-strip">
                 <a href="Default.aspx">Executive Snapshot</a>
+                <a href="PartnerDashboard.aspx">Partner Dashboard</a>
+                <a href="PartnerSignup.aspx">Signup Intake</a>
+                <a href="ContractReview.aspx">Contract Review</a>
+                <a href="ReferralTracking.aspx">Referral Tracking</a>
                 <a href="OperationsSnapshot.aspx">Store Rollups</a>
                 <span class="status-chip">Trusted Partner Access</span>
             </div>

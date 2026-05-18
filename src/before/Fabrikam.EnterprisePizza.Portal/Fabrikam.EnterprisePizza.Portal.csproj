@@ -26,9 +26,17 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContractReview.aspx.cs">
+      <DependentUpon>ContractReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContractReview.aspx.designer.cs">
+      <DependentUpon>ContractReview.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
@@ -44,6 +52,25 @@
     <Compile Include="OperationsSnapshot.aspx.designer.cs">
       <DependentUpon>OperationsSnapshot.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PartnerDashboard.aspx.cs">
+      <DependentUpon>PartnerDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerDashboard.aspx.designer.cs">
+      <DependentUpon>PartnerDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerManagementRepository.cs" />
+    <Compile Include="PartnerSignup.aspx.cs">
+      <DependentUpon>PartnerSignup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PartnerSignup.aspx.designer.cs">
+      <DependentUpon>PartnerSignup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReferralTracking.aspx.cs">
+      <DependentUpon>ReferralTracking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReferralTracking.aspx.designer.cs">
+      <DependentUpon>ReferralTracking.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.master.cs">
       <DependentUpon>Site.master</DependentUpon>
     </Compile>
@@ -51,9 +78,13 @@
       <DependentUpon>Site.master</DependentUpon>
     </Compile>
     <Content Include="Content\Site.css" />
+    <Content Include="ContractReview.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="OperationsSnapshot.aspx" />
+    <Content Include="PartnerDashboard.aspx" />
+    <Content Include="PartnerSignup.aspx" />
+    <Content Include="ReferralTracking.aspx" />
     <Content Include="Scripts\portal.js" />
     <Content Include="Site.master" />
     <Content Include="web.config" />
