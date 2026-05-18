@@ -14,6 +14,8 @@
     <Deterministic>false</Deterministic>
     <NUnitReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll')">$(MSBuildThisFileDirectory)..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</NUnitReferencePath>
     <NUnitReferencePath Condition="'$(NUnitReferencePath)' == ''">$(UserProfile)\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll</NUnitReferencePath>
+    <EnterpriseLibraryDataReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll</EnterpriseLibraryDataReferencePath>
+    <EnterpriseLibraryDataReferencePath Condition="'$(EnterpriseLibraryDataReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.data\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll</EnterpriseLibraryDataReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>$(EnterpriseLibraryDataReferencePath)</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -42,6 +48,7 @@
     <Compile Include="Configuration\LegacyConnectionCatalogFixture.cs" />
     <Compile Include="Gateways\LegacyDbGatewayFixture.cs" />
     <Compile Include="Repositories\CustomerHub\PartnerAccountRepositoryFixture.cs" />
+    <Compile Include="Repositories\Reporting\ReportingWarehouseRepositoryFixture.cs" />
     <Compile Include="Repositories\Reporting\WorkforceReportRepositoryFixture.cs" />
     <Compile Include="Repositories\StoreOps\DispatchTicketRepositoryFixture.cs" />
     <Compile Include="Repositories\StoreOps\PosImportBatchRepositoryFixture.cs" />
@@ -49,6 +56,7 @@
     <Compile Include="Services\PartnerAccountServiceFixture.cs" />
     <Compile Include="Services\StoreOperationsWorkbenchServiceFixture.cs" />
     <Compile Include="Services\WorkforceReportingServiceFixture.cs" />
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
