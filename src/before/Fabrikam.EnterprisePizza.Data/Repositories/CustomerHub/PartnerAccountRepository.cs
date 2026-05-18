@@ -7,24 +7,25 @@ using Fabrikam.EnterprisePizza.Data.Configuration;
 using Fabrikam.EnterprisePizza.Data.Gateways;
 using Fabrikam.EnterprisePizza.Data.StoredProcedures;
 using Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync;
+using Fabrikam.EnterprisePizza.Data.Configuration;
+using Fabrikam.EnterprisePizza.Data.Gateways;
 
 namespace Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub
 {
-    public class PartnerAccountRepository : IPartnerAccountRepository
+    public class PartnerAccountRepository : PartnerRepository, IPartnerAccountRepository
     {
-        private readonly LegacyDbGateway _dbGateway;
-
         public PartnerAccountRepository()
-            : this(new LegacyDbGateway())
         {
         }
 
         public PartnerAccountRepository(LegacyDbGateway dbGateway)
+            : base(dbGateway)
         {
             _dbGateway = dbGateway ?? throw new System.ArgumentNullException(nameof(dbGateway));
         }
 
-        public IList<string> GetPreferredPartners()
+        public PartnerAccountRepository(LegacyDbGateway dbGateway, CustomerHubDatabaseFactory databaseFactory)
+            : base(dbGateway, databaseFactory)
         {
             return GetPreferredPartnerSnapshots().Select(snapshot => snapshot.PartnerName).ToList();
         }

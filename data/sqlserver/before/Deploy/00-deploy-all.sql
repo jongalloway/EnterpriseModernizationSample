@@ -13,12 +13,17 @@ PRINT 'Reporting database: $(ReportingDatabase)';
 :r "$(DeployRoot)\..\CustomerHub\01-create-database.sql"
 :r "$(DeployRoot)\..\CustomerHub\02-schema.sql"
 :r "$(DeployRoot)\..\CustomerHub\03-seed-data.sql"
+:r "$(DeployRoot)\..\CustomerHub\06-b2b-partners-and-accounts.sql"
+:r "$(DeployRoot)\..\CustomerHub\07-contracts-and-referrals.sql"
 :r "$(DeployRoot)\..\CustomerHub\04-service-procedures.sql"
 :r "$(DeployRoot)\..\CustomerHub\05-migration-procedures.sql"
 
 :r "$(DeployRoot)\..\StoreOps\01-create-database.sql"
 :r "$(DeployRoot)\..\StoreOps\02-schema.sql"
 :r "$(DeployRoot)\..\StoreOps\03-seed-data.sql"
+:r "$(DeployRoot)\..\StoreOps\03-menu-products.sql"
+:r "$(DeployRoot)\..\StoreOps\03-store-configuration.sql"
+:r "$(DeployRoot)\..\StoreOps\03-delivery-records.sql"
 :r "$(DeployRoot)\..\StoreOps\04-service-procedures.sql"
 :r "$(DeployRoot)\..\StoreOps\05-migration-procedures.sql"
 

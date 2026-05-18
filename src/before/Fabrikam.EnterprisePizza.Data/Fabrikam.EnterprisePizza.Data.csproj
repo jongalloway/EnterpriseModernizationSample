@@ -15,6 +15,9 @@
     <EnterpriseLibraryCommonReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
     <EnterpriseLibraryCommonReferencePath Condition="'$(EnterpriseLibraryCommonReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.common\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
     <EnterpriseLibraryDataReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll</EnterpriseLibraryDataReferencePath>
+    <EnterpriseLibraryCommonReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
+    <EnterpriseLibraryCommonReferencePath Condition="'$(EnterpriseLibraryCommonReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.common\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
+    <EnterpriseLibraryDataReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Data.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Data.dll</EnterpriseLibraryDataReferencePath>
     <EnterpriseLibraryDataReferencePath Condition="'$(EnterpriseLibraryDataReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.data\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll</EnterpriseLibraryDataReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -47,6 +50,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\CustomerHubDatabaseFactory.cs" />
     <Compile Include="Configuration\LegacyConnectionCatalog.cs" />
     <Compile Include="Configuration\LegacyDatabaseArea.cs" />
     <Compile Include="DataSets\Reporting\ReportingWarehouseDimensionsDataSet.cs" />
@@ -57,6 +61,12 @@
     <Compile Include="Gateways\LegacyDbGateway.cs" />
     <Compile Include="Gateways\LegacyEnterpriseLibraryDatabaseFactory.cs" />
     <Compile Include="Gateways\StoredProcedureCall.cs" />
+    <Compile Include="Repositories\CustomerHub\AccountRecord.cs" />
+    <Compile Include="Repositories\CustomerHub\AccountRepository.cs" />
+    <Compile Include="Repositories\CustomerHub\CommissionHistoryRecord.cs" />
+    <Compile Include="Repositories\CustomerHub\ContractRecord.cs" />
+    <Compile Include="Repositories\CustomerHub\ContractRepository.cs" />
+    <Compile Include="Repositories\CustomerHub\CustomerHubDataRecordReader.cs" />
     <Compile Include="Repositories\CustomerHub\IPartnerAccountRepository.cs" />
     <Compile Include="Repositories\CustomerHub\PartnerAccountRepository.cs" />
     <Compile Include="Repositories\Reporting\DimDriverRepository.cs" />
@@ -74,6 +84,10 @@
     <Compile Include="Repositories\Reporting\IFactOrderRepository.cs" />
     <Compile Include="Repositories\Reporting\IFactPartnerRevenueRepository.cs" />
     <Compile Include="Repositories\Reporting\IReportingStarSchemaRepository.cs" />
+    <Compile Include="Repositories\CustomerHub\PartnerRecord.cs" />
+    <Compile Include="Repositories\CustomerHub\PartnerRepository.cs" />
+    <Compile Include="Repositories\CustomerHub\ReferralRecord.cs" />
+    <Compile Include="Repositories\CustomerHub\ReferralRepository.cs" />
     <Compile Include="Repositories\Reporting\IWorkforceReportRepository.cs" />
     <Compile Include="Repositories\Reporting\ReportingRepositoryBase.cs" />
     <Compile Include="Repositories\Reporting\ReportingStarSchemaRepository.cs" />

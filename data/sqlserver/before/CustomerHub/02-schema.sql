@@ -40,6 +40,34 @@ BEGIN
 END
 GO
 
+IF COL_LENGTH(N'dbo.CorporateAccount', N'AccountTier') IS NULL
+BEGIN
+    ALTER TABLE dbo.CorporateAccount
+        ADD AccountTier NVARCHAR(20) NOT NULL CONSTRAINT DF_CorporateAccount_AccountTier DEFAULT (N'Standard');
+END
+GO
+
+IF COL_LENGTH(N'dbo.CorporateAccount', N'ExternalAccountCode') IS NULL
+BEGIN
+    ALTER TABLE dbo.CorporateAccount
+        ADD ExternalAccountCode NVARCHAR(30) NULL;
+END
+GO
+
+IF COL_LENGTH(N'dbo.CorporateAccount', N'AccountManagerName') IS NULL
+BEGIN
+    ALTER TABLE dbo.CorporateAccount
+        ADD AccountManagerName NVARCHAR(120) NULL;
+END
+GO
+
+IF COL_LENGTH(N'dbo.CorporateAccount', N'StatusCode') IS NULL
+BEGIN
+    ALTER TABLE dbo.CorporateAccount
+        ADD StatusCode NVARCHAR(20) NOT NULL CONSTRAINT DF_CorporateAccount_StatusCode DEFAULT (N'Active');
+END
+GO
+
 IF OBJECT_ID(N'dbo.PartnerContact', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.PartnerContact
@@ -97,6 +125,44 @@ BEGIN
 
     CREATE UNIQUE INDEX UX_PartnerContract_ContractCode ON dbo.PartnerContract (ContractCode);
     CREATE INDEX IX_PartnerContract_PartnerAccount_StatusCode ON dbo.PartnerContract (PartnerAccountId, StatusCode);
+END
+GO
+
+IF OBJECT_ID(N'dbo.PartnerReferral', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.PartnerReferral
+    (
+        PartnerReferralId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ReferralCode NVARCHAR(30) NOT NULL,
+        PartnerAccountId INT NOT NULL,
+        CorporateAccountId INT NULL,
+        ReferralChannel NVARCHAR(40) NOT NULL,
+        ReferrerName NVARCHAR(120) NOT NULL,
+        AttributionCode NVARCHAR(30) NOT NULL,
+        ReferredOn DATE NOT NULL,
+        StatusCode NVARCHAR(20) NOT NULL,
+        Notes NVARCHAR(200) NULL
+    );
+
+    CREATE UNIQUE INDEX UX_PartnerReferral_ReferralCode ON dbo.PartnerReferral (ReferralCode);
+    CREATE INDEX IX_PartnerReferral_PartnerAccountId ON dbo.PartnerReferral (PartnerAccountId);
+END
+GO
+
+IF OBJECT_ID(N'dbo.ReferralCommissionHistory', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.ReferralCommissionHistory
+    (
+        ReferralCommissionHistoryId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        PartnerReferralId INT NOT NULL,
+        CommissionPeriodStart DATE NOT NULL,
+        CommissionPeriodEnd DATE NOT NULL,
+        CommissionAmount MONEY NOT NULL,
+        CommissionStatus NVARCHAR(20) NOT NULL,
+        PaidUtc DATETIME NULL
+    );
+
+    CREATE INDEX IX_ReferralCommissionHistory_PartnerReferralId ON dbo.ReferralCommissionHistory (PartnerReferralId, CommissionPeriodStart);
 END
 GO
 
@@ -192,6 +258,45 @@ BEGIN
         ADD CONSTRAINT FK_PartnerContract_FranchiseLocation
         FOREIGN KEY (FranchiseLocationId)
         REFERENCES dbo.FranchiseLocation (FranchiseLocationId);
+END
+GO
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_PartnerReferral_PartnerAccount'
+)
+BEGIN
+    ALTER TABLE dbo.PartnerReferral
+        ADD CONSTRAINT FK_PartnerReferral_PartnerAccount
+        FOREIGN KEY (PartnerAccountId)
+        REFERENCES dbo.PartnerAccount (PartnerAccountId);
+END
+GO
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_PartnerReferral_CorporateAccount'
+)
+BEGIN
+    ALTER TABLE dbo.PartnerReferral
+        ADD CONSTRAINT FK_PartnerReferral_CorporateAccount
+        FOREIGN KEY (CorporateAccountId)
+        REFERENCES dbo.CorporateAccount (CorporateAccountId);
+END
+GO
+
+IF NOT EXISTS (
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_ReferralCommissionHistory_PartnerReferral'
+)
+BEGIN
+    ALTER TABLE dbo.ReferralCommissionHistory
+        ADD CONSTRAINT FK_ReferralCommissionHistory_PartnerReferral
+        FOREIGN KEY (PartnerReferralId)
+        REFERENCES dbo.PartnerReferral (PartnerReferralId);
 END
 GO
 
