@@ -1,9 +1,7 @@
 <%@ Page Title="Store Operations Dashboard" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Fabrikam.EnterprisePizza.StoreOps.Portal._Default" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="HeadContentBlock" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="MainContentBlock" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:ScriptManager ID="PortalScriptManager" runat="server" />
     <asp:HiddenField ID="SelectedStoreNumber" runat="server" ClientIDMode="Static" />
 
     <div class="dashboardHero">
@@ -91,8 +89,12 @@
         <div class="dashboardSidebar">
             <div class="sidebarPanel">
                 <h2>Supervisor quick actions</h2>
-                <p>Use this shortcut before the dinner window gets noisy.</p>
+                <p>Use these shortcuts before the dinner window gets noisy.</p>
                 <asp:LinkButton ID="TerminalReminderLink" runat="server" CssClass="legacyButtonLink">Show terminal reminders</asp:LinkButton>
+                <div class="sidebarLinkGroup">
+                    <a href="OrderLookup.aspx" class="legacyButtonLink">Open order lookup</a>
+                    <a href="OrderHistory.aspx" class="legacyButtonLink">Review order history</a>
+                </div>
             </div>
 
             <div class="sidebarPanel sidebarPanelMuted">

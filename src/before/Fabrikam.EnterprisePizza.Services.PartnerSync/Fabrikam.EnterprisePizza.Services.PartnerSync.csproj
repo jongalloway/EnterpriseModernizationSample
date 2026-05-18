@@ -24,16 +24,20 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Code\PartnerSyncService.cs" />
+    <Compile Include="App_Code\PartnerLookupService.cs" />
+    <Compile Include="App_Code\PartnerService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="Global.asax" />
+    <Content Include="PartnerLookup.asmx" />
+    <Content Include="PartnerService.svc" />
     <Content Include="PartnerSync.asmx" />
     <Content Include="web.config" />
   </ItemGroup>

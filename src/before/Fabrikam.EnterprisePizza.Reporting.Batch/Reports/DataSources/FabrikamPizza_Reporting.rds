@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns="http://schemas.microsoft.com/sqlserver/reporting/2006/03/reportdatasource">
+  <ConnectionProperties>
+    <DataProvider>SQL</DataProvider>
+    <ConnectString>Data Source=SQLLEGACY01;Initial Catalog=FabrikamPizza_Reporting;Integrated Security=SSPI;</ConnectString>
+    <IntegratedSecurity>true</IntegratedSecurity>
+  </ConnectionProperties>
+  <DataSourceID>8f4594c4-6c7b-4be0-84c4-98fae4f8a245</DataSourceID>
+</RptDataSource>

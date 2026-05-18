@@ -27,5 +27,6 @@ PRINT 'Reporting database: $(ReportingDatabase)';
 :r "$(DeployRoot)\..\Reporting\03-seed-data.sql"
 :r "$(DeployRoot)\..\Reporting\04-service-procedures.sql"
 :r "$(DeployRoot)\..\Reporting\05-migration-procedures.sql"
+:r "$(DeployRoot)\..\Reporting\06-partner-profitability-reporting-stubs.sql"
 
 PRINT 'Legacy database deployment scripts completed.';
