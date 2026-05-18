@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Analytics;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Configuration;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Jobs;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Logging;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
+
+namespace Fabrikam.EnterprisePizza.Reporting.Batch
+{
+    public class BatchScheduler
+    {
+        private readonly IDictionary<string, ILegacyBatchJob> jobCatalog;
+        private readonly LegacyBatchLogger logger;
+        private readonly BatchSettingsProvider settingsProvider;
+
+        public BatchScheduler(BatchSettingsProvider settingsProvider, LegacyBatchLogger logger)
+        {
+            this.settingsProvider = settingsProvider ?? throw new ArgumentNullException(nameof(settingsProvider));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            jobCatalog = new Dictionary<string, ILegacyBatchJob>(StringComparer.OrdinalIgnoreCase)
+            {
+                {
+                    "PartnerProfitabilityReports",
+                    new PartnerProfitabilityNightlyJob(
+                        logger,
+                        new PartnerRevenueAggregator(),
+                        new CommissionCalculator(),
+                        new ChargebackProcessor())
+                }
+            };
+        }
+
+        public NightlyBatchRunSummary RunNightlyWindow(DateTime processDate)
+        {
+            var summary = new NightlyBatchRunSummary
+            {
+                StartedUtc = DateTime.UtcNow
+            };
+
+            foreach (var definition in settingsProvider.LoadNightlyJobs())
+            {
+                if (!definition.Enabled)
+                {
+                    logger.Warn("Skipping disabled nightly job {0}.", definition.Name);
+                    continue;
+                }
+
+                ILegacyBatchJob job;
+                if (!jobCatalog.TryGetValue(definition.Name, out job))
+                {
+                    summary.JobResults.Add(new BatchJobExecutionResult
+                    {
+                        JobName = definition.Name,
+                        StartedUtc = DateTime.UtcNow,
+                        CompletedUtc = DateTime.UtcNow,
+                        Succeeded = false,
+                        SummaryMessage = "No batch implementation is registered for this configuration entry."
+                    });
+                    logger.Error("No nightly batch implementation is registered for {0}.", definition.Name);
+                    continue;
+                }
+
+                summary.JobResults.Add(job.Execute(definition, processDate));
+            }
+
+            summary.CompletedUtc = DateTime.UtcNow;
+            return summary;
+        }
+    }
+}

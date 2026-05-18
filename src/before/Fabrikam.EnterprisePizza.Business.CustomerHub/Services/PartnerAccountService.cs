@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Fabrikam.EnterprisePizza.Core.Domain.CustomerHub;
 using Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub;
 
 namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
@@ -21,6 +22,11 @@ namespace Fabrikam.EnterprisePizza.Business.CustomerHub.Services
         public IList<string> GetPreferredPartners()
         {
             return _partnerAccountRepository.GetPreferredPartners();
+        }
+
+        public IList<PartnerAccountSnapshot> GetPreferredPartnerSnapshots()
+        {
+            return _partnerAccountRepository.GetPreferredPartnerSnapshots();
         }
     }
 }

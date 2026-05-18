@@ -30,12 +30,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analytics\ChargebackProcessor.cs" />
+    <Compile Include="Analytics\CommissionCalculator.cs" />
+    <Compile Include="Analytics\PartnerRevenueAggregator.cs" />
+    <Compile Include="BatchScheduler.cs" />
+    <Compile Include="Configuration\BatchSettingsProvider.cs" />
+    <Compile Include="Jobs\ILegacyBatchJob.cs" />
+    <Compile Include="Jobs\PartnerProfitabilityNightlyJob.cs" />
+    <Compile Include="Logging\LegacyBatchLogger.cs" />
+    <Compile Include="Models\BatchRunModels.cs" />
+    <Compile Include="Models\PartnerFinancialReport.cs" />
     <Compile Include="Program.cs" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Business.CustomerHub\Fabrikam.EnterprisePizza.Business.CustomerHub.csproj">
+      <Project>{0C2BE10A-7EC0-45B0-B548-F5A8AC038E89}</Project>
+      <Name>Fabrikam.EnterprisePizza.Business.CustomerHub</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Business.StoreOps\Fabrikam.EnterprisePizza.Business.StoreOps.csproj">
       <Project>{89F7206D-170D-4F54-B96F-0409FE93DAEE}</Project>
       <Name>Fabrikam.EnterprisePizza.Business.StoreOps</Name>
