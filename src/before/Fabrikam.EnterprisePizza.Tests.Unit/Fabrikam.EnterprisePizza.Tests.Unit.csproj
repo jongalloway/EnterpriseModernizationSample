@@ -14,6 +14,10 @@
     <Deterministic>false</Deterministic>
     <NUnitReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll')">$(MSBuildThisFileDirectory)..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</NUnitReferencePath>
     <NUnitReferencePath Condition="'$(NUnitReferencePath)' == ''">$(UserProfile)\.nuget\packages\nunit\3.12.0\lib\net45\nunit.framework.dll</NUnitReferencePath>
+    <EnterpriseLibraryCommonReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
+    <EnterpriseLibraryCommonReferencePath Condition="'$(EnterpriseLibraryCommonReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.common\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
+    <EnterpriseLibraryDataReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll</EnterpriseLibraryDataReferencePath>
+    <EnterpriseLibraryDataReferencePath Condition="'$(EnterpriseLibraryDataReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.data\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll</EnterpriseLibraryDataReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>$(EnterpriseLibraryCommonReferencePath)</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>$(EnterpriseLibraryDataReferencePath)</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -46,10 +58,15 @@
     <Compile Include="Configuration\LegacyDatabaseFactoryFixture.cs" />
     <Compile Include="ExceptionHandling\ExceptionPolicyFixture.cs" />
     <Compile Include="Gateways\LegacyDbGatewayFixture.cs" />
+    <Compile Include="Gateways\StoredProcedureCallFixture.cs" />
     <Compile Include="Repositories\CustomerHub\PartnerAccountRepositoryFixture.cs" />
+    <Compile Include="Repositories\CustomerHub\PartnerAccountRepositoryInteractionFixture.cs" />
     <Compile Include="Repositories\Reporting\WorkforceReportRepositoryFixture.cs" />
+    <Compile Include="Repositories\Reporting\WorkforceReportRepositoryInteractionFixture.cs" />
     <Compile Include="Repositories\StoreOps\DispatchTicketRepositoryFixture.cs" />
+    <Compile Include="Repositories\StoreOps\DispatchTicketRepositoryInteractionFixture.cs" />
     <Compile Include="Repositories\StoreOps\PosImportBatchRepositoryFixture.cs" />
+    <Compile Include="Repositories\StoreOps\PosImportBatchRepositoryInteractionFixture.cs" />
     <Compile Include="Services\DeliveryTrackingServiceFixture.cs" />
     <Compile Include="Services\DispatchCoordinatorFixture.cs" />
     <Compile Include="Services\DispatchQueueServiceFixture.cs" />
@@ -69,6 +86,8 @@
     <Compile Include="Services\RoutePlanningServiceFixture.cs" />
     <Compile Include="Services\StoreOperationsWorkbenchServiceFixture.cs" />
     <Compile Include="Services\WorkforceReportingServiceFixture.cs" />
+    <Compile Include="Testing\RecordingLegacyDbGateway.cs" />
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,7 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub
 
         public PartnerAccountRepository(LegacyDbGateway dbGateway)
         {
-            _dbGateway = dbGateway;
+            _dbGateway = dbGateway ?? throw new System.ArgumentNullException(nameof(dbGateway));
         }
 
         public IList<string> GetPreferredPartners()
@@ -35,6 +35,8 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.CustomerHub
                 LegacyDatabaseArea.CustomerHub,
                 LegacyStoredProcedures.CustomerHub.GetPreferredPartners);
             var dataSet = _dbGateway.ExecuteDataSet(call);
+            var partners = new List<string>();
+            var table = dataSet == null ? null : dataSet.Tables["PreferredPartners"];
             var partners = new List<PartnerAccountSnapshot>();
             var table = dataSet.Tables["PreferredPartners"];
 

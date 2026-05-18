@@ -19,7 +19,7 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.StoreOps
 
         public DispatchTicketRepository(LegacyDbGateway dbGateway)
         {
-            _dbGateway = dbGateway;
+            _dbGateway = dbGateway ?? throw new System.ArgumentNullException(nameof(dbGateway));
         }
 
         public IList<DispatchTicket> GetActiveTickets(string storeNumber)
@@ -29,7 +29,7 @@ namespace Fabrikam.EnterprisePizza.Data.Repositories.StoreOps
                 LegacyStoredProcedures.StoreOps.GetActiveDispatchTickets,
                 new GatewayParameter("@StoreNumber", storeNumber));
             var dataSet = _dbGateway.ExecuteDataSet(call);
-            var table = dataSet.Tables["DispatchTickets"];
+            var table = dataSet == null ? null : dataSet.Tables["DispatchTickets"];
             var tickets = new List<DispatchTicket>();
 
             if (table == null)
