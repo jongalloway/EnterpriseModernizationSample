@@ -32,6 +32,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analytics\ChargebackProcessor.cs" />
@@ -44,6 +46,41 @@
     <Compile Include="Logging\LegacyBatchLogger.cs" />
     <Compile Include="Models\BatchRunModels.cs" />
     <Compile Include="Models\PartnerFinancialReport.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Configuration\ReportingConfiguration.cs" />
+    <Compile Include="Models\ReportParameterModels.cs" />
+    <Compile Include="Models\ReportSupport.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ReportCatalog.cs" />
+    <Compile Include="Services\ReportingService.cs" />
+    <None Include="App.config" />
+    <Content Include="Reports\DataSources\FabrikamPizza_Reporting.rds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Definitions\DeliveryPerformance.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Definitions\PartnerProfitability.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Definitions\StoreOperationsSummary.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BatchScheduler.cs" />
+    <Compile Include="Configuration\BatchSettingsProvider.cs" />
+    <Compile Include="Execution\NightlyBatchContext.cs" />
+    <Compile Include="Execution\NightlyBatchRunSummary.cs" />
+    <Compile Include="Execution\NightlyBatchStage.cs" />
+    <Compile Include="Jobs\CustomerHubSyncJob.cs" />
+    <Compile Include="Jobs\ILegacyBatchJob.cs" />
+    <Compile Include="Jobs\LegacyBatchJobBase.cs" />
+    <Compile Include="Jobs\PayrollFeedImportJob.cs" />
+    <Compile Include="Jobs\ReportingAggregationJob.cs" />
+    <Compile Include="Jobs\StoreOpsRollupJob.cs" />
+    <Compile Include="Logging\LegacyBatchLogger.cs" />
     <Compile Include="Program.cs" />
     <None Include="App.config" />
   </ItemGroup>
@@ -63,6 +100,10 @@
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Core\Fabrikam.EnterprisePizza.Core.csproj">
       <Project>{56A8F5D9-F129-4FCB-ACB7-6FBBABB05AC9}</Project>
       <Name>Fabrikam.EnterprisePizza.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Integrations.PosSync\Fabrikam.EnterprisePizza.Integrations.PosSync.csproj">
+      <Project>{852A10B5-139D-4D85-9009-64FFBB1D31BF}</Project>
+      <Name>Fabrikam.EnterprisePizza.Integrations.PosSync</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

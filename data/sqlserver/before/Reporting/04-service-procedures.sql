@@ -165,6 +165,176 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID(N'dbo.usp_DeliveryPerformanceReport_GetSummary', N'P') IS NOT NULL
+    DROP PROCEDURE dbo.usp_DeliveryPerformanceReport_GetSummary;
+GO
+
+CREATE PROCEDURE dbo.usp_DeliveryPerformanceReport_GetSummary
+    @StoreNumber NVARCHAR(10),
+    @SummaryDate DATE = NULL,
+    @MinimumCompletedRuns INT = 1
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @SummaryDate IS NULL
+    BEGIN
+        SET @SummaryDate = CONVERT(DATE, GETUTCDATE());
+    END
+
+    IF @MinimumCompletedRuns IS NULL OR @MinimumCompletedRuns < 0
+    BEGIN
+        SET @MinimumCompletedRuns = 0;
+    END
+
+    SELECT
+        dds.StoreNumber,
+        dds.SummaryDate,
+        dds.CompletedRuns,
+        dds.LateRuns,
+        CASE
+            WHEN dds.CompletedRuns = 0 THEN 0
+            ELSE CAST(((dds.CompletedRuns - dds.LateRuns) * 100.0) / dds.CompletedRuns AS DECIMAL(9,2))
+        END AS OnTimePercentage,
+        CASE
+            WHEN ISNULL(lds.WorkedHours, 0) = 0 THEN 0
+            ELSE CAST(dds.CompletedRuns / lds.WorkedHours AS DECIMAL(9,2))
+        END AS RouteEfficiencyScore,
+        ISNULL(lds.DriverCount, 0) AS DriverCount,
+        ISNULL(lds.WorkedHours, 0) AS WorkedHours,
+        dds.SalesAmount
+    FROM dbo.DeliveryDailySummary dds
+    LEFT JOIN dbo.LaborDailySummary lds
+        ON lds.StoreNumber = dds.StoreNumber
+       AND lds.SummaryDate = dds.SummaryDate
+    WHERE dds.StoreNumber = @StoreNumber
+      AND dds.SummaryDate = @SummaryDate
+      AND dds.CompletedRuns >= @MinimumCompletedRuns;
+END
+GO
+
+IF OBJECT_ID(N'dbo.usp_StoreOperationsSummaryReport_GetRollup', N'P') IS NOT NULL
+    DROP PROCEDURE dbo.usp_StoreOperationsSummaryReport_GetRollup;
+GO
+
+CREATE PROCEDURE dbo.usp_StoreOperationsSummaryReport_GetRollup
+    @StoreNumber NVARCHAR(10),
+    @StartDate DATE = NULL,
+    @EndDate DATE = NULL,
+    @RollupMode NVARCHAR(10) = N'Daily'
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @EndDate IS NULL
+    BEGIN
+        SET @EndDate = CONVERT(DATE, GETUTCDATE());
+    END
+
+    IF @StartDate IS NULL
+    BEGIN
+        SET @StartDate = DATEADD(DAY, -6, @EndDate);
+    END
+
+    IF @StartDate > @EndDate
+    BEGIN
+        DECLARE @SwapDate DATE = @StartDate;
+        SET @StartDate = @EndDate;
+        SET @EndDate = @SwapDate;
+    END
+
+    IF @RollupMode IS NULL OR UPPER(@RollupMode) NOT IN (N'DAILY', N'WEEKLY')
+    BEGIN
+        SET @RollupMode = N'Daily';
+    END
+
+    ;WITH SummarySource AS
+    (
+        SELECT
+            dds.StoreNumber,
+            CASE
+                WHEN UPPER(@RollupMode) = N'WEEKLY' THEN DATEADD(DAY, 1 - DATEPART(WEEKDAY, dds.SummaryDate), dds.SummaryDate)
+                ELSE dds.SummaryDate
+            END AS PeriodStart,
+            dds.CompletedRuns,
+            dds.LateRuns,
+            ISNULL(lds.DriverCount, 0) AS DriverCount,
+            ISNULL(lds.ExceptionCount, 0) AS ExceptionCount,
+            ISNULL(lds.WorkedHours, 0) AS WorkedHours,
+            ISNULL(lds.NetSales, dds.SalesAmount) AS NetSales,
+            CASE
+                WHEN ISNULL(sds.ScheduledDriverSlots, 0) = 0 THEN 0
+                ELSE CAST((sds.FilledDriverSlots * 100.0) / sds.ScheduledDriverSlots AS DECIMAL(9,2))
+            END AS StaffingCoveragePercentage
+        FROM dbo.DeliveryDailySummary dds
+        LEFT JOIN dbo.LaborDailySummary lds
+            ON lds.StoreNumber = dds.StoreNumber
+           AND lds.SummaryDate = dds.SummaryDate
+        LEFT JOIN dbo.StaffingDailySummary sds
+            ON sds.StoreNumber = dds.StoreNumber
+           AND sds.SummaryDate = dds.SummaryDate
+        WHERE dds.StoreNumber = @StoreNumber
+          AND dds.SummaryDate BETWEEN @StartDate AND @EndDate
+    )
+    SELECT
+        StoreNumber,
+        PeriodStart,
+        SUM(CompletedRuns) AS CompletedRuns,
+        SUM(LateRuns) AS LateRuns,
+        SUM(DriverCount) AS DriverCount,
+        SUM(ExceptionCount) AS ExceptionCount,
+        SUM(WorkedHours) AS WorkedHours,
+        SUM(NetSales) AS NetSales,
+        CAST(AVG(StaffingCoveragePercentage) AS DECIMAL(9,2)) AS StaffingCoveragePercentage
+    FROM SummarySource
+    GROUP BY StoreNumber, PeriodStart
+    ORDER BY PeriodStart DESC;
+END
+GO
+
+IF OBJECT_ID(N'dbo.usp_PartnerProfitabilityReport_GetSummary', N'P') IS NOT NULL
+    DROP PROCEDURE dbo.usp_PartnerProfitabilityReport_GetSummary;
+GO
+
+CREATE PROCEDURE dbo.usp_PartnerProfitabilityReport_GetSummary
+    @SummaryDate DATE = NULL,
+    @PartnerCode NVARCHAR(25) = N'ALL',
+    @MinimumGrossSales MONEY = 0
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @SummaryDate IS NULL
+    BEGIN
+        SET @SummaryDate = CONVERT(DATE, GETUTCDATE());
+    END
+
+    IF @PartnerCode IS NULL OR LTRIM(RTRIM(@PartnerCode)) = N''
+    BEGIN
+        SET @PartnerCode = N'ALL';
+    END
+
+    IF @MinimumGrossSales IS NULL OR @MinimumGrossSales < 0
+    BEGIN
+        SET @MinimumGrossSales = 0;
+    END
+
+    SELECT
+        pps.PartnerCode,
+        pps.SummaryDate,
+        pps.DeliveredOrders,
+        pps.GrossSales,
+        pps.FeePercentage,
+        CAST((pps.GrossSales * pps.FeePercentage) / 100.0 AS MONEY) AS CommissionPayout,
+        CAST(pps.GrossSales - ((pps.GrossSales * pps.FeePercentage) / 100.0) AS MONEY) AS NetRevenue
+    FROM dbo.PartnerProfitabilitySummary pps
+    WHERE pps.SummaryDate = @SummaryDate
+      AND (UPPER(@PartnerCode) IN (N'ALL', N'*') OR pps.PartnerCode = @PartnerCode)
+      AND pps.GrossSales >= @MinimumGrossSales
+    ORDER BY pps.GrossSales DESC, pps.PartnerCode;
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM dbo.DatabaseDeploymentHistory WHERE ScriptName = N'Reporting\04-service-procedures.sql')
 BEGIN
     INSERT INTO dbo.DatabaseDeploymentHistory (ScriptName)

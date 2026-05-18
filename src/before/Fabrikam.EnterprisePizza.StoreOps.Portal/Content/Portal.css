@@ -253,12 +253,179 @@ body {
     line-height: 1.7;
 }
 
+.pageHeroOrders {
+    padding-bottom: 16px;
+}
+
+.heroCopyWide h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    color: #1f456b;
+}
+
+.heroCopyWide p {
+    margin: 0;
+    width: 620px;
+    line-height: 1.5;
+}
+
+.heroBadgeCompact {
+    width: 220px;
+}
+
+.filterPanel h2,
+.gridPanel h2 {
+    margin: 0 0 10px;
+    font-size: 17px;
+    color: #1f456b;
+}
+
+.filterTable {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.filterTable td {
+    padding: 4px 6px 4px 0;
+    vertical-align: middle;
+}
+
+.filterLabel {
+    width: 110px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #3f5972;
+}
+
+.legacyTextBox {
+    width: 220px;
+    padding: 3px 4px;
+    border: 1px solid #7f9db9;
+    font-size: 12px;
+}
+
+.fieldHint {
+    display: block;
+    margin-top: 4px;
+    color: #6b85a0;
+    font-size: 11px;
+}
+
+.legacyAutoCompleteList {
+    width: 228px !important;
+    border: 1px solid #7f9db9;
+    background: #ffffff;
+    font-size: 12px;
+}
+
+.legacyAutoCompleteItem,
+.legacyAutoCompleteItemSelected {
+    padding: 4px 6px;
+    cursor: pointer;
+}
+
+.legacyAutoCompleteItemSelected {
+    background: #dbe8f6;
+    color: #21496e;
+}
+
+.legacyCalendarPopup .ajax__calendar_container {
+    border: 1px solid #7f9db9;
+    background: #ffffff;
+    font-size: 11px;
+}
+
+.legacyCalendarPopup .ajax__calendar_header,
+.legacyCalendarPopup .ajax__calendar_dayname {
+    background: #edf3f9;
+    color: #35536d;
+}
+
+.legacyDateTextBox {
+    width: 112px;
+}
+
+.toolbarCompact {
+    margin-bottom: 0;
+}
+
+.statusInlineLabel {
+    margin-left: 12px;
+}
+
+.panelHeaderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.summaryCallout {
+    display: inline-block;
+    padding: 3px 8px;
+    background: #f3f7fb;
+    border: 1px solid #bfd0e0;
+    color: #365572;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.legacyDetailsView {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.legacyDetailsView td,
+.legacyDetailsView th {
+    padding: 7px 8px;
+    border-bottom: 1px solid #d7e1ea;
+    vertical-align: top;
+}
+
+.legacyDetailsView th {
+    width: 185px;
+    background: #f4f7fa;
+    text-align: left;
+    color: #35536d;
+}
+
+.legacyPager {
+    background: #edf3f9;
+    font-size: 11px;
+}
+
+.sidebarBulletList {
+    margin: 0;
+    padding-left: 18px;
+    line-height: 1.7;
+}
+
+.sidebarLinkGroup {
+    margin-top: 12px;
+}
+
+.sidebarLinkGroup .legacyButtonLink {
+    margin-right: 6px;
+    margin-bottom: 6px;
+}
+
+.detailToolbarPanel .legacyButtonLink,
+.detailToolbarPanel .legacyButton {
+    margin-right: 6px;
+}
+
 .modalPanel {
     width: 360px;
     padding: 16px;
     background: #ffffff;
     border: 3px solid #4d7397;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.sidebarLinkGroup .legacyButtonLink,
+.detailToolbarPanel .legacyButtonLink {
+    display: inline-block;
 }
 
 .modalHeader {
@@ -268,6 +435,94 @@ body {
     color: #1f456b;
 }
 
+.modalBulletList {
+    margin-bottom: 14px;
+}
+
 .modalBackdrop {
     background: rgba(34, 54, 78, 0.45);
+}
+
+.pageIntro {
+    padding: 22px 22px 12px;
+}
+
+.pageIntro h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    color: #1f456b;
+}
+
+.pageIntro p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.pageLayout {
+    display: flex;
+    gap: 18px;
+    padding: 0 22px 22px;
+}
+
+.pageLayoutWide {
+    align-items: flex-start;
+}
+
+.pagePrimaryColumn {
+    width: 680px;
+}
+
+.pageWideColumn {
+    width: 760px;
+}
+
+.pageSecondaryColumn {
+    width: 238px;
+}
+
+.legacyDetails {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.legacyDetails td,
+.legacyDetails th {
+    padding: 7px 8px;
+    border-bottom: 1px solid #d7e1ea;
+    vertical-align: top;
+}
+
+.legacyDetails th {
+    width: 110px;
+    background: #eef4fa;
+    color: #34506d;
+    text-align: left;
+}
+
+.selectedRow td {
+    background: #fff4c8 !important;
+}
+
+.legacyTextBox {
+    width: 92px;
+    padding: 3px 5px;
+    border: 1px solid #7f9db9;
+}
+
+.toolbarWithCalendar label {
+    margin-left: 8px;
+}
+
+.toolbarWithCalendar label:first-child {
+    margin-left: 0;
+}
+
+.legacyGridCompact {
+    font-size: 11px;
+}
+
+.legacyGridCompact th,
+.legacyGridCompact td {
+    padding: 6px 5px;
 }

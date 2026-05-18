@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="FabrikamPizza_Reporting">
+      <DataSourceReference>/Fabrikam Enterprise Pizza/Shared Data Sources/FabrikamPizza_Reporting</DataSourceReference>
+      <rd:SecurityType>Integrated</rd:SecurityType>
+      <rd:DataSourceID>8f4594c4-6c7b-4be0-84c4-98fae4f8a245</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <ReportParameters>
+    <ReportParameter Name="StoreNumber">
+      <DataType>String</DataType>
+      <Prompt>Store Number</Prompt>
+      <DefaultValue>
+        <Values>
+          <Value>014</Value>
+        </Values>
+      </DefaultValue>
+    </ReportParameter>
+    <ReportParameter Name="SummaryDate">
+      <DataType>DateTime</DataType>
+      <Prompt>Summary Date</Prompt>
+      <DefaultValue>
+        <Values>
+          <Value>=Today()</Value>
+        </Values>
+      </DefaultValue>
+    </ReportParameter>
+    <ReportParameter Name="MinimumCompletedRuns">
+      <DataType>Integer</DataType>
+      <Prompt>Minimum Completed Runs</Prompt>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
+    </ReportParameter>
+  </ReportParameters>
+  <DataSets>
+    <DataSet Name="DeliveryPerformanceDataSet">
+      <Query>
+        <DataSourceName>FabrikamPizza_Reporting</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.usp_DeliveryPerformanceReport_GetSummary</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@StoreNumber">
+            <Value>=Parameters!StoreNumber.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@SummaryDate">
+            <Value>=Parameters!SummaryDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@MinimumCompletedRuns">
+            <Value>=Parameters!MinimumCompletedRuns.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+      <Fields>
+        <Field Name="StoreNumber"><DataField>StoreNumber</DataField><rd:TypeName>System.String</rd:TypeName></Field>
+        <Field Name="SummaryDate"><DataField>SummaryDate</DataField><rd:TypeName>System.DateTime</rd:TypeName></Field>
+        <Field Name="CompletedRuns"><DataField>CompletedRuns</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+        <Field Name="LateRuns"><DataField>LateRuns</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+        <Field Name="OnTimePercentage"><DataField>OnTimePercentage</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="RouteEfficiencyScore"><DataField>RouteEfficiencyScore</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="DriverCount"><DataField>DriverCount</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+        <Field Name="WorkedHours"><DataField>WorkedHours</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="SalesAmount"><DataField>SalesAmount</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Body>
+    <ReportItems>
+      <Textbox Name="DeliveryPerformanceTitle">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph><TextRuns><TextRun><Value>Delivery Performance Scorecard</Value><Style><FontSize>16pt</FontSize><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph>
+        </Paragraphs>
+        <Top>0in</Top>
+        <Left>0in</Left>
+        <Height>0.3in</Height>
+        <Width>6.5in</Width>
+        <Style><Border><Style>None</Style></Border></Style>
+      </Textbox>
+      <Tablix Name="DeliveryPerformanceTablix">
+        <DataSetName>DeliveryPerformanceDataSet</DataSetName>
+        <Top>0.45in</Top>
+        <Left>0in</Left>
+        <Height>0.5in</Height>
+        <Width>6.8in</Width>
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn><Width>0.9in</Width></TablixColumn>
+            <TablixColumn><Width>1.0in</Width></TablixColumn>
+            <TablixColumn><Width>0.8in</Width></TablixColumn>
+            <TablixColumn><Width>1.0in</Width></TablixColumn>
+            <TablixColumn><Width>1.0in</Width></TablixColumn>
+            <TablixColumn><Width>0.8in</Width></TablixColumn>
+            <TablixColumn><Width>1.3in</Width></TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.22in</Height>
+              <TablixCells>
+                <TablixCell><CellContents><Textbox Name="HdrStore"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Store</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="HdrDate"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Summary Date</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="HdrCompleted"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Runs</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="HdrOnTime"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>On-Time %</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="HdrEfficiency"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Route Score</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="HdrDrivers"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Drivers</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="HdrSales"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>Sales</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style><BackgroundColor>#dce6f2</BackgroundColor></Style></Textbox></CellContents></TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.22in</Height>
+              <TablixCells>
+                <TablixCell><CellContents><Textbox Name="StoreValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!StoreNumber.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="DateValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Format(Fields!SummaryDate.Value, "yyyy-MM-dd")</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="CompletedValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!CompletedRuns.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="OnTimeValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=FormatNumber(Fields!OnTimePercentage.Value, 1) &amp; "%"</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="EfficiencyValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=FormatNumber(Fields!RouteEfficiencyScore.Value, 2)</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="DriversValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!DriverCount.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+                <TablixCell><CellContents><Textbox Name="SalesValue"><CanGrow>true</CanGrow><Paragraphs><Paragraph><TextRuns><TextRun><Value>=FormatCurrency(Fields!SalesAmount.Value, 0)</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember><KeepWithGroup>After</KeepWithGroup><RepeatOnNewPage>true</RepeatOnNewPage></TablixMember>
+            <TablixMember><Group Name="DeliveryPerformanceDetailGroup" /></TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+      </Tablix>
+    </ReportItems>
+    <Height>1.2in</Height>
+    <Style />
+  </Body>
+  <Width>6.8in</Width>
+  <Page>
+    <PageHeight>11in</PageHeight>
+    <PageWidth>8.5in</PageWidth>
+    <LeftMargin>0.5in</LeftMargin>
+    <RightMargin>0.5in</RightMargin>
+    <TopMargin>0.5in</TopMargin>
+    <BottomMargin>0.5in</BottomMargin>
+    <Style />
+  </Page>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>4b4fd926-5579-4c8d-87a0-9d7b2b99d111</rd:ReportID>
+</Report>

@@ -5,6 +5,11 @@ using Fabrikam.EnterprisePizza.Reporting.Batch.Configuration;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Jobs;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Logging;
 using Fabrikam.EnterprisePizza.Reporting.Batch.Models;
+using Fabrikam.EnterprisePizza.Core.Domain.Batch;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Configuration;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Execution;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Jobs;
+using Fabrikam.EnterprisePizza.Reporting.Batch.Logging;
 
 namespace Fabrikam.EnterprisePizza.Reporting.Batch
 {
@@ -28,6 +33,10 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch
                         new CommissionCalculator(),
                         new ChargebackProcessor())
                 }
+                { "StoreOpsRollup", new StoreOpsRollupJob(logger) },
+                { "CustomerHubSync", new CustomerHubSyncJob(logger) },
+                { "PayrollFeedImport", new PayrollFeedImportJob(logger) },
+                { "ReportingAggregation", new ReportingAggregationJob(logger) }
             };
         }
 
@@ -37,6 +46,7 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch
             {
                 StartedUtc = DateTime.UtcNow
             };
+            var context = new NightlyBatchContext(processDate);
 
             foreach (var definition in settingsProvider.LoadNightlyJobs())
             {
@@ -52,6 +62,9 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch
                     summary.JobResults.Add(new BatchJobExecutionResult
                     {
                         JobName = definition.Name,
+                        AttemptCount = 0,
+                        RowsExtracted = 0,
+                        RowsLoaded = 0,
                         StartedUtc = DateTime.UtcNow,
                         CompletedUtc = DateTime.UtcNow,
                         Succeeded = false,
@@ -62,6 +75,9 @@ namespace Fabrikam.EnterprisePizza.Reporting.Batch
                 }
 
                 summary.JobResults.Add(job.Execute(definition, processDate));
+                var stage = job.Execute(definition, context);
+                summary.JobResults.Add(stage.Result);
+                context.RecordStage(definition.Name, stage.WorkingSet);
             }
 
             summary.CompletedUtc = DateTime.UtcNow;
