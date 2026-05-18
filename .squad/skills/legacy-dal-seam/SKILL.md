@@ -17,6 +17,7 @@ Use this when a legacy .NET sample needs a data access layer that feels real eno
 - Put the ugly plumbing in a gateway that returns `DataSet`/`DataTable` shapes.
 - Expose repository classes above that gateway so business services stop hard-coding records inline.
 - Let the business layer depend on repositories, not on raw `DataSet` plumbing, even if the repository internals stay ugly.
+- For batch integrations, let the job own scheduling and connection aliases, but pull its latest-batch/status read through a StoreOps repository seam instead of a naked gateway helper.
 
 ## Example Shape
 
@@ -26,6 +27,7 @@ Use this when a legacy .NET sample needs a data access layer that feels real eno
 - `Repositories\StoreOps\...Repository.cs`
 - `Repositories\CustomerHub\...Repository.cs`
 - `Repositories\Reporting\...Repository.cs`
+- `Integrations\...\Job.cs` consuming a repository-backed batch snapshot
 
 ## Anti-Patterns
 

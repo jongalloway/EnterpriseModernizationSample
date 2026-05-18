@@ -36,6 +36,10 @@
     <Compile Include="Jobs\NightlyPosImportJob.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Core\Fabrikam.EnterprisePizza.Core.csproj">
+      <Project>{56A8F5D9-F129-4FCB-ACB7-6FBBABB05AC9}</Project>
+      <Name>Fabrikam.EnterprisePizza.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Data\Fabrikam.EnterprisePizza.Data.csproj">
       <Project>{39A41B6B-FDB8-44BC-A346-645E1FBA1E55}</Project>
       <Name>Fabrikam.EnterprisePizza.Data</Name>

@@ -42,5 +42,24 @@ namespace Fabrikam.EnterprisePizza.Tests.Unit.Gateways
             Assert.That(table.Rows[0]["StoreNumber"], Is.EqualTo("021"));
             Assert.That(table.Rows[1]["RouteZone"], Is.EqualTo("Mall Annex"));
         }
+
+        [Test]
+        public void ExecuteDataSet_returns_latest_pos_import_batch_for_requested_store()
+        {
+            var gateway = new LegacyDbGateway();
+            var call = gateway.CreateStoredProcedureCall(
+                LegacyDatabaseArea.StoreOps,
+                LegacyStoredProcedures.StoreOps.GetLatestPosImportBatch,
+                new GatewayParameter("@StoreNumber", "022"));
+
+            var dataSet = gateway.ExecuteDataSet(call);
+            var table = dataSet.Tables["LatestPosImportBatch"];
+
+            Assert.That(table, Is.Not.Null);
+            Assert.That(table.Rows, Has.Count.EqualTo(1));
+            Assert.That(table.Rows[0]["StoreNumber"], Is.EqualTo("022"));
+            Assert.That(table.Rows[0]["SourceSystem"], Is.EqualTo("RedmondPOS"));
+            Assert.That(table.Rows[0]["ItemCount"], Is.EqualTo(34));
+        }
     }
 }

@@ -46,6 +46,7 @@ namespace Fabrikam.EnterprisePizza.Legacy.Tests.IntegrationStubs
             var job = new NightlyPosImportJob();
 
             Assert.That(job.GetTargetDatabase(), Is.EqualTo(gateway.GetConnectionName("StoreOps")));
+            Assert.That(job.GetLatestImportedBatch("014"), Is.Not.Null);
         }
 
         [Test]

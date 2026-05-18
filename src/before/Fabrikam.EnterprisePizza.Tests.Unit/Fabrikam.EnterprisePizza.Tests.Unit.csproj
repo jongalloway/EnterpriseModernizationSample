@@ -44,6 +44,7 @@
     <Compile Include="Repositories\CustomerHub\PartnerAccountRepositoryFixture.cs" />
     <Compile Include="Repositories\Reporting\WorkforceReportRepositoryFixture.cs" />
     <Compile Include="Repositories\StoreOps\DispatchTicketRepositoryFixture.cs" />
+    <Compile Include="Repositories\StoreOps\PosImportBatchRepositoryFixture.cs" />
     <Compile Include="Services\DispatchCoordinatorFixture.cs" />
     <Compile Include="Services\PartnerAccountServiceFixture.cs" />
     <Compile Include="Services\StoreOperationsWorkbenchServiceFixture.cs" />
