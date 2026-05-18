@@ -35,6 +35,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerHub\AccountTierClassification.cs" />
+    <Compile Include="CustomerHub\CorporateAccountOnboardingRequest.cs" />
+    <Compile Include="CustomerHub\CorporateAccountProfile.cs" />
+    <Compile Include="CustomerHub\CorporateLocationRecord.cs" />
+    <Compile Include="CustomerHub\CreditTermsDecision.cs" />
+    <Compile Include="CustomerHub\PartnerContractRecord.cs" />
+    <Compile Include="CustomerHub\PartnerContractRenewalRequest.cs" />
+    <Compile Include="CustomerHub\PartnerContractRequest.cs" />
+    <Compile Include="CustomerHub\PartnerContractTerminationRequest.cs" />
+    <Compile Include="CustomerHub\ReferralAttributionRecord.cs" />
+    <Compile Include="CustomerHub\ReferralTrackingRequest.cs" />
     <Compile Include="PartnerSync\PartnerAccountSummary.cs" />
     <Compile Include="PartnerSync\PartnerSyncEnvelope.cs" />
     <Compile Include="PartnerSync\PartnerSyncRequest.cs" />

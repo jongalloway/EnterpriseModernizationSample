@@ -31,6 +31,7 @@ Ripley owns solution structure, reviewer gating, and the realism of the legacy a
 - Database assets should keep the top-level `data\sqlserver` location while splitting internally into `before`, `after`, and `shared` to match the modernization framing.
 - The cleanest next scenario expansion is not more random modules; it is a tight seam of dispatch/routing in StoreOps, B2B partnerships in CustomerHub, and delivery/labor/partner scorecards in Reporting, with HR kept operations-focused instead of becoming a full HR suite.
 - The Unity core seam needs one explicit bootstrap contract: `CreateConfiguredContainer()` owns registrations, while `InitializeServiceLocator(IUnityContainer)` only exposes the locator for an already-configured container and should fail fast otherwise. Key files: `src\before\Fabrikam.EnterprisePizza.Core\Composition\CoreContainer.cs`, `.squad\skills\legacy-unity-core-seam\SKILL.md`, and `.squad\decisions\inbox\ripley-core-container-bootstrap-path.md`.
+- CustomerHub partnership logic reads commission rates, tier thresholds, credit terms, and volume-pricing breaks from one business-rules class, so Web Forms, services, and later DAL work can share the same B2B calculations without duplicating them.
 
 📌 Backlog generated on 2026-05-13T21:07:52Z:
 - Created 52 concrete workitems across 9 phases targeting 14 projects, 3 databases, and full legacy enterprise sprawl.

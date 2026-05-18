@@ -50,6 +50,7 @@
     <Compile Include="Composition\LegacyServiceLocator.cs" />
     <Compile Include="Composition\UnityServiceLocatorAdapter.cs" />
     <Compile Include="Domain\DeliveryPromise.cs" />
+    <Compile Include="ExceptionHandling\ExceptionPolicy.cs" />
     <Compile Include="Domain\FulfillmentLane.cs" />
     <Compile Include="Domain\OrderChannel.cs" />
     <Compile Include="Domain\PosImportBatchSnapshot.cs" />
