@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using Fabrikam.EnterprisePizza.Business.StoreOps.Services;
 using Fabrikam.EnterprisePizza.Core.Composition;
+using Fabrikam.EnterprisePizza.Core.ExceptionHandling;
 using Fabrikam.EnterprisePizza.Shared.Contracts.Routing;
 
 namespace Fabrikam.EnterprisePizza.Services.DispatchHost
@@ -33,23 +34,48 @@ namespace Fabrikam.EnterprisePizza.Services.DispatchHost
 
         public IList<DispatchTicket> GetDispatchBoard(string storeNumber)
         {
-            return _coordinator.GetActiveTickets(storeNumber);
+            try
+            {
+                return _coordinator.GetActiveTickets(storeNumber);
+            }
+            catch (Exception ex)
+            {
+                throw HandleServiceBoundaryException(ex);
+            }
         }
 
         public DispatchBoardSnapshot GetDispatchBoardSnapshot(StoreDispatchRequest request)
         {
-            var storeNumber = request == null || string.IsNullOrWhiteSpace(request.StoreNumber)
-                ? "014"
-                : request.StoreNumber;
-            var tickets = _coordinator.GetActiveTickets(storeNumber);
-
-            return new DispatchBoardSnapshot
+            try
             {
-                StoreNumber = storeNumber,
-                GeneratedAtUtc = DateTime.UtcNow,
-                SourceSystem = "StoreOps.DispatchBoard",
-                Tickets = new List<DispatchTicket>(tickets)
-            };
+                var storeNumber = request == null || string.IsNullOrWhiteSpace(request.StoreNumber)
+                    ? "014"
+                    : request.StoreNumber;
+                var tickets = _coordinator.GetActiveTickets(storeNumber);
+
+                return new DispatchBoardSnapshot
+                {
+                    StoreNumber = storeNumber,
+                    GeneratedAtUtc = DateTime.UtcNow,
+                    SourceSystem = "StoreOps.DispatchBoard",
+                    Tickets = new List<DispatchTicket>(tickets)
+                };
+            }
+            catch (Exception ex)
+            {
+                throw HandleServiceBoundaryException(ex);
+            }
+        }
+
+        private static Exception HandleServiceBoundaryException(Exception exception)
+        {
+            Exception exceptionToThrow;
+            if (ExceptionPolicy.HandleException(exception, "ServiceBoundaryPolicy", out exceptionToThrow) && exceptionToThrow != null)
+            {
+                return exceptionToThrow;
+            }
+
+            return exception;
         }
     }
 }

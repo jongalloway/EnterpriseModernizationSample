@@ -9,6 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="PortalScriptManager" runat="server" EnablePageMethods="true" />
         <div class="pageShell">
             <div class="pageHeader">
                 <div class="brandLockup">
@@ -23,6 +24,11 @@
                 <a href="Default.aspx">Operations Home</a>
                 <span class="navDivider">|</span>
                 <a href="DispatchBoard.aspx">Dispatch Board</a>
+                <a href="OrderLookup.aspx">Order Lookup</a>
+                <span class="navDivider">|</span>
+                <a href="OrderHistory.aspx">Order History</a>
+                <span class="navDivider">|</span>
+                <a href="Default.aspx#laborWatch">Labor Watch</a>
                 <span class="navDivider">|</span>
                 <a href="InventoryManagement.aspx">Inventory</a>
                 <span class="navDivider">|</span>
