@@ -60,6 +60,7 @@
     <Compile Include="Gateways\LegacyDbGatewayFixture.cs" />
     <Compile Include="Gateways\StoredProcedureCallFixture.cs" />
     <Compile Include="Repositories\CustomerHub\PartnerAccountRepositoryFixture.cs" />
+    <Compile Include="Repositories\Reporting\ReportingWarehouseRepositoryFixture.cs" />
     <Compile Include="Repositories\CustomerHub\PartnerAccountRepositoryInteractionFixture.cs" />
     <Compile Include="Repositories\Reporting\WorkforceReportRepositoryFixture.cs" />
     <Compile Include="Repositories\Reporting\WorkforceReportRepositoryInteractionFixture.cs" />

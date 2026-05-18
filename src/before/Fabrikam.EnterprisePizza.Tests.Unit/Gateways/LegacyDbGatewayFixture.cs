@@ -39,6 +39,16 @@ namespace Fabrikam.EnterprisePizza.Tests.Unit.Gateways
         }
 
         [Test]
+        public void GetDatabase_returns_enterprise_library_reporting_database_for_configured_connection()
+        {
+            var gateway = new LegacyDbGateway();
+
+            var database = gateway.GetDatabase(LegacyDatabaseArea.Reporting);
+
+            Assert.That(database, Is.Not.Null);
+        }
+
+        [Test]
         public void ExecuteDataSet_returns_dispatch_stub_rows_for_requested_store()
         {
             var call = gateway.CreateStoredProcedureCall(

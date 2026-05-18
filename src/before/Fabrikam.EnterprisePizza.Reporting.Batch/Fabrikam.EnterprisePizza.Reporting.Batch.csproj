@@ -47,6 +47,7 @@
     <Compile Include="Models\BatchRunModels.cs" />
     <Compile Include="Models\PartnerFinancialReport.cs" />
     <Compile Include="Program.cs" />
+    <None Include="App.config" />
     <Compile Include="Configuration\ReportingConfiguration.cs" />
     <Compile Include="Models\ReportParameterModels.cs" />
     <Compile Include="Models\ReportSupport.cs" />
