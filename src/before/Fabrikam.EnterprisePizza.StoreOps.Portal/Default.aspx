@@ -1,9 +1,7 @@
 <%@ Page Title="Store Operations Dashboard" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Fabrikam.EnterprisePizza.StoreOps.Portal._Default" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="HeadContentBlock" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="MainContentBlock" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:ScriptManager ID="PortalScriptManager" runat="server" />
     <asp:HiddenField ID="SelectedStoreNumber" runat="server" ClientIDMode="Static" />
 
     <div class="dashboardHero">

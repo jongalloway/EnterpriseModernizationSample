@@ -9,6 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="PortalScriptManager" runat="server" EnablePageMethods="true" />
         <div class="pageShell">
             <div class="pageHeader">
                 <div class="brandLockup">

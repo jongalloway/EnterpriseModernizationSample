@@ -304,6 +304,43 @@ body {
     font-size: 12px;
 }
 
+.fieldHint {
+    display: block;
+    margin-top: 4px;
+    color: #6b85a0;
+    font-size: 11px;
+}
+
+.legacyAutoCompleteList {
+    width: 228px !important;
+    border: 1px solid #7f9db9;
+    background: #ffffff;
+    font-size: 12px;
+}
+
+.legacyAutoCompleteItem,
+.legacyAutoCompleteItemSelected {
+    padding: 4px 6px;
+    cursor: pointer;
+}
+
+.legacyAutoCompleteItemSelected {
+    background: #dbe8f6;
+    color: #21496e;
+}
+
+.legacyCalendarPopup .ajax__calendar_container {
+    border: 1px solid #7f9db9;
+    background: #ffffff;
+    font-size: 11px;
+}
+
+.legacyCalendarPopup .ajax__calendar_header,
+.legacyCalendarPopup .ajax__calendar_dayname {
+    background: #edf3f9;
+    color: #35536d;
+}
+
 .legacyDateTextBox {
     width: 112px;
 }
@@ -396,6 +433,10 @@ body {
     font-size: 16px;
     font-weight: bold;
     color: #1f456b;
+}
+
+.modalBulletList {
+    margin-bottom: 14px;
 }
 
 .modalBackdrop {
