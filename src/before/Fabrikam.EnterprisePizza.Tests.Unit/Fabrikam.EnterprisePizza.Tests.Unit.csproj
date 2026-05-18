@@ -45,8 +45,12 @@
     <Compile Include="Repositories\Reporting\WorkforceReportRepositoryFixture.cs" />
     <Compile Include="Repositories\StoreOps\DispatchTicketRepositoryFixture.cs" />
     <Compile Include="Repositories\StoreOps\PosImportBatchRepositoryFixture.cs" />
+    <Compile Include="Services\DeliveryTrackingServiceFixture.cs" />
     <Compile Include="Services\DispatchCoordinatorFixture.cs" />
+    <Compile Include="Services\DispatchQueueServiceFixture.cs" />
+    <Compile Include="Services\DriverAssignmentServiceFixture.cs" />
     <Compile Include="Services\PartnerAccountServiceFixture.cs" />
+    <Compile Include="Services\RoutePlanningServiceFixture.cs" />
     <Compile Include="Services\StoreOperationsWorkbenchServiceFixture.cs" />
     <Compile Include="Services\WorkforceReportingServiceFixture.cs" />
     <None Include="packages.config" />

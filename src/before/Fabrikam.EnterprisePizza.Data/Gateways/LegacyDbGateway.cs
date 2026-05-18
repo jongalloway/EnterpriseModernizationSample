@@ -74,9 +74,19 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             table.Columns.Add("StoreNumber", typeof(string));
             table.Columns.Add("DriverCode", typeof(string));
             table.Columns.Add("RouteZone", typeof(string));
+            table.Columns.Add("CustomerName", typeof(string));
+            table.Columns.Add("DeliveryAddress", typeof(string));
+            table.Columns.Add("ReadyAtLocal", typeof(DateTime));
+            table.Columns.Add("PromiseTimeLocal", typeof(DateTime));
+            table.Columns.Add("RouteDistanceMiles", typeof(decimal));
+            table.Columns.Add("EstimatedTravelMinutes", typeof(int));
+            table.Columns.Add("RequiresPairing", typeof(bool));
+            table.Columns.Add("Status", typeof(string));
+            table.Columns.Add("PriorityScore", typeof(int));
 
-            table.Rows.Add(4105, storeNumber, "DRV-17", "Northwest Corporate Corridor");
-            table.Rows.Add(4106, storeNumber, "DRV-03", "Mall Annex");
+            var routeDeskStart = DateTime.Today.AddHours(17);
+            table.Rows.Add(4105, storeNumber, "DRV-17", "Northwest Corporate Corridor", "Contoso Office Park", "8100 148th Ave NE", routeDeskStart.AddMinutes(12), routeDeskStart.AddMinutes(32), 6.8m, 18, false, "ReadyForDispatch", 92);
+            table.Rows.Add(4106, storeNumber, "DRV-03", "Mall Annex", "Mall Annex Leasing Office", "245 Center Mall Plaza", routeDeskStart.AddMinutes(16), routeDeskStart.AddMinutes(36), 4.2m, 14, true, "Assigned", 84);
 
             return dataSet;
         }
