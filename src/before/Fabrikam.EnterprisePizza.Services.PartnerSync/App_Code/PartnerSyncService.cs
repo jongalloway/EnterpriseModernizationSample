@@ -5,6 +5,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using Fabrikam.EnterprisePizza.Business.CustomerHub.Services;
 using Fabrikam.EnterprisePizza.Core.Composition;
+using Fabrikam.EnterprisePizza.Core.ExceptionHandling;
 using Fabrikam.EnterprisePizza.Shared.Contracts.PartnerSync;
 
 namespace Fabrikam.EnterprisePizza.Services.PartnerSync
@@ -29,26 +30,51 @@ namespace Fabrikam.EnterprisePizza.Services.PartnerSync
         [WebMethod]
         public IList<string> GetPreferredPartners()
         {
-            return _partnerAccountService.GetPreferredPartners();
+            try
+            {
+                return _partnerAccountService.GetPreferredPartners();
+            }
+            catch (Exception ex)
+            {
+                throw HandleServiceBoundaryException(ex);
+            }
         }
 
         [WebMethod(Description = "Returns the preferred partner export envelope used by legacy franchise sync jobs.")]
         public PartnerSyncEnvelope GetPreferredPartnerSnapshot(PartnerSyncRequest request)
         {
-            var partners = _partnerAccountService.GetPreferredPartners();
-            var includeCommunityPartners = request != null && request.IncludeCommunityPartners;
-
-            if (!includeCommunityPartners)
+            try
             {
-                partners = partners.Where(partner => !partner.Contains("League")).ToList();
+                var partners = _partnerAccountService.GetPreferredPartners();
+                var includeCommunityPartners = request != null && request.IncludeCommunityPartners;
+
+                if (!includeCommunityPartners)
+                {
+                    partners = partners.Where(partner => !partner.Contains("League")).ToList();
+                }
+
+                return new PartnerSyncEnvelope
+                {
+                    SourceSystem = "CustomerHub.PartnerSync",
+                    GeneratedAtUtc = DateTime.UtcNow,
+                    Partners = BuildPartnerSummaries(partners, request)
+                };
+            }
+            catch (Exception ex)
+            {
+                throw HandleServiceBoundaryException(ex);
+            }
+        }
+
+        private static Exception HandleServiceBoundaryException(Exception exception)
+        {
+            Exception exceptionToThrow;
+            if (ExceptionPolicy.HandleException(exception, "ServiceBoundaryPolicy", out exceptionToThrow) && exceptionToThrow != null)
+            {
+                return exceptionToThrow;
             }
 
-            return new PartnerSyncEnvelope
-            {
-                SourceSystem = "CustomerHub.PartnerSync",
-                GeneratedAtUtc = DateTime.UtcNow,
-                Partners = BuildPartnerSummaries(partners, request)
-            };
+            return exception;
         }
 
         private static PartnerAccountSummary[] BuildPartnerSummaries(IList<string> partners, PartnerSyncRequest request)

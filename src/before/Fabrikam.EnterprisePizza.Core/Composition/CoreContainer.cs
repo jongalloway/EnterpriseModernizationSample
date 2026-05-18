@@ -1,4 +1,5 @@
 using System;
+using Fabrikam.EnterprisePizza.Core.Configuration;
 using Fabrikam.EnterprisePizza.Core.Services;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
@@ -21,6 +22,7 @@ namespace Fabrikam.EnterprisePizza.Core.Composition
                 throw new ArgumentNullException(nameof(container));
             }
 
+            container.RegisterType<EnterpriseLibraryConfigurationReader>(new ContainerControlledLifetimeManager());
             container.RegisterType<IBusinessClock, SystemBusinessClock>(new ContainerControlledLifetimeManager());
             container.RegisterType<IOrderFulfillmentPolicy, LegacyOrderFulfillmentPolicy>(new TransientLifetimeManager());
         }

@@ -10,12 +10,7 @@ namespace Fabrikam.EnterprisePizza.Services.DispatchHost
     {
         protected void Application_Start(object sender, System.EventArgs e)
         {
-            LegacyServiceLocator.Initialize(registry =>
-            {
-                registry.Register<LegacyDbGateway>();
-                registry.Register<IDispatchTicketRepository, DispatchTicketRepository>();
-                registry.Register<IDispatchCoordinator, DispatchCoordinator>();
-            });
+            LegacyServiceLocator.InitializeFromConfiguration("DispatchHost");
         }
     }
 }
