@@ -115,6 +115,23 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID(N'dbo.PartnerProfitabilitySummary', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.PartnerProfitabilitySummary
+    (
+        PartnerProfitabilitySummaryId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        PartnerCode NVARCHAR(25) NOT NULL,
+        SummaryDate DATE NOT NULL,
+        DeliveredOrders INT NOT NULL,
+        GrossSales MONEY NOT NULL,
+        FeePercentage DECIMAL(9,2) NOT NULL,
+        LastLoadedUtc DATETIME NOT NULL CONSTRAINT DF_PartnerProfitabilitySummary_LastLoadedUtc DEFAULT (GETUTCDATE())
+    );
+
+    CREATE UNIQUE INDEX UX_PartnerProfitabilitySummary_Partner_Date ON dbo.PartnerProfitabilitySummary (PartnerCode, SummaryDate);
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM dbo.DatabaseDeploymentHistory WHERE ScriptName = N'Reporting\02-schema.sql')
 BEGIN
     INSERT INTO dbo.DatabaseDeploymentHistory (ScriptName)

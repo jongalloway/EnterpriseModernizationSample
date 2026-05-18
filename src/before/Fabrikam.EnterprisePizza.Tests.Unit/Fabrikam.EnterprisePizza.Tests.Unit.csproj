@@ -44,6 +44,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="nunit.framework">
@@ -51,8 +52,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Composition\LegacyServiceLocatorFixture.cs" />
+    <Compile Include="Configuration\EnterpriseLibraryConfigurationReaderFixture.cs" />
     <Compile Include="Configuration\LegacyConnectionCatalogFixture.cs" />
     <Compile Include="Configuration\LegacyDatabaseFactoryFixture.cs" />
+    <Compile Include="ExceptionHandling\ExceptionPolicyFixture.cs" />
     <Compile Include="Gateways\LegacyDbGatewayFixture.cs" />
     <Compile Include="Gateways\StoredProcedureCallFixture.cs" />
     <Compile Include="Repositories\CustomerHub\PartnerAccountRepositoryFixture.cs" />
@@ -63,8 +67,23 @@
     <Compile Include="Repositories\StoreOps\DispatchTicketRepositoryInteractionFixture.cs" />
     <Compile Include="Repositories\StoreOps\PosImportBatchRepositoryFixture.cs" />
     <Compile Include="Repositories\StoreOps\PosImportBatchRepositoryInteractionFixture.cs" />
+    <Compile Include="Services\DeliveryTrackingServiceFixture.cs" />
     <Compile Include="Services\DispatchCoordinatorFixture.cs" />
+    <Compile Include="Services\DispatchQueueServiceFixture.cs" />
+    <Compile Include="Services\DriverAssignmentServiceFixture.cs" />
     <Compile Include="Services\PartnerAccountServiceFixture.cs" />
+    <Compile Include="Services\ReportingServiceFixture.cs" />
+    <Compile Include="Services\RoutePlanningServiceFixture.cs" />
+    <Compile Include="Services\OrderPricingEngineFixture.cs" />
+    <Compile Include="Services\OrderProcessingServiceFixture.cs" />
+    <Compile Include="Services\OrderStatusServiceFixture.cs" />
+    <Compile Include="Services\OrderValidationServiceFixture.cs" />
+    <Compile Include="Services\PartnerAccountServiceFixture.cs" />
+    <Compile Include="Services\PosWorkflowServiceFixture.cs" />
+    <Compile Include="Services\DispatchQueueServiceFixture.cs" />
+    <Compile Include="Services\DriverAssignmentServiceFixture.cs" />
+    <Compile Include="Services\PartnerAccountServiceFixture.cs" />
+    <Compile Include="Services\RoutePlanningServiceFixture.cs" />
     <Compile Include="Services\StoreOperationsWorkbenchServiceFixture.cs" />
     <Compile Include="Services\WorkforceReportingServiceFixture.cs" />
     <Compile Include="Testing\RecordingLegacyDbGateway.cs" />
@@ -79,6 +98,10 @@
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Business.StoreOps\Fabrikam.EnterprisePizza.Business.StoreOps.csproj">
       <Project>{89F7206D-170D-4F54-B96F-0409FE93DAEE}</Project>
       <Name>Fabrikam.EnterprisePizza.Business.StoreOps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fabrikam.EnterprisePizza.Reporting.Batch\Fabrikam.EnterprisePizza.Reporting.Batch.csproj">
+      <Project>{7D91FC91-FF9E-4388-84F5-14BF7B1D0125}</Project>
+      <Name>Fabrikam.EnterprisePizza.Reporting.Batch</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fabrikam.EnterprisePizza.Core\Fabrikam.EnterprisePizza.Core.csproj">
       <Project>{56A8F5D9-F129-4FCB-ACB7-6FBBABB05AC9}</Project>
