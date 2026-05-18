@@ -22,22 +22,22 @@ namespace Fabrikam.EnterprisePizza.Data.Gateways
             this.connectionCatalog = connectionCatalog ?? throw new ArgumentNullException(nameof(connectionCatalog));
         }
 
-        public string GetConnectionName(string area)
+        public virtual string GetConnectionName(string area)
         {
             return connectionCatalog.GetConnectionName(area);
         }
 
-        public string GetConnectionName(LegacyDatabaseArea area)
+        public virtual string GetConnectionName(LegacyDatabaseArea area)
         {
             return connectionCatalog.GetConnectionName(area);
         }
 
-        public StoredProcedureCall CreateStoredProcedureCall(LegacyDatabaseArea area, string procedureName, params GatewayParameter[] parameters)
+        public virtual StoredProcedureCall CreateStoredProcedureCall(LegacyDatabaseArea area, string procedureName, params GatewayParameter[] parameters)
         {
             return new StoredProcedureCall(GetConnectionName(area), procedureName, parameters);
         }
 
-        public DataSet ExecuteDataSet(StoredProcedureCall call)
+        public virtual DataSet ExecuteDataSet(StoredProcedureCall call)
         {
             if (call == null)
             {

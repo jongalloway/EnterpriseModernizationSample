@@ -12,6 +12,10 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>false</Deterministic>
+    <EnterpriseLibraryCommonReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Common.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
+    <EnterpriseLibraryCommonReferencePath Condition="'$(EnterpriseLibraryCommonReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.common\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Common.dll</EnterpriseLibraryCommonReferencePath>
+    <EnterpriseLibraryDataReferencePath Condition="Exists('$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll')">$(MSBuildThisFileDirectory)..\packages\EnterpriseLibrary.Data.6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll</EnterpriseLibraryDataReferencePath>
+    <EnterpriseLibraryDataReferencePath Condition="'$(EnterpriseLibraryDataReferencePath)' == ''">$(UserProfile)\.nuget\packages\enterpriselibrary.data\6.0.1304\lib\net45\Microsoft.Practices.EnterpriseLibrary.Data.dll</EnterpriseLibraryDataReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>$(EnterpriseLibraryCommonReferencePath)</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>$(EnterpriseLibraryDataReferencePath)</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -36,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Configuration\LegacyConnectionCatalog.cs" />
     <Compile Include="Configuration\LegacyDatabaseArea.cs" />
+    <Compile Include="Configuration\LegacyDatabaseFactory.cs" />
     <Compile Include="Gateways\GatewayParameter.cs" />
     <Compile Include="Gateways\LegacyDbGateway.cs" />
     <Compile Include="Gateways\StoredProcedureCall.cs" />
