@@ -46,7 +46,12 @@
     <Compile Include="Repositories\StoreOps\DispatchTicketRepositoryFixture.cs" />
     <Compile Include="Repositories\StoreOps\PosImportBatchRepositoryFixture.cs" />
     <Compile Include="Services\DispatchCoordinatorFixture.cs" />
+    <Compile Include="Services\OrderPricingEngineFixture.cs" />
+    <Compile Include="Services\OrderProcessingServiceFixture.cs" />
+    <Compile Include="Services\OrderStatusServiceFixture.cs" />
+    <Compile Include="Services\OrderValidationServiceFixture.cs" />
     <Compile Include="Services\PartnerAccountServiceFixture.cs" />
+    <Compile Include="Services\PosWorkflowServiceFixture.cs" />
     <Compile Include="Services\StoreOperationsWorkbenchServiceFixture.cs" />
     <Compile Include="Services\WorkforceReportingServiceFixture.cs" />
     <None Include="packages.config" />

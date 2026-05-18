@@ -41,7 +41,21 @@
     <Compile Include="Routing\DispatchBoardSnapshot.cs" />
     <Compile Include="Routing\DispatchTicket.cs" />
     <Compile Include="Routing\StoreDispatchRequest.cs" />
+    <Compile Include="StoreOps\AppliedDiscount.cs" />
+    <Compile Include="StoreOps\OrderLineItem.cs" />
     <Compile Include="StoreOps\OrderLookupRecord.cs" />
+    <Compile Include="StoreOps\OrderPricingResult.cs" />
+    <Compile Include="StoreOps\OrderProcessingResult.cs" />
+    <Compile Include="StoreOps\OrderRequest.cs" />
+    <Compile Include="StoreOps\OrderStatus.cs" />
+    <Compile Include="StoreOps\OrderStatusChangeResult.cs" />
+    <Compile Include="StoreOps\OrderValidationIssue.cs" />
+    <Compile Include="StoreOps\OrderValidationResult.cs" />
+    <Compile Include="StoreOps\PaymentMethod.cs" />
+    <Compile Include="StoreOps\PaymentProcessingResult.cs" />
+    <Compile Include="StoreOps\PaymentRequest.cs" />
+    <Compile Include="StoreOps\PosCart.cs" />
+    <Compile Include="StoreOps\PosReceipt.cs" />
     <Compile Include="StoreOps\StoreManagementRecord.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
