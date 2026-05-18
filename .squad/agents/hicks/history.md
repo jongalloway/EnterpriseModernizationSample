@@ -25,6 +25,7 @@ Hicks owns the legacy web surface across Web Forms, MVC, and old JavaScript beha
 - **2026-05-14T03:23:27.208+02:00:** A believable StoreOps intranet shell lands better as its own Web Forms portal project with a master page, blue-gradient supervisor chrome, and small AJAX-era touches layered directly over StoreOps business services.
 - **2026-05-14T03:23:27.208+02:00:** The main Web Forms portal works best as a glossy partner shell that links the more specialized legacy surfaces (storefront, franchise bulletin center, and corporate account tools) instead of replacing them. A master page, dashboard copy, and a little optional jQuery-era chrome make the surface feel older than the MVC storefront without turning it into parody.
 - **2026-05-14T09:58:57.628+02:00:** For `src\before\Fabrikam.EnterprisePizza.Portal`, prefer self-contained browser behavior over dead package references: `Scripts\portal.js` now uses vanilla DOM APIs, `Site.master.designer.cs` stays aligned with the generated Web Forms `ContentPlaceHolder` type, and `Default.aspx` binds through encoding helpers so output stays safe by default.
+- **2026-05-18T01:39:47.894-07:00:** Era-authentic portal chrome reads best when the Web Forms master page owns the newsletter box, promo badge rail, marquee ticker, and footer nostalgia so every page inherits the same 2005-2008 marketing shell without duplicating one-off chrome in content pages.
 
 📌 Decision archive round-up on 2026-05-14T01:02:28Z (Scribe):
 - ACT v20.1.0 recommendation locked into canonical decisions.md
