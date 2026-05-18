@@ -300,6 +300,12 @@ BEGIN
         GrossSales MONEY NOT NULL,
         FeePercentage DECIMAL(5,2) NOT NULL,
         LastLoadedUtc DATETIME NOT NULL
+        PartnerCode NVARCHAR(25) NOT NULL,
+        SummaryDate DATE NOT NULL,
+        DeliveredOrders INT NOT NULL,
+        GrossSales MONEY NOT NULL,
+        FeePercentage DECIMAL(9,2) NOT NULL,
+        LastLoadedUtc DATETIME NOT NULL CONSTRAINT DF_PartnerProfitabilitySummary_LastLoadedUtc DEFAULT (GETUTCDATE())
     );
 
     CREATE UNIQUE INDEX UX_PartnerProfitabilitySummary_Partner_Date ON dbo.PartnerProfitabilitySummary (PartnerCode, SummaryDate);

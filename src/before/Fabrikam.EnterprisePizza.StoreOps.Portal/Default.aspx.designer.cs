@@ -2,8 +2,6 @@ namespace Fabrikam.EnterprisePizza.StoreOps.Portal
 {
     public partial class _Default
     {
-        protected global::System.Web.UI.ScriptManager PortalScriptManager;
-
         protected global::System.Web.UI.WebControls.HiddenField SelectedStoreNumber;
 
         protected global::AjaxControlToolkit.TabContainer OperationsTabs;
