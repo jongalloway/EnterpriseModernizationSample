@@ -11,6 +11,15 @@
     <form id="PortalForm" runat="server">
         <asp:ScriptManager ID="PortalScriptManager" runat="server" EnablePageMethods="true" />
         <div class="page-shell">
+            <div class="portal-meta-nav">
+                <a href="#">Webmaster</a>
+                <span>|</span>
+                <a href="#">Site Map</a>
+                <span>|</span>
+                <a href="#">Privacy Policy</a>
+                <span>|</span>
+                <a href="#">Terms of Use</a>
+            </div>
             <div class="utility-nav">
                 <a href="Default.aspx">Portal Home</a>
                 <a href="OperationsSnapshot.aspx">Operations Snapshot</a>
@@ -18,16 +27,24 @@
                 <a href="/FranchisePortal/Default.aspx">Franchise Bulletins</a>
                 <a href="/Storefront/">Storefront</a>
             </div>
-            <div class="masthead">
-                <div class="logo-block">
-                    <span class="logo-mark">F</span>
-                    <div class="logo-copy">
-                        <h1>Fabrikam Enterprise Pizza</h1>
-                        <p>Partner portal for district managers, franchise operators, and catering support.</p>
-                    </div>
+            <div class="marquee-shell bevel-frame">
+                <div class="bevel-inner">
+                    <span class="ticker-label">Partner News Flash:</span>
+                    <marquee behavior="scroll" direction="left" scrollamount="4">Now with 24/7 Online Ordering! Corporate catering desk now accepting Summer Slice Spectacular reservations. Faxless franchise bulletin uploads available in pilot stores.</marquee>
                 </div>
-                <div class="hero-note">
-                    Hot slices. Corporate precision.
+            </div>
+            <div class="masthead bevel-frame">
+                <div class="bevel-inner masthead-inner">
+                    <div class="logo-block">
+                        <span class="logo-mark">F</span>
+                        <div class="logo-copy">
+                            <h1>Fabrikam Enterprise Pizza</h1>
+                            <p>Partner portal for district managers, franchise operators, and catering support.</p>
+                        </div>
+                    </div>
+                    <div class="hero-note">
+                        Hot slices. Corporate precision.
+                    </div>
                 </div>
             </div>
             <div class="tab-strip">
@@ -35,16 +52,56 @@
                 <a href="OperationsSnapshot.aspx">Store Rollups</a>
                 <span class="status-chip">Trusted Partner Access</span>
             </div>
+            <table class="chrome-layout" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="chrome-rail">
+                        <div class="bevel-frame promo-badge-box">
+                            <div class="bevel-inner">
+                                <div class="promo-badge promo-badge-gold">&#127942; Award-Winning Partner Program!</div>
+                                <div class="promo-badge promo-badge-red">Now with 24/7 Online Ordering!</div>
+                                <div class="promo-badge promo-badge-blue">Trusted Franchise Bulletin Center</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="chrome-main">
+                        <div class="bevel-frame chrome-signup-box">
+                            <div class="bevel-inner">
+                                <table class="signup-layout" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td class="signup-copy-cell">
+                                            <strong>Sign up for Fabrikam Pizza Express&trade; updates!</strong>
+                                            <div class="signup-copy">Receive promo fliers, district manager reminders, and online ordering service alerts before the phones light up.</div>
+                                        </td>
+                                        <td class="signup-form-cell">
+                                            <input type="text" class="newsletter-input" value="enter your e-mail address" onfocus="if(this.value==='enter your e-mail address'){this.value='';}" onblur="if(!this.value){this.value='enter your e-mail address';}" />
+                                            <input type="button" class="newsletter-button" value="Join Now" />
+                                        </td>
+                                        <td class="counter-cell">
+                                            <div class="visitor-counter-label">You are visitor #</div>
+                                            <div class="visitor-counter">00423817</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-            <div class="footer">
-                <div>Questions? Fax updated catering forms to HQ intake before 4:00 PM.</div>
-                <div class="footer-links">
-                    <a href="#">Contact</a>
-                    <a href="#">Privacy</a>
-                    <a href="#">Careers</a>
-                    <a href="#">MySpace</a>
+            <div class="footer bevel-frame">
+                <div class="bevel-inner">
+                    <div>Questions? Fax updated catering forms to HQ intake before 4:00 PM.</div>
+                    <div class="footer-links">
+                        <a href="#">Contact</a>
+                        <a href="#">Careers</a>
+                        <a href="https://myspace.com/fabrikamenterpizza" target="_blank" rel="noopener noreferrer">Visit us on MySpace</a>
+                    </div>
+                    <div class="footer-partners">
+                        <span class="powered-by-aspnet">Powered by ASP.NET</span>
+                        <span class="footer-divider">|</span>
+                        <span class="best-viewed">Best viewed in Internet Explorer 6.0 at 1024x768</span>
+                    </div>
                 </div>
-                <div class="best-viewed">Best viewed at 1024 x 768 with JavaScript enabled.</div>
             </div>
         </div>
     </form>
