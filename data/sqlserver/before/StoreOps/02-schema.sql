@@ -22,6 +22,42 @@ BEGIN
 END
 GO
 
+IF COL_LENGTH(N'dbo.Store', N'AddressLine1') IS NULL
+BEGIN
+    ALTER TABLE dbo.Store ADD AddressLine1 NVARCHAR(120) NULL;
+END
+GO
+
+IF COL_LENGTH(N'dbo.Store', N'AddressLine2') IS NULL
+BEGIN
+    ALTER TABLE dbo.Store ADD AddressLine2 NVARCHAR(120) NULL;
+END
+GO
+
+IF COL_LENGTH(N'dbo.Store', N'City') IS NULL
+BEGIN
+    ALTER TABLE dbo.Store ADD City NVARCHAR(80) NULL;
+END
+GO
+
+IF COL_LENGTH(N'dbo.Store', N'StateProvinceCode') IS NULL
+BEGIN
+    ALTER TABLE dbo.Store ADD StateProvinceCode NVARCHAR(20) NULL;
+END
+GO
+
+IF COL_LENGTH(N'dbo.Store', N'PostalCode') IS NULL
+BEGIN
+    ALTER TABLE dbo.Store ADD PostalCode NVARCHAR(20) NULL;
+END
+GO
+
+IF COL_LENGTH(N'dbo.Store', N'TimeZoneId') IS NULL
+BEGIN
+    ALTER TABLE dbo.Store ADD TimeZoneId NVARCHAR(50) NULL;
+END
+GO
+
 IF OBJECT_ID(N'dbo.RouteZone', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.RouteZone
@@ -54,6 +90,24 @@ BEGIN
 END
 GO
 
+IF COL_LENGTH(N'dbo.Driver', N'AvailabilityStatus') IS NULL
+BEGIN
+    ALTER TABLE dbo.Driver ADD AvailabilityStatus NVARCHAR(20) NULL;
+END
+GO
+
+IF COL_LENGTH(N'dbo.Driver', N'MobilePhone') IS NULL
+BEGIN
+    ALTER TABLE dbo.Driver ADD MobilePhone NVARCHAR(30) NULL;
+END
+GO
+
+IF COL_LENGTH(N'dbo.Driver', N'LastStatusChangeUtc') IS NULL
+BEGIN
+    ALTER TABLE dbo.Driver ADD LastStatusChangeUtc DATETIME NULL;
+END
+GO
+
 IF OBJECT_ID(N'dbo.StoreOperationsStatus', N'U') IS NULL
 BEGIN
     CREATE TABLE dbo.StoreOperationsStatus
@@ -70,6 +124,78 @@ BEGIN
     );
 
     CREATE UNIQUE INDEX UX_StoreOperationsStatus_StoreId ON dbo.StoreOperationsStatus (StoreId);
+END
+GO
+
+IF OBJECT_ID(N'dbo.StoreOperatingHours', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.StoreOperatingHours
+    (
+        StoreOperatingHoursId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreId INT NOT NULL,
+        DayOfWeekNumber TINYINT NOT NULL,
+        OpenTime TIME NOT NULL,
+        CloseTime TIME NOT NULL,
+        DeliveryCutoffTime TIME NOT NULL,
+        LobbyCloseTime TIME NULL
+    );
+
+    CREATE UNIQUE INDEX UX_StoreOperatingHours_Store_DayOfWeek ON dbo.StoreOperatingHours (StoreId, DayOfWeekNumber);
+END
+GO
+
+IF OBJECT_ID(N'dbo.StoreConfiguration', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.StoreConfiguration
+    (
+        StoreConfigurationId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        StoreId INT NOT NULL,
+        DeliveryRadiusMiles DECIMAL(5,2) NOT NULL,
+        MaxConcurrentDeliveries INT NOT NULL,
+        MaxStackedStops INT NOT NULL,
+        DispatchLeadMinutes INT NOT NULL,
+        CarryoutHoldMinutes INT NOT NULL,
+        AcceptsThirdPartyDispatch BIT NOT NULL,
+        CateringWarmHoldMinutes INT NOT NULL,
+        LastMenuRefreshUtc DATETIME NOT NULL
+    );
+
+    CREATE UNIQUE INDEX UX_StoreConfiguration_StoreId ON dbo.StoreConfiguration (StoreId);
+END
+GO
+
+IF OBJECT_ID(N'dbo.MenuCategory', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.MenuCategory
+    (
+        MenuCategoryId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        CategoryCode NVARCHAR(20) NOT NULL,
+        CategoryName NVARCHAR(80) NOT NULL,
+        SortOrder TINYINT NOT NULL,
+        IsActive BIT NOT NULL CONSTRAINT DF_MenuCategory_IsActive DEFAULT (1)
+    );
+
+    CREATE UNIQUE INDEX UX_MenuCategory_CategoryCode ON dbo.MenuCategory (CategoryCode);
+END
+GO
+
+IF OBJECT_ID(N'dbo.MenuProduct', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.MenuProduct
+    (
+        MenuProductId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        ProductCode NVARCHAR(30) NOT NULL,
+        MenuCategoryId INT NOT NULL,
+        ProductName NVARCHAR(120) NOT NULL,
+        ProductSize NVARCHAR(40) NULL,
+        LegacyPosCode NVARCHAR(20) NULL,
+        BasePrice MONEY NOT NULL,
+        IsActive BIT NOT NULL CONSTRAINT DF_MenuProduct_IsActive DEFAULT (1),
+        IsDeliveryEligible BIT NOT NULL CONSTRAINT DF_MenuProduct_IsDeliveryEligible DEFAULT (1),
+        SortOrder TINYINT NOT NULL
+    );
+
+    CREATE UNIQUE INDEX UX_MenuProduct_ProductCode ON dbo.MenuProduct (ProductCode);
 END
 GO
 
@@ -122,6 +248,32 @@ IF COL_LENGTH(N'dbo.DispatchTicket', N'StoreOrderId') IS NULL
 BEGIN
     ALTER TABLE dbo.DispatchTicket
         ADD StoreOrderId INT NULL;
+END
+GO
+
+IF OBJECT_ID(N'dbo.DeliveryRecord', N'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.DeliveryRecord
+    (
+        DeliveryRecordId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+        DispatchTicketId INT NOT NULL,
+        StoreOrderId INT NOT NULL,
+        StoreId INT NOT NULL,
+        DriverId INT NOT NULL,
+        RouteZoneId INT NOT NULL,
+        RoutedUtc DATETIME NOT NULL,
+        DepartedUtc DATETIME NOT NULL,
+        DeliveredUtc DATETIME NOT NULL,
+        ReturnedUtc DATETIME NULL,
+        RouteMiles DECIMAL(6,2) NOT NULL,
+        DeliveryMinutes INT NOT NULL,
+        TipAmount MONEY NOT NULL,
+        OutcomeCode NVARCHAR(20) NOT NULL,
+        RouteSummary NVARCHAR(200) NULL
+    );
+
+    CREATE UNIQUE INDEX UX_DeliveryRecord_DispatchTicketId ON dbo.DeliveryRecord (DispatchTicketId);
+    CREATE INDEX IX_DeliveryRecord_Store_DeliveredUtc ON dbo.DeliveryRecord (StoreId, DeliveredUtc);
 END
 GO
 
@@ -297,6 +449,33 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_StoreOperatingHours_Store')
+BEGIN
+    ALTER TABLE dbo.StoreOperatingHours
+        ADD CONSTRAINT FK_StoreOperatingHours_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_StoreConfiguration_Store')
+BEGIN
+    ALTER TABLE dbo.StoreConfiguration
+        ADD CONSTRAINT FK_StoreConfiguration_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_MenuProduct_MenuCategory')
+BEGIN
+    ALTER TABLE dbo.MenuProduct
+        ADD CONSTRAINT FK_MenuProduct_MenuCategory
+        FOREIGN KEY (MenuCategoryId)
+        REFERENCES dbo.MenuCategory (MenuCategoryId);
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_StoreOrder_Store')
 BEGIN
     ALTER TABLE dbo.StoreOrder
@@ -339,6 +518,51 @@ BEGIN
         ADD CONSTRAINT FK_DispatchTicket_StoreOrder
         FOREIGN KEY (StoreOrderId)
         REFERENCES dbo.StoreOrder (StoreOrderId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_DeliveryRecord_DispatchTicket')
+BEGIN
+    ALTER TABLE dbo.DeliveryRecord
+        ADD CONSTRAINT FK_DeliveryRecord_DispatchTicket
+        FOREIGN KEY (DispatchTicketId)
+        REFERENCES dbo.DispatchTicket (DispatchTicketId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_DeliveryRecord_StoreOrder')
+BEGIN
+    ALTER TABLE dbo.DeliveryRecord
+        ADD CONSTRAINT FK_DeliveryRecord_StoreOrder
+        FOREIGN KEY (StoreOrderId)
+        REFERENCES dbo.StoreOrder (StoreOrderId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_DeliveryRecord_Store')
+BEGIN
+    ALTER TABLE dbo.DeliveryRecord
+        ADD CONSTRAINT FK_DeliveryRecord_Store
+        FOREIGN KEY (StoreId)
+        REFERENCES dbo.Store (StoreId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_DeliveryRecord_Driver')
+BEGIN
+    ALTER TABLE dbo.DeliveryRecord
+        ADD CONSTRAINT FK_DeliveryRecord_Driver
+        FOREIGN KEY (DriverId)
+        REFERENCES dbo.Driver (DriverId);
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = N'FK_DeliveryRecord_RouteZone')
+BEGIN
+    ALTER TABLE dbo.DeliveryRecord
+        ADD CONSTRAINT FK_DeliveryRecord_RouteZone
+        FOREIGN KEY (RouteZoneId)
+        REFERENCES dbo.RouteZone (RouteZoneId);
 END
 GO
 
