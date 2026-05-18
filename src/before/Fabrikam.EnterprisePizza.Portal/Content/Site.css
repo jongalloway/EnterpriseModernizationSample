@@ -490,3 +490,137 @@ a:hover {
 .best-viewed {
     color: #7b8c9e;
 }
+
+.utility-links {
+    float: left;
+}
+
+.utility-auth {
+    float: right;
+    color: #f2f7fb;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.utility-auth a,
+.utility-auth .utility-action,
+.utility-auth span {
+    margin-left: 14px;
+    color: #f2f7fb;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.utility-auth .utility-action {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+.account-shell {
+    display: flex;
+    gap: 16px;
+    padding: 0 22px 22px;
+}
+
+.account-shell .module {
+    flex: 1;
+}
+
+.auth-card {
+    max-width: 540px;
+}
+
+.auth-body,
+.account-body {
+    padding: 14px;
+}
+
+.auth-form-row {
+    margin-bottom: 12px;
+}
+
+.auth-form-row span {
+    display: block;
+    margin-bottom: 4px;
+    color: #4a5d72;
+    font-weight: bold;
+}
+
+.text-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 8px;
+    border: 1px solid #9cb1ca;
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 12px;
+}
+
+.check-row {
+    color: #4c5f75;
+}
+
+.validation-summary,
+.error-banner {
+    margin-bottom: 12px;
+    padding: 10px;
+    border: 1px solid #b85157;
+    background: #fff0f0;
+    color: #8a1d24;
+}
+
+.field-error {
+    display: block;
+    margin-top: 4px;
+    color: #8a1d24;
+    font-size: 11px;
+}
+
+.primary-button,
+.secondary-button {
+    display: inline-block;
+    padding: 7px 14px;
+    border: 1px solid #5c7696;
+    background: linear-gradient(#fdfefe, #d7e5f4);
+    color: #24496c;
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.secondary-button {
+    margin-top: 8px;
+}
+
+.form-note {
+    margin-top: 10px;
+    color: #5e7083;
+    line-height: 1.5;
+}
+
+.account-list {
+    margin: 10px 0 0 18px;
+    color: #4c5f75;
+}
+
+.account-list li {
+    margin-bottom: 8px;
+}
+
+.account-facts {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.account-facts td {
+    padding: 8px;
+    border-top: 1px solid #d6e1ed;
+}
+
+.account-facts td:first-child {
+    width: 140px;
+    color: #5e7083;
+    font-weight: bold;
+}

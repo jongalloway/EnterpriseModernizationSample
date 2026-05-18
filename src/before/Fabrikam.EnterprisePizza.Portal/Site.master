@@ -21,11 +21,26 @@
                 <a href="#">Terms of Use</a>
             </div>
             <div class="utility-nav">
-                <a href="Default.aspx">Portal Home</a>
-                <a href="OperationsSnapshot.aspx">Operations Snapshot</a>
-                <a href="/CustomerHub/CorporateAccounts.aspx">Corporate Accounts</a>
-                <a href="/FranchisePortal/Default.aspx">Franchise Bulletins</a>
-                <a href="/Storefront/">Storefront</a>
+                <div class="utility-links">
+                    <a href="Default.aspx">Portal Home</a>
+                    <a href="OperationsSnapshot.aspx">Operations Snapshot</a>
+                    <a href="/CustomerHub/CorporateAccounts.aspx">Corporate Accounts</a>
+                    <a href="/FranchisePortal/Default.aspx">Franchise Bulletins</a>
+                    <a href="/Storefront/">Storefront</a>
+                </div>
+                <div class="utility-auth">
+                    <asp:Panel ID="AnonymousLinksPanel" runat="server">
+                        <a href="<%= ResolveUrl("~/Account/Login.aspx") %>">Sign In</a>
+                        <a href="<%= ResolveUrl("~/Account/Register.aspx") %>">Register</a>
+                    </asp:Panel>
+                    <asp:Panel ID="AuthenticatedLinksPanel" runat="server" Visible="false">
+                        <asp:Literal ID="WelcomeLiteral" runat="server" />
+                        <a href="<%= ResolveUrl("~/Account/Manage.aspx") %>">My Account</a>
+                        <a href="<%= ResolveUrl("~/Account/ManagePassword.aspx") %>">Security</a>
+                        <asp:LinkButton ID="SignOutButton" runat="server" CssClass="utility-action" CausesValidation="false" OnClick="SignOutButton_Click">Sign Out</asp:LinkButton>
+                    </asp:Panel>
+                </div>
+                <div style="clear: both;"></div>
             </div>
             <div class="marquee-shell bevel-frame">
                 <div class="bevel-inner">
@@ -50,6 +65,7 @@
             <div class="tab-strip">
                 <a href="Default.aspx">Executive Snapshot</a>
                 <a href="OperationsSnapshot.aspx">Store Rollups</a>
+                <a href="<%= ResolveUrl("~/Account/Manage.aspx") %>">Account Center</a>
                 <span class="status-chip">Trusted Partner Access</span>
             </div>
             <table class="chrome-layout" cellspacing="0" cellpadding="0">
