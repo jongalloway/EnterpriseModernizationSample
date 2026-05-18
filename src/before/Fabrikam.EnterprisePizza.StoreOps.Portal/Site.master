@@ -20,11 +20,15 @@
             </div>
 
             <div class="utilityBar">
-                <a href="Default.aspx">Dispatch Dashboard</a>
+                <a href="Default.aspx">Operations Home</a>
                 <span class="navDivider">|</span>
-                <a href="Default.aspx#laborWatch">Labor Watch</a>
+                <a href="DispatchBoard.aspx">Dispatch Board</a>
                 <span class="navDivider">|</span>
-                <a href="Default.aspx#zoneNotes">Zone Notes</a>
+                <a href="InventoryManagement.aspx">Inventory</a>
+                <span class="navDivider">|</span>
+                <a href="StoreSettings.aspx">Store Settings</a>
+                <span class="navDivider">|</span>
+                <a href="StaffSchedule.aspx">Staff Schedule</a>
                 <span class="terminalHint">Best viewed in Internet Explorer 8 at 1024 x 768.</span>
                 <a href="#" id="legacyTipsToggle" class="tipsLink">Terminal tips</a>
             </div>
