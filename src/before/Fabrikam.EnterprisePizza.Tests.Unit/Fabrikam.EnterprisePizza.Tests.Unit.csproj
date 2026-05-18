@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="nunit.framework">
@@ -39,7 +40,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Composition\LegacyServiceLocatorFixture.cs" />
+    <Compile Include="Configuration\EnterpriseLibraryConfigurationReaderFixture.cs" />
     <Compile Include="Configuration\LegacyConnectionCatalogFixture.cs" />
+    <Compile Include="Configuration\LegacyDatabaseFactoryFixture.cs" />
+    <Compile Include="ExceptionHandling\ExceptionPolicyFixture.cs" />
     <Compile Include="Gateways\LegacyDbGatewayFixture.cs" />
     <Compile Include="Repositories\CustomerHub\PartnerAccountRepositoryFixture.cs" />
     <Compile Include="Repositories\Reporting\WorkforceReportRepositoryFixture.cs" />
