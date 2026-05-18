@@ -29,11 +29,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\OrderService.cs" />
     <Compile Include="App_Code\StoreDispatchService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="Global.asax" />
+    <Content Include="OrderService.svc" />
     <Content Include="StoreDispatchService.svc" />
     <Content Include="web.config" />
   </ItemGroup>

@@ -41,7 +41,12 @@
     <Compile Include="Routing\DispatchBoardSnapshot.cs" />
     <Compile Include="Routing\DispatchTicket.cs" />
     <Compile Include="Routing\StoreDispatchRequest.cs" />
+    <Compile Include="StoreOps\OrderHistoryRecord.cs" />
     <Compile Include="StoreOps\OrderLookupRecord.cs" />
+    <Compile Include="StoreOps\OrderPlacementRequest.cs" />
+    <Compile Include="StoreOps\OrderRecord.cs" />
+    <Compile Include="StoreOps\OrderSearchRequest.cs" />
+    <Compile Include="StoreOps\OrderStatusUpdateRequest.cs" />
     <Compile Include="StoreOps\StoreManagementRecord.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

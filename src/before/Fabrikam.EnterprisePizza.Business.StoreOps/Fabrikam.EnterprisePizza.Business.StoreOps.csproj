@@ -35,6 +35,8 @@
   <ItemGroup>
     <Compile Include="Services\IDispatchCoordinator.cs" />
     <Compile Include="Services\DispatchCoordinator.cs" />
+    <Compile Include="Services\IOrderManagementService.cs" />
+    <Compile Include="Services\OrderManagementService.cs" />
     <Compile Include="Services\IWorkforceReportingService.cs" />
     <Compile Include="Services\WorkforceReportingService.cs" />
     <Compile Include="Services\StoreOperationsWorkbenchService.cs" />
