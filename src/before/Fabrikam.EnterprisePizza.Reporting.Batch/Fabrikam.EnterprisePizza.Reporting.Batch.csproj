@@ -32,6 +32,29 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\ReportingConfiguration.cs" />
+    <Compile Include="Models\ReportParameterModels.cs" />
+    <Compile Include="Models\ReportSupport.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ReportCatalog.cs" />
+    <Compile Include="Services\ReportingService.cs" />
+    <None Include="App.config" />
+    <Content Include="Reports\DataSources\FabrikamPizza_Reporting.rds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Definitions\DeliveryPerformance.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Definitions\PartnerProfitability.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Definitions\StoreOperationsSummary.rdl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
